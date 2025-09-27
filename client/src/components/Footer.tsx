@@ -58,10 +58,12 @@ export default function Footer() {
               >
                 {t('contact')}
               </button>
-              <Link href={getHref('/privacy')}>
-                <span className="text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-privacy">
-                  {t('privacy')}
-                </span>
+              <Link
+                href={getHref('/privacy')}
+                className="block text-left text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="footer-link-privacy"
+              >
+                {t('privacy')}
               </Link>
             </nav>
           </div>
