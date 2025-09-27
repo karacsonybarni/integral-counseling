@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Professional Psychotherapy Services",
+    "subtitle": "I'm an experienced psychotherapist helping you find balance and well-being in your life.",
+    "cta": "Get in Touch",
+    "appointment": "Book Appointment"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "With over 10 years of experience in psychotherapy, I use my professional qualifications and empathetic approach to support clients in improving their mental health.",
+    "qualifications": "Qualifications",
+    "experience": "Experience",
+    "approach": "My Approach"
+  },
+  "services": {
+    "title": "Services",
+    "individual": {
+      "title": "Individual Therapy",
+      "description": "Personalized therapy sessions tailored to individual needs."
+    },
+    "couples": {
+      "title": "Couples Therapy",
+      "description": "Help with relationship issues and improving communication."
+    },
+    "anxiety": {
+      "title": "Anxiety Treatment",
+      "description": "Specialized techniques for managing anxiety and panic attacks."
+    },
+    "depression": {
+      "title": "Depression Treatment",
+      "description": "Supportive therapy for depression and mood disorders."
+    }
+  },
+  "process": {
+    "title": "How It Works",
+    "step1": {
+      "title": "Contact",
+      "description": "Reach out to me by phone or email."
+    },
+    "step2": {
+      "title": "Initial Consultation",
+      "description": "Personal or online consultation to assess your needs."
+    },
+    "step3": {
+      "title": "Therapy Plan",
+      "description": "Development of an individual therapy plan aligned with your goals."
+    }
+  }
+}

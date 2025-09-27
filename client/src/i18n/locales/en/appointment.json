@@ -1,0 +1,38 @@
+{
+  "title": "Book Appointment",
+  "subtitle": "Schedule your appointment online and start your journey toward mental wellness.",
+  "form": {
+    "name": "Full Name",
+    "name_placeholder": "Enter your full name",
+    "email": "Email Address",
+    "email_placeholder": "example@email.com", 
+    "phone": "Phone Number",
+    "phone_placeholder": "+1 (555) 123-4567",
+    "service": "Service Type",
+    "service_placeholder": "Select a service",
+    "date": "Preferred Date",
+    "date_placeholder": "Choose a date",
+    "time": "Preferred Time",
+    "time_placeholder": "Select a time",
+    "message": "Additional Information",
+    "message_placeholder": "Let me know if you have any specific concerns or questions...",
+    "submit": "Book Appointment",
+    "booking": "Booking..."
+  },
+  "services": {
+    "individual": "Individual Therapy (50 min)",
+    "couples": "Couples Therapy (60 min)",
+    "consultation": "Free Consultation (30 min)",
+    "anxiety": "Anxiety Treatment (50 min)",
+    "depression": "Depression Treatment (50 min)"
+  },
+  "success": {
+    "title": "Appointment Requested",
+    "description": "Your appointment request has been received. I'll contact you within 24 hours to confirm."
+  },
+  "error": {
+    "title": "Error Occurred",
+    "description": "Failed to send appointment request. Please try again."
+  },
+  "disclaimer": "Note: This is a request for an appointment. I'll contact you within 24 hours to confirm your preferred time or suggest alternative slots if needed."
+}

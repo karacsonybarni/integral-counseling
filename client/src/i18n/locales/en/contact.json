@@ -1,0 +1,34 @@
+{
+  "title": "Get in Touch",
+  "subtitle": "Contact me to discuss how I can help you on your journey.",
+  "form": {
+    "name": "Full Name",
+    "name_placeholder": "Enter your full name",
+    "email": "Email Address",
+    "email_placeholder": "example@email.com",
+    "phone": "Phone Number",
+    "phone_placeholder": "+1 (555) 123-4567",
+    "subject": "Subject",
+    "subject_placeholder": "How can I help you?",
+    "message": "Message",
+    "message_placeholder": "Describe your question or situation in detail...",
+    "submit": "Send Message",
+    "sending": "Sending..."
+  },
+  "success": {
+    "title": "Message Sent",
+    "description": "Thank you for reaching out. I'll get back to you within 24 hours."
+  },
+  "error": {
+    "title": "Error Occurred",
+    "description": "Failed to send message. Please try again."
+  },
+  "info": {
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Office Hours",
+    "hours_value": "Monday - Friday: 9:00 AM - 6:00 PM",
+    "address": "Address",
+    "response_time": "Response time: 24 hours"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Professzionális pszichoterápiás segítség",
+    "subtitle": "Tapasztalt pszichoterapeuta vagyok, aki segít megtalálni az egyensúlyt és jóllétet az életében.",
+    "cta": "Kapcsolatfelvétel",
+    "appointment": "Időpontfoglalás"
+  },
+  "about": {
+    "title": "Rólam",
+    "description": "Több mint 10 éves tapasztalattal rendelkezem a pszichoterápia területén. Szakmai képesítéseim és empatikus megközelítésem segítségével támogatom ügyfeleimet mentális egészségük javításában.",
+    "qualifications": "Képesítések",
+    "experience": "Tapasztalat",
+    "approach": "Módszerem"
+  },
+  "services": {
+    "title": "Szolgáltatások",
+    "individual": {
+      "title": "Egyéni terápia",
+      "description": "Személyre szabott terápiás ülések egyéni igények szerint."
+    },
+    "couples": {
+      "title": "Párterápia", 
+      "description": "Segítség kapcsolati problémák megoldásában és kommunikáció javításában."
+    },
+    "anxiety": {
+      "title": "Szorongás kezelése",
+      "description": "Speciális technikák a szorongás és pánikrohamok kezelésére."
+    },
+    "depression": {
+      "title": "Depresszió kezelése",
+      "description": "Támogató terápia a depresszió és hangulatzavarok esetén."
+    }
+  },
+  "process": {
+    "title": "Így működik",
+    "step1": {
+      "title": "Kapcsolatfelvétel",
+      "description": "Vegye fel velem a kapcsolatot telefonon vagy e-mailben."
+    },
+    "step2": {
+      "title": "Első konzultáció",
+      "description": "Személyes vagy online konzultáció az igények felmérésére."
+    },
+    "step3": {
+      "title": "Terápiás terv",
+      "description": "Egyéni terápiás terv kidolgozása az Ön céljainak megfelelően."
+    }
+  }
+}

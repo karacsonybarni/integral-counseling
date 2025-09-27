@@ -1,0 +1,12 @@
+{
+  "title": "Szolgáltatások",
+  "subtitle": "Személyre szabott terápiás megoldások minden élethelyzethez",
+  "individual": "Egyéni terápia",
+  "couples": "Párterápia",
+  "anxiety": "Szorongás kezelése", 
+  "depression": "Depresszió kezelése",
+  "session_duration": "Ülés időtartama",
+  "minutes": "perc",
+  "price": "Ár",
+  "book_now": "Időpontfoglalás"
+}

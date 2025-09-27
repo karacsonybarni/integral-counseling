@@ -2,16 +2,27 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t, i18n } = useTranslation('nav');
+
+  // Get language-aware navigation links
+  const getHref = (path: string) => {
+    if (i18n.language === 'en') {
+      return path === '/' ? '/en' : `/en${path}`;
+    }
+    return path;
+  };
 
   const navigation = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Contact", href: "/contact" },
+    { name: t('home'), href: getHref("/") },
+    { name: t('about'), href: getHref("/#about") },
+    { name: t('services'), href: getHref("/#services") },
+    { name: t('contact'), href: getHref("/#contact") },
   ];
 
   const isActive = (href: string) => {
@@ -34,7 +45,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6">
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
                 <span
@@ -49,6 +60,7 @@ export default function Header() {
                 </span>
               </Link>
             ))}
+            <LanguageSwitcher />
             <Button 
               onClick={() => {
                 const bookingSection = document.getElementById('appointment-booking');
@@ -56,7 +68,7 @@ export default function Header() {
               }}
               data-testid="button-book-consultation"
             >
-              Book Consultation
+              {t('appointment')}
             </Button>
           </nav>
 
@@ -93,7 +105,8 @@ export default function Header() {
                   </span>
                 </Link>
               ))}
-              <div className="px-3 pt-2">
+              <div className="px-3 pt-2 space-y-2">
+                <LanguageSwitcher />
                 <Button 
                   className="w-full"
                   onClick={() => {
@@ -103,7 +116,7 @@ export default function Header() {
                   }}
                   data-testid="mobile-button-book-consultation"
                 >
-                  Book Consultation
+                  {t('appointment')}
                 </Button>
               </div>
             </nav>
