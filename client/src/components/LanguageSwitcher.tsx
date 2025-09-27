@@ -35,8 +35,8 @@ export default function LanguageSwitcher() {
 
   const currentLang = i18n.language || 'hu';
   const languages = [
-    { code: 'hu', name: 'Magyar', flag: '🇭🇺' },
-    { code: 'en', name: 'English', flag: '🇺🇸' }
+    { code: 'hu', name: 'Magyar' },
+    { code: 'en', name: 'English' }
   ];
 
   return (
@@ -50,8 +50,8 @@ export default function LanguageSwitcher() {
         >
           <Globe className="h-4 w-4" />
           <span className="hidden sm:inline">{t('language')}</span>
-          <span className="text-xs">
-            {languages.find(lang => lang.code === currentLang)?.flag}
+          <span className="text-xs font-medium">
+            {languages.find(lang => lang.code === currentLang)?.code.toUpperCase()}
           </span>
         </Button>
       </DropdownMenuTrigger>
@@ -63,7 +63,7 @@ export default function LanguageSwitcher() {
             className={currentLang === lang.code ? "bg-accent" : ""}
             data-testid={`option-language-${lang.code}`}
           >
-            <span className="mr-2">{lang.flag}</span>
+            <span className="mr-2 font-mono text-xs">{lang.code.toUpperCase()}</span>
             {lang.name}
           </DropdownMenuItem>
         ))}

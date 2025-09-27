@@ -2,8 +2,22 @@
   "hero": {
     "title": "Professzionális pszichoterápiás segítség",
     "subtitle": "Tapasztalt pszichoterapeuta vagyok, aki segít megtalálni az egyensúlyt és jóllétet az életében.",
-    "cta": "Kapcsolatfelvétel",
-    "appointment": "Időpontfoglalás"
+    "cta": "További információ a módszeremről",
+    "appointment": "Konzultáció foglalása"
+  },
+  "benefits": {
+    "safe": {
+      "title": "Bizalmas és biztonságos",
+      "description": "Ítélkezésmentes környezet, ahol szabadon feltárhatja gondolatait és érzéseit."
+    },
+    "evidence": {
+      "title": "Bizonyítékokon alapuló",
+      "description": "Bevált pszichológiai kutatáson és módszereken alapuló kezelési megközelítések."
+    },
+    "personalized": {
+      "title": "Személyre szabott ellátás",
+      "description": "Személyre szabott kezelési tervek, amelyek az Ön egyedi igényeire és céljaira összpontosítanak."
+    }
   },
   "about": {
     "title": "Rólam",

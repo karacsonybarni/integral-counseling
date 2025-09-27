@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 // Import translation files
 import huCommon from './locales/hu/common.json';
@@ -40,6 +41,7 @@ const resources = {
 };
 
 i18n
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
@@ -52,7 +54,7 @@ i18n
       escapeValue: false, // React already does escaping
     },
 
-    // Save language preference to localStorage
+    // Language detection configuration
     detection: {
       order: ['localStorage', 'navigator'],
       lookupLocalStorage: 'i18nextLng',

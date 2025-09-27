@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
+  const { t } = useTranslation('home');
+  
   return (
     <section className="bg-background py-16 sm:py-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-foreground mb-6" data-testid="hero-title">
-            Professional Mental Health Support
+            {t('hero.title')}
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed" data-testid="hero-description">
-            I provide compassionate, evidence-based therapy to help you navigate life's challenges. 
-            Together, we'll work towards healing, growth, and lasting positive change in a safe, 
-            supportive environment.
+            {t('hero.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
@@ -24,7 +25,7 @@ export default function Hero() {
               }}
               data-testid="button-schedule-consultation"
             >
-              Schedule a Consultation
+              {t('hero.appointment')}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
@@ -36,7 +37,7 @@ export default function Hero() {
               }}
               data-testid="button-learn-more"
             >
-              Learn More About My Approach
+              {t('hero.cta')}
             </Button>
           </div>
         </div>
@@ -48,10 +49,10 @@ export default function Hero() {
               <span className="text-2xl">🤝</span>
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2" data-testid="benefit-title-1">
-              Confidential & Safe
+              {t('benefits.safe.title')}
             </h3>
             <p className="text-muted-foreground" data-testid="benefit-description-1">
-              A judgment-free space where you can explore your thoughts and feelings openly.
+              {t('benefits.safe.description')}
             </p>
           </div>
           <div className="text-center">
@@ -59,10 +60,10 @@ export default function Hero() {
               <span className="text-2xl">📋</span>
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2" data-testid="benefit-title-2">
-              Evidence-Based
+              {t('benefits.evidence.title')}
             </h3>
             <p className="text-muted-foreground" data-testid="benefit-description-2">
-              Treatment approaches grounded in proven psychological research and methods.
+              {t('benefits.evidence.description')}
             </p>
           </div>
           <div className="text-center">
@@ -70,10 +71,10 @@ export default function Hero() {
               <span className="text-2xl">🎯</span>
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2" data-testid="benefit-title-3">
-              Personalized Care
+              {t('benefits.personalized.title')}
             </h3>
             <p className="text-muted-foreground" data-testid="benefit-description-3">
-              Tailored treatment plans that address your unique needs and goals.
+              {t('benefits.personalized.description')}
             </p>
           </div>
         </div>

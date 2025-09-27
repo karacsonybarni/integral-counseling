@@ -2,8 +2,22 @@
   "hero": {
     "title": "Professional Psychotherapy Services",
     "subtitle": "I'm an experienced psychotherapist helping you find balance and well-being in your life.",
-    "cta": "Get in Touch",
-    "appointment": "Book Appointment"
+    "cta": "Learn More About My Approach",
+    "appointment": "Schedule a Consultation"
+  },
+  "benefits": {
+    "safe": {
+      "title": "Confidential & Safe",
+      "description": "A judgment-free space where you can explore your thoughts and feelings openly."
+    },
+    "evidence": {
+      "title": "Evidence-Based",
+      "description": "Treatment approaches grounded in proven psychological research and methods."
+    },
+    "personalized": {
+      "title": "Personalized Care",
+      "description": "Tailored treatment plans that address your unique needs and goals."
+    }
   },
   "about": {
     "title": "About Me",

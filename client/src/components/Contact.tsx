@@ -12,10 +12,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { insertContactInquirySchema, type InsertContactInquiry } from "@shared/schema";
+import { useTranslation } from "react-i18next";
 
 export default function Contact() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { t } = useTranslation('contact');
 
   const form = useForm<InsertContactInquiry>({
     resolver: zodResolver(insertContactInquirySchema),
@@ -30,11 +32,11 @@ export default function Contact() {
   });
 
   const contactMutation = useMutation({
-    mutationFn: (data: InsertContactInquiry) => apiRequest("/api/contact", "POST", data),
+    mutationFn: (data: InsertContactInquiry) => apiRequest("POST", "/api/contact", data),
     onSuccess: (data: any) => {
       toast({
-        title: "Message Sent",
-        description: data.message || "Thank you for reaching out. I'll get back to you within 24 hours.",
+        title: t('success.title'),
+        description: data.message || t('success.description'),
       });
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["/api/contact"] });
@@ -42,8 +44,8 @@ export default function Contact() {
     onError: (error: any) => {
       console.error("Error submitting form:", error);
       toast({
-        title: "Error",
-        description: error.message || "Unable to send message. Please try again or contact directly.",
+        title: t('error.title'),
+        description: error.message || t('error.description'),
         variant: "destructive"
       });
     }
@@ -58,11 +60,10 @@ export default function Contact() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4" data-testid="contact-title">
-            Get Started Today
+            {t('title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="contact-subtitle">
-            Taking the first step towards better mental health is courageous. 
-            I'm here to support you on this journey.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -70,7 +71,7 @@ export default function Contact() {
           {/* Contact Form */}
           <Card>
             <CardHeader>
-              <CardTitle data-testid="form-title">Request a Consultation</CardTitle>
+              <CardTitle data-testid="form-title">{t('form.title', 'Request a Consultation')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Form {...form}>
@@ -81,7 +82,7 @@ export default function Contact() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Full Name *</FormLabel>
+                          <FormLabel>{t('form.name')} *</FormLabel>
                           <FormControl>
                             <Input {...field} data-testid="input-name" />
                           </FormControl>
@@ -94,7 +95,7 @@ export default function Contact() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email Address *</FormLabel>
+                          <FormLabel>{t('form.email')} *</FormLabel>
                           <FormControl>
                             <Input type="email" {...field} data-testid="input-email" />
                           </FormControl>
@@ -110,7 +111,7 @@ export default function Contact() {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Phone Number</FormLabel>
+                          <FormLabel>{t('form.phone')}</FormLabel>
                           <FormControl>
                             <Input type="tel" {...field} data-testid="input-phone" />
                           </FormControl>
@@ -123,11 +124,11 @@ export default function Contact() {
                       name="serviceType"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Service Interested In</FormLabel>
+                          <FormLabel>{t('form.subject')}</FormLabel>
                           <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger data-testid="select-service">
-                                <SelectValue placeholder="Select a service" />
+                                <SelectValue placeholder={t('form.subject_placeholder')} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>

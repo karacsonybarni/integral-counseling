@@ -11,10 +11,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { insertAppointmentSchema, type InsertAppointment } from "@shared/schema";
+import { useTranslation } from "react-i18next";
 
 export default function AppointmentBooking() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { t } = useTranslation('appointment');
 
   const form = useForm<InsertAppointment>({
     resolver: zodResolver(insertAppointmentSchema),
@@ -56,7 +58,7 @@ export default function AppointmentBooking() {
   const availableDates = getAvailableDates();
 
   const appointmentMutation = useMutation({
-    mutationFn: (data: InsertAppointment) => apiRequest("/api/appointments", "POST", data),
+    mutationFn: (data: InsertAppointment) => apiRequest("POST", "/api/appointments", data),
     onSuccess: (data: any) => {
       toast({
         title: "Appointment Requested",
@@ -97,10 +99,10 @@ export default function AppointmentBooking() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4" data-testid="booking-title">
-            Book an Appointment
+            {t('title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="booking-subtitle">
-            Schedule your consultation or therapy session. I'll confirm your appointment within 24 hours.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -108,7 +110,7 @@ export default function AppointmentBooking() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2" data-testid="booking-form-title">
               <Calendar className="h-5 w-5 text-primary" />
-              Schedule Your Session
+{t('title')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -121,7 +123,7 @@ export default function AppointmentBooking() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Full Name *</FormLabel>
+                        <FormLabel>{t('form.name')} *</FormLabel>
                         <FormControl>
                           <Input {...field} data-testid="input-booking-name" />
                         </FormControl>
@@ -134,7 +136,7 @@ export default function AppointmentBooking() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email Address *</FormLabel>
+                        <FormLabel>{t('form.email')} *</FormLabel>
                         <FormControl>
                           <Input type="email" {...field} data-testid="input-booking-email" />
                         </FormControl>
@@ -150,7 +152,7 @@ export default function AppointmentBooking() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
+                        <FormLabel>{t('form.phone')}</FormLabel>
                         <FormControl>
                           <Input type="tel" {...field} data-testid="input-booking-phone" />
                         </FormControl>
@@ -163,11 +165,11 @@ export default function AppointmentBooking() {
                     name="serviceType"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Service Type *</FormLabel>
+                        <FormLabel>{t('form.service')} *</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-booking-service">
-                              <SelectValue placeholder="Select a service" />
+                              <SelectValue placeholder={t('form.service_placeholder')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
