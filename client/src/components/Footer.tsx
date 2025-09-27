@@ -26,24 +26,36 @@ export default function Footer() {
               {t('quick_links')}
             </h3>
             <nav className="space-y-2">
-              <Link href="/about">
-                <span className="text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-about">
-                  {t('about')}
-                </span>
-              </Link>
-              <br />
-              <Link href="/services">
-                <span className="text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-services">
-                  {t('services')}
-                </span>
-              </Link>
-              <br />
-              <Link href="/contact">
-                <span className="text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-contact">
-                  {t('contact')}
-                </span>
-              </Link>
-              <br />
+              <button
+                onClick={() => {
+                  const section = document.getElementById('about');
+                  section?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="block text-left text-muted-foreground hover:text-foreground transition-colors" 
+                data-testid="footer-link-about"
+              >
+                {t('about')}
+              </button>
+              <button
+                onClick={() => {
+                  const section = document.getElementById('services');
+                  section?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="block text-left text-muted-foreground hover:text-foreground transition-colors" 
+                data-testid="footer-link-services"
+              >
+                {t('services')}
+              </button>
+              <button
+                onClick={() => {
+                  const section = document.getElementById('contact');
+                  section?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="block text-left text-muted-foreground hover:text-foreground transition-colors" 
+                data-testid="footer-link-contact"
+              >
+                {t('contact')}
+              </button>
               <Link href="/privacy">
                 <span className="text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-privacy">
                   {t('privacy')}

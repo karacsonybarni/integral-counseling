@@ -24,7 +24,6 @@ export default function AppointmentBooking() {
       name: "",
       email: "",
       phone: "",
-      serviceType: "",
       preferredDate: "",
       preferredTime: "",
       message: ""
@@ -146,44 +145,19 @@ export default function AppointmentBooking() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('form.phone')}</FormLabel>
-                        <FormControl>
-                          <Input type="tel" {...field} className="max-w-xs" data-testid="input-booking-phone" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="serviceType"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t('form.service')} *</FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
-                          <FormControl>
-                            <SelectTrigger data-testid="select-booking-service">
-                              <SelectValue placeholder={t('form.service_placeholder')} />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="individual">{t('services.individual')}</SelectItem>
-                            <SelectItem value="anxiety">{t('services.anxiety')}</SelectItem>
-                            <SelectItem value="depression">{t('services.depression')}</SelectItem>
-                            <SelectItem value="consultation">{t('services.consultation')}</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('form.phone')}</FormLabel>
+                      <FormControl>
+                        <Input type="tel" {...field} className="max-w-xs" data-testid="input-booking-phone" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 {/* Date and Time Selection */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
