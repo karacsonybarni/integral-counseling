@@ -7,24 +7,6 @@
       "description": "Személyre szabott egyéni ülések az Ön egyedi igényeinek és céljainak megfelelően.",
       "duration": "50 perc",
       "approach": "Kognitív viselkedésterápia, Mindfulness-alapú terápia"
-    },
-    "couples": {
-      "title": "Párterápia", 
-      "description": "Kapcsolatok erősítése és kommunikációs minták javítása.",
-      "duration": "75 perc",
-      "approach": "Érzelemfókuszú terápia, Gottman módszer"
-    },
-    "trauma": {
-      "title": "Trauma feldolgozás",
-      "description": "Specializált kezelés trauma, PTSD és nehéz életélmények esetén.",
-      "duration": "50-90 perc", 
-      "approach": "EMDR, Trauma-fókuszú KVT, Szomatikus terápia"
-    },
-    "stress": {
-      "title": "Stresszkezelés",
-      "description": "Hatékony megküzdési stratégiák tanulása munka és élet nyomásaival kapcsolatban.",
-      "duration": "50 perc",
-      "approach": "Mindfulness, Relaxációs technikák, KVT"
     }
   },
   "session_length": "Ülés hossza:",

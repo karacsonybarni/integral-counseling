@@ -133,7 +133,6 @@ export default function Contact() {
                             </FormControl>
                             <SelectContent>
                               <SelectItem value="individual">{t('services.individual')}</SelectItem>
-                              <SelectItem value="couples">{t('services.couples')}</SelectItem>
                               <SelectItem value="anxiety">{t('services.anxiety')}</SelectItem>
                               <SelectItem value="depression">{t('services.depression')}</SelectItem>
                               <SelectItem value="consultation">{t('services.consultation')}</SelectItem>

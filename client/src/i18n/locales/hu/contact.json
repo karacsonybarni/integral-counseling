@@ -33,7 +33,6 @@
   },
   "services": {
     "individual": "Egyéni terápia",
-    "couples": "Párterápia", 
     "anxiety": "Szorongás kezelése",
     "depression": "Depresszió kezelése",
     "consultation": "Ingyenes konzultáció"

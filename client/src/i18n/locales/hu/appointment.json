@@ -21,7 +21,6 @@
   },
   "services": {
     "individual": "Egyéni terápia (50 perc)",
-    "couples": "Párterápia (60 perc)",
     "consultation": "Ingyenes konzultáció (30 perc)",
     "anxiety": "Szorongás kezelése (50 perc)",
     "depression": "Depresszió kezelése (50 perc)"

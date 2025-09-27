@@ -7,24 +7,6 @@
       "description": "One-on-one sessions tailored to your specific needs and goals.",
       "duration": "50 minutes", 
       "approach": "Cognitive Behavioral Therapy, Mindfulness-Based Therapy"
-    },
-    "couples": {
-      "title": "Couples Therapy",
-      "description": "Strengthen relationships and improve communication patterns.",
-      "duration": "75 minutes",
-      "approach": "Emotionally Focused Therapy, Gottman Method"
-    },
-    "trauma": {
-      "title": "Trauma Recovery",
-      "description": "Specialized treatment for trauma, PTSD, and difficult life experiences.",
-      "duration": "50-90 minutes",
-      "approach": "EMDR, Trauma-Focused CBT, Somatic Therapy"
-    },
-    "stress": {
-      "title": "Stress Management", 
-      "description": "Learn effective coping strategies for work and life pressures.",
-      "duration": "50 minutes",
-      "approach": "Mindfulness, Relaxation Techniques, CBT"
     }
   },
   "session_length": "Session Length:",

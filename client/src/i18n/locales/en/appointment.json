@@ -21,7 +21,6 @@
   },
   "services": {
     "individual": "Individual Therapy (50 min)",
-    "couples": "Couples Therapy (60 min)",
     "consultation": "Free Consultation (30 min)",
     "anxiety": "Anxiety Treatment (50 min)",
     "depression": "Depression Treatment (50 min)"

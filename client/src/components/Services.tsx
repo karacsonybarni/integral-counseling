@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Clock, Users, Brain, Heart } from "lucide-react";
+import { Brain, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function Services() {
@@ -14,30 +14,6 @@ export default function Services() {
       duration: t('services.individual.duration'),
       approach: t('services.individual.approach'),
       id: "individual"
-    },
-    {
-      icon: Users,
-      title: t('services.couples.title'),
-      description: t('services.couples.description'),
-      duration: t('services.couples.duration'),
-      approach: t('services.couples.approach'),
-      id: "couples"
-    },
-    {
-      icon: Heart,
-      title: t('services.trauma.title'),
-      description: t('services.trauma.description'),
-      duration: t('services.trauma.duration'),
-      approach: t('services.trauma.approach'),
-      id: "trauma"
-    },
-    {
-      icon: Clock,
-      title: t('services.stress.title'),
-      description: t('services.stress.description'),
-      duration: t('services.stress.duration'),
-      approach: t('services.stress.approach'),
-      id: "stress"
     }
   ];
 
