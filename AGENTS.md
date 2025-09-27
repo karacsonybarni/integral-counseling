@@ -22,3 +22,11 @@ History favors concise imperative subjects (for example "Improve email sending f
 
 ## Environment & Configuration
 Provide a `.env` with `DATABASE_URL`, `SENDGRID_API_KEY`, and optionally `PORT`. `drizzle.config.ts` requires `DATABASE_URL` even during builds; run `npm run db:push` after editing `shared/schema.ts`. Outbound email currently uses `karacsony.barni@gmail.com`; change `server/email.ts` if ownership shifts. Avoid logging secrets by using the logger in `server/vite.ts`.
+
+## General Learnings
+- Shell commands run through PowerShell, so classic Unix helpers like `sed` or `awk` may be unavailable; fall back to `pwsh` cmdlets, Node, or Python for file inspection.
+- Multi-line snippets should use PowerShell here-strings (e.g., `@'... '@` with `Set-Content`); heredocs like `cat <<'PY'` are parsed by PowerShell and fail.
+- `python -c` quoting is brittle under PowerShell because double quotes terminate the command and backslashes are literal; prefer temporary script files or wrap the code in double quotes while using single quotes inside.
+- For quick replacements, `(Get-Content -Raw path).Replace(needle, replacement) | Set-Content` reliably preserves Windows newlines.
+- `Select-String` treats patterns as regex by default; add `-SimpleMatch` when the search text contains quotes or other regex metacharacters.
+
