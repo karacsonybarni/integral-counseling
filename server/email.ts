@@ -23,19 +23,31 @@ export async function sendEmail(params: EmailParams): Promise<boolean> {
     
     const emailData: any = {
       to: params.to,
-      from: params.from,
+      from: {
+        email: params.from,
+        name: 'Dr. Karácsony Barna - Website'
+      },
       subject: params.subject,
     };
     
     if (params.text) emailData.text = params.text;
     if (params.html) emailData.html = params.html;
     
+    console.log('Attempting to send email with data:', {
+      to: emailData.to,
+      from: emailData.from,
+      subject: emailData.subject
+    });
+    
     await mailService.send(emailData);
     
     console.log('Email sent successfully to:', params.to);
     return true;
-  } catch (error) {
+  } catch (error: any) {
     console.error('SendGrid email error:', error);
+    if (error?.response?.body?.errors) {
+      console.error('SendGrid error details:', JSON.stringify(error.response.body.errors, null, 2));
+    }
     return false;
   }
 }
