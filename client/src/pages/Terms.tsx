@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useTranslation } from "react-i18next";
@@ -14,9 +15,16 @@ interface LegalContact {
 }
 
 export default function Terms() {
-  const { t } = useTranslation('legal');
-  const sections = t('terms.sections', { returnObjects: true }) as LegalSection[];
-  const contact = t('terms.contact', { returnObjects: true }) as LegalContact;
+  const { t } = useTranslation("legal");
+  const sections = t("terms.sections", { returnObjects: true }) as LegalSection[];
+  const contact = t("terms.contact", { returnObjects: true }) as LegalContact;
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -25,13 +33,13 @@ export default function Terms() {
         <article className="space-y-10">
           <header className="space-y-3">
             <h1 className="text-3xl font-serif font-bold text-foreground" data-testid="terms-title">
-              {t('terms.title')}
+              {t("terms.title")}
             </h1>
             <p className="text-sm text-muted-foreground" data-testid="terms-updated">
-              {t('terms.updated')}
+              {t("terms.updated")}
             </p>
             <p className="text-muted-foreground whitespace-pre-line" data-testid="terms-intro">
-              {t('terms.intro')}
+              {t("terms.intro")}
             </p>
           </header>
 
@@ -40,11 +48,7 @@ export default function Terms() {
               <h2 className="text-xl font-semibold text-foreground" data-testid={`terms-section-${section.title}`}>
                 {section.title}
               </h2>
-              {section.body && (
-                <p className="text-muted-foreground whitespace-pre-line">
-                  {section.body}
-                </p>
-              )}
+              {section.body && <p className="text-muted-foreground whitespace-pre-line">{section.body}</p>}
               {section.items && (
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                   {section.items.map((item, index) => (

@@ -30,3 +30,10 @@ Provide a `.env` with `DATABASE_URL`, `SENDGRID_API_KEY`, and optionally `PORT`.
 - For quick replacements, `(Get-Content -Raw path).Replace(needle, replacement) | Set-Content` reliably preserves Windows newlines.
 - `Select-String` treats patterns as regex by default; add `-SimpleMatch` when the search text contains quotes or other regex metacharacters.
 
+## Additional Project Notes
+- Header navigation uses Wouter; scroll actions set a `pending-scroll-target` key in `sessionStorage` before navigating home, so reuse `handleScrollNavigation` when adding new in-page anchors.
+- `Home` page reads that key in a `useEffect` and smooth-scrolls to matching element IDs; keep section wrappers on `about`, `services`, `appointment-booking`, `contact` in sync with nav targets.
+- Terms and Privacy pages live in the `legal` i18n namespace; new legal copy must update `client/src/i18n/locales/{lang}/legal.json` and register imports in `client/src/i18n/index.ts`.
+- Terms/Privacy mount effects call `window.scrollTo({ top: 0, behavior: "auto" })` to reset position; mirror this for future standalone routes.
+- Language-sensitive routing expects both `/path` and `/en/path` entries in `client/src/App.tsx`, and `getHref` in `Header` prepends `/en` when English is active.
+- `npm run check` currently fails because `serviceType` is missing on payload types in `server/routes.ts` and `server/storage.ts`; fix before relying on the TypeScript gate.
