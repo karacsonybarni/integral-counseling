@@ -98,7 +98,7 @@ Inquiry ID: ${inquiry.id}
 
   return {
     to: 'karacsony.barni@gmail.com',
-    from: 'noreply@drkovacsmihaly.com', // This should be a verified sender domain
+    from: 'karacsony.barni@gmail.com', // Using your verified Gmail address
     subject,
     text,
     html
@@ -173,7 +173,7 @@ Appointment ID: ${appointment.id}
 
   return {
     to: 'karacsony.barni@gmail.com',
-    from: 'noreply@drkovacsmihaly.com', // This should be a verified sender domain
+    from: 'karacsony.barni@gmail.com', // Using your verified Gmail address
     subject,
     text,
     html
