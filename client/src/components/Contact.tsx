@@ -1,44 +1,56 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Phone, Mail, MapPin, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { insertContactInquirySchema, type InsertContactInquiry } from "@shared/schema";
 
 export default function Contact() {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    serviceType: "",
-    message: "",
-    preferredContact: ""
-  });
+  const queryClient = useQueryClient();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Remove mock functionality - replace with actual form submission
-    console.log("Form submitted:", formData);
-    toast({
-      title: "Message Sent",
-      description: "Thank you for reaching out. I'll get back to you within 24 hours.",
-    });
-    setFormData({
+  const form = useForm<InsertContactInquiry>({
+    resolver: zodResolver(insertContactInquirySchema),
+    defaultValues: {
       name: "",
       email: "",
       phone: "",
       serviceType: "",
       message: "",
       preferredContact: ""
-    });
-  };
+    }
+  });
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const contactMutation = useMutation({
+    mutationFn: (data: InsertContactInquiry) => apiRequest("/api/contact", "POST", data),
+    onSuccess: (data: any) => {
+      toast({
+        title: "Message Sent",
+        description: data.message || "Thank you for reaching out. I'll get back to you within 24 hours.",
+      });
+      form.reset();
+      queryClient.invalidateQueries({ queryKey: ["/api/contact"] });
+    },
+    onError: (error: any) => {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Unable to send message. Please try again or contact directly.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  const handleSubmit = (data: InsertContactInquiry) => {
+    contactMutation.mutate(data);
   };
 
   return (
@@ -61,90 +73,129 @@ export default function Contact() {
               <CardTitle data-testid="form-title">Request a Consultation</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => handleInputChange("name", e.target.value)}
-                      required
-                      data-testid="input-name"
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Full Name *</FormLabel>
+                          <FormControl>
+                            <Input {...field} data-testid="input-name" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email Address *</FormLabel>
+                          <FormControl>
+                            <Input type="email" {...field} data-testid="input-email" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
                   </div>
-                  <div>
-                    <Label htmlFor="email">Email Address *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      required
-                      data-testid="input-email"
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone Number</FormLabel>
+                          <FormControl>
+                            <Input type="tel" {...field} data-testid="input-phone" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="serviceType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Service Interested In</FormLabel>
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                              <SelectTrigger data-testid="select-service">
+                                <SelectValue placeholder="Select a service" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="individual">Individual Therapy</SelectItem>
+                              <SelectItem value="couples">Couples Therapy</SelectItem>
+                              <SelectItem value="trauma">Trauma Recovery</SelectItem>
+                              <SelectItem value="stress">Stress Management</SelectItem>
+                              <SelectItem value="consultation">Initial Consultation</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => handleInputChange("phone", e.target.value)}
-                      data-testid="input-phone"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="service">Service Interested In</Label>
-                    <Select value={formData.serviceType} onValueChange={(value) => handleInputChange("serviceType", value)}>
-                      <SelectTrigger data-testid="select-service">
-                        <SelectValue placeholder="Select a service" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="individual">Individual Therapy</SelectItem>
-                        <SelectItem value="couples">Couples Therapy</SelectItem>
-                        <SelectItem value="trauma">Trauma Recovery</SelectItem>
-                        <SelectItem value="stress">Stress Management</SelectItem>
-                        <SelectItem value="consultation">Initial Consultation</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="contact-preference">Preferred Contact Method</Label>
-                  <Select value={formData.preferredContact} onValueChange={(value) => handleInputChange("preferredContact", value)}>
-                    <SelectTrigger data-testid="select-contact-preference">
-                      <SelectValue placeholder="How would you like to be contacted?" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="email">Email</SelectItem>
-                      <SelectItem value="phone">Phone</SelectItem>
-                      <SelectItem value="either">Either email or phone</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="message">Tell me a bit about what brings you here *</Label>
-                  <Textarea
-                    id="message"
-                    value={formData.message}
-                    onChange={(e) => handleInputChange("message", e.target.value)}
-                    placeholder="Share what you'd like to work on or any questions you have..."
-                    rows={4}
-                    required
-                    data-testid="textarea-message"
+                  <FormField
+                    control={form.control}
+                    name="preferredContact"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Preferred Contact Method</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                          <FormControl>
+                            <SelectTrigger data-testid="select-contact-preference">
+                              <SelectValue placeholder="How would you like to be contacted?" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="email">Email</SelectItem>
+                            <SelectItem value="phone">Phone</SelectItem>
+                            <SelectItem value="either">Either email or phone</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <Button type="submit" className="w-full" data-testid="button-submit-form">
-                  Send Message
-                </Button>
-              </form>
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tell me a bit about what brings you here *</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            placeholder="Share what you'd like to work on or any questions you have..."
+                            rows={4}
+                            data-testid="textarea-message"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    disabled={contactMutation.isPending}
+                    data-testid="button-submit-form"
+                  >
+                    {contactMutation.isPending ? "Sending..." : "Send Message"}
+                  </Button>
+                </form>
+              </Form>
             </CardContent>
           </Card>
 

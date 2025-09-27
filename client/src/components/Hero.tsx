@@ -15,11 +15,27 @@ export default function Hero() {
             supportive environment.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="group" data-testid="button-schedule-consultation">
+            <Button 
+              size="lg" 
+              className="group" 
+              onClick={() => {
+                const bookingSection = document.getElementById('appointment-booking');
+                bookingSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              data-testid="button-schedule-consultation"
+            >
               Schedule a Consultation
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="outline" size="lg" data-testid="button-learn-more">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              onClick={() => {
+                const servicesSection = document.getElementById('services');
+                servicesSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              data-testid="button-learn-more"
+            >
               Learn More About My Approach
             </Button>
           </div>

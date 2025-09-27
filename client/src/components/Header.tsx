@@ -49,7 +49,13 @@ export default function Header() {
                 </span>
               </Link>
             ))}
-            <Button data-testid="button-book-consultation">
+            <Button 
+              onClick={() => {
+                const bookingSection = document.getElementById('appointment-booking');
+                bookingSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              data-testid="button-book-consultation"
+            >
               Book Consultation
             </Button>
           </nav>
@@ -88,7 +94,15 @@ export default function Header() {
                 </Link>
               ))}
               <div className="px-3 pt-2">
-                <Button className="w-full" data-testid="mobile-button-book-consultation">
+                <Button 
+                  className="w-full"
+                  onClick={() => {
+                    const bookingSection = document.getElementById('appointment-booking');
+                    bookingSection?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                  }}
+                  data-testid="mobile-button-book-consultation"
+                >
                   Book Consultation
                 </Button>
               </div>
