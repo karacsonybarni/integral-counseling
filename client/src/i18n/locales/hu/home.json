@@ -1,22 +1,22 @@
 {
   "hero": {
-    "title": "Integrál tanácsadás Budapesten",
-    "subtitle": "Integrál tanácsadó jelöltként (Integrál Akadémia) gyakorlati, együttérző teret kínálok élethelyzeti kihívások és személyes fejlődés támogatására.",
+    "title": "Integrál tanácsadás",
+    "subtitle": "Integrál tanácsadó jelöltként gyakorlati, együttérző teret kínálok élethelyzeti kihívások és személyes fejlődés támogatására.",
     "cta": "Módszerem",
     "appointment": "Konzultáció foglalása"
   },
   "benefits": {
     "safe": {
       "title": "Bizalmas, elfogadó tér",
-      "description": "Ítélkezésmentes közeg, ahol nyugodtan átgondolhatja gondolatait, érzéseit és következő lépéseit."
+      "description": "Ítélkezésmentes közeg, ahol nyugodtan átgondolhatod gondolataidat, érzéseidet és következő lépéseidet."
     },
     "evidence": {
       "title": "Integratív, gyakorlatias",
-      "description": "A modern pszichológia, a mindfulness és az integrál szemlélet ötvözete."
+      "description": "A modern pszichológia, a tudatosság és az integrál szemlélet ötvözete."
     },
     "personalized": {
       "title": "Személyre szabott, közös irány",
-      "description": "Közösen jelöljük ki a célt, az Ön tempójában haladunk."
+      "description": "Közösen jelöljük ki a célt, a te tempódban haladunk."
     }
   },
   "about": {
@@ -30,19 +30,7 @@
     "title": "Szolgáltatások",
     "individual": {
       "title": "Integrál tanácsadás",
-      "description": "Támogató beszélgetések a tisztánlátásért és a továbblépésért."
-    },
-    "couples": {
-      "title": "Kapcsolatok és kommunikáció",
-      "description": "Mintázatok és szükségletek feltárása, tisztább kapcsolódás."
-    },
-    "anxiety": {
-      "title": "Stressz és túlterheltség",
-      "description": "Jelenlét, perspektíva és gyakorlati eszközök intenzív időszakokban."
-    },
-    "depression": {
-      "title": "Irány és jelentés",
-      "description": "Értékek és irány tisztázása bizonytalan helyzetekben."
+      "description": "Támogató beszélgetések a tisztán látásért és a továbblépésért."
     }
   },
   "process": {
@@ -57,7 +45,7 @@
     },
     "step3": {
       "title": "Ülések",
-      "description": "Rendszeres, személyes vagy online ülések, az Ön céljaihoz igazítva."
+      "description": "Rendszeres, személyes vagy online ülések, a te céljaidhoz igazítva."
     }
   }
 }
