@@ -1,6 +1,6 @@
 # Overview
 
-This is a modern psychotherapist website built for Dr. Michael Thompson, featuring a professional, calming design focused on mental health services. The application is designed as a full-stack web platform with a React frontend and Express backend, emphasizing trust, accessibility, and user experience for therapy clients.
+This is a modern psychotherapist website built for Barna Karácsony, featuring a professional, calming design focused on mental health services. The application is designed as a full-stack web platform with a React frontend and Express backend, emphasizing trust, accessibility, and user experience for therapy clients.
 
 The website serves as both a marketing platform and client engagement tool, offering information about therapeutic services, professional credentials, and contact/appointment booking capabilities. It follows healthcare website best practices with a focus on calming aesthetics and professional presentation.
 
