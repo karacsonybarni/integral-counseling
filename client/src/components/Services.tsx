@@ -29,48 +29,56 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {services.map((service) => (
-            <Card key={service.id} className="hover-elevate">
-              <CardHeader className="pb-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <service.icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl" data-testid={`service-title-${service.id}`}>
-                    {service.title}
-                  </CardTitle>
+        {/* Featured Service Section */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <Card className="hover-elevate bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+            <CardContent className="p-8">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Brain className="h-8 w-8 text-primary" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4" data-testid={`service-description-${service.id}`}>
-                  {service.description}
+                <CardTitle className="text-2xl sm:text-3xl font-serif mb-3" data-testid="service-title-individual">
+                  {t('services.individual.title')}
+                </CardTitle>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed" data-testid="service-description-individual">
+                  {t('services.individual.description')}
                 </p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-muted-foreground" data-testid={`service-duration-${service.id}`}>
-                      {t('session_length')} {service.duration}
-                    </span>
-                  </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="flex items-center justify-center gap-3 p-4 bg-background/50 rounded-lg">
+                  <Clock className="h-5 w-5 text-primary flex-shrink-0" />
                   <div>
-                    <span className="font-medium text-foreground">{t('approach_label')} </span>
-                    <span className="text-muted-foreground" data-testid={`service-approach-${service.id}`}>
-                      {service.approach}
+                    <span className="font-medium text-foreground block">{t('session_length')}</span>
+                    <span className="text-muted-foreground" data-testid="service-duration-individual">
+                      {t('services.individual.duration')}
                     </span>
                   </div>
                 </div>
+                <div className="flex items-center justify-center gap-3 p-4 bg-background/50 rounded-lg">
+                  <Brain className="h-5 w-5 text-primary flex-shrink-0" />
+                  <div>
+                    <span className="font-medium text-foreground block">{t('approach_label')}</span>
+                    <span className="text-muted-foreground" data-testid="service-approach-individual">
+                      {t('services.individual.approach')}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-center">
                 <Button 
-                  variant="outline" 
-                  className="w-full mt-4"
-                  onClick={() => console.log(`Learn more about ${service.title}`)}
-                  data-testid={`button-learn-more-${service.id}`}
+                  variant="default" 
+                  size="lg"
+                  className="px-8"
+                  onClick={() => console.log(`Learn more about ${t('services.individual.title')}`)}
+                  data-testid="button-learn-more-individual"
                 >
                   {t('learn_more')}
                 </Button>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Approach Section */}
