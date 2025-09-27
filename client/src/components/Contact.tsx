@@ -25,7 +25,6 @@ export default function Contact() {
       name: "",
       email: "",
       phone: "",
-      serviceType: "",
       message: "",
       preferredContact: ""
     }
@@ -105,44 +104,19 @@ export default function Contact() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="phone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t('form.phone')}</FormLabel>
-                          <FormControl>
-                            <Input type="tel" {...field} data-testid="input-phone" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="serviceType"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t('form.subject')}</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
-                            <FormControl>
-                              <SelectTrigger data-testid="select-service">
-                                <SelectValue placeholder={t('form.subject_placeholder')} />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="individual">{t('services.individual')}</SelectItem>
-                              <SelectItem value="anxiety">{t('services.anxiety')}</SelectItem>
-                              <SelectItem value="depression">{t('services.depression')}</SelectItem>
-                              <SelectItem value="consultation">{t('services.consultation')}</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('form.phone')}</FormLabel>
+                        <FormControl>
+                          <Input type="tel" {...field} data-testid="input-phone" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
                   <FormField
                     control={form.control}
