@@ -154,7 +154,7 @@ export default function AppointmentBooking() {
                       <FormItem>
                         <FormLabel>{t('form.phone')}</FormLabel>
                         <FormControl>
-                          <Input type="tel" {...field} data-testid="input-booking-phone" />
+                          <Input type="tel" {...field} className="max-w-xs" data-testid="input-booking-phone" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

@@ -113,7 +113,7 @@ export default function Contact() {
                         <FormItem>
                           <FormLabel>{t('form.phone')}</FormLabel>
                           <FormControl>
-                            <Input type="tel" {...field} data-testid="input-phone" />
+                            <Input type="tel" {...field} className="max-w-xs" data-testid="input-phone" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
