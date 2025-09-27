@@ -1,0 +1,23 @@
+{
+  "title": "Dr. Kovács Mihályról",
+  "subtitle": "Engedéllyel rendelkező klinikai pszichológus, több mint 15 éves tapasztalattal az egyének segítésében a kihívások leküzdésében és az érzelmi jólét elérésében.",
+  "credentials": {
+    "title": "Szakmai képesítések",
+    "license": "• Engedéllyel rendelkező klinikai pszichológus (HU #PSY12345)",
+    "phd": "• PhD klinikai pszichológiából, ELTE",
+    "masters": "• Mester fokozat tanácsadó pszichológiából, PPKE",
+    "membership": "• Magyar Pszichológiai Társaság tagja"
+  },
+  "specializations": {
+    "title": "Szakterületek",
+    "anxiety": "• Szorongás és depresszió kezelése",
+    "couples": "• Kapcsolati és párterápia",
+    "trauma": "• Trauma és PTSD felépülés",
+    "stress": "• Stresszkezelés és mindfulness"
+  },
+  "personal_note": "\"Megközelítésem ötvözi a bizonyítékokon alapuló terápiás technikákat az őszinte együttérzéssel. Hiszek abban, hogy együttműködő partnerséget kell kialakítani, ahol Ön hallottnak, megértettnek érzi magát, és képessé válik pozitív változásokat végrehajtani az életében.\"",
+  "office": {
+    "title": "Kényelmes, barátságos környezet",
+    "description": "Gyakorlatom úgy van kialakítva, hogy nyugodt, privát teret biztosítson, ahol kényelmesen érezheti magát gondolatai és érzései megosztásakor és felfedezésekor."
+  }
+}

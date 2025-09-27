@@ -1,39 +1,42 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Clock, Users, Brain, Heart } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Services() {
+  const { t } = useTranslation('services');
+  
   const services = [
     {
       icon: Brain,
-      title: "Individual Therapy",
-      description: "One-on-one sessions tailored to your specific needs and goals.",
-      duration: "50 minutes",
-      approach: "Cognitive Behavioral Therapy, Mindfulness-Based Therapy",
+      title: t('services.individual.title'),
+      description: t('services.individual.description'),
+      duration: t('services.individual.duration'),
+      approach: t('services.individual.approach'),
       id: "individual"
     },
     {
       icon: Users,
-      title: "Couples Therapy",
-      description: "Strengthen relationships and improve communication patterns.",
-      duration: "75 minutes",
-      approach: "Emotionally Focused Therapy, Gottman Method",
+      title: t('services.couples.title'),
+      description: t('services.couples.description'),
+      duration: t('services.couples.duration'),
+      approach: t('services.couples.approach'),
       id: "couples"
     },
     {
       icon: Heart,
-      title: "Trauma Recovery",
-      description: "Specialized treatment for trauma, PTSD, and difficult life experiences.",
-      duration: "50-90 minutes",
-      approach: "EMDR, Trauma-Focused CBT, Somatic Therapy",
+      title: t('services.trauma.title'),
+      description: t('services.trauma.description'),
+      duration: t('services.trauma.duration'),
+      approach: t('services.trauma.approach'),
       id: "trauma"
     },
     {
       icon: Clock,
-      title: "Stress Management",
-      description: "Learn effective coping strategies for work and life pressures.",
-      duration: "50 minutes",
-      approach: "Mindfulness, Relaxation Techniques, CBT",
+      title: t('services.stress.title'),
+      description: t('services.stress.description'),
+      duration: t('services.stress.duration'),
+      approach: t('services.stress.approach'),
       id: "stress"
     }
   ];
@@ -43,10 +46,10 @@ export default function Services() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4" data-testid="services-title">
-            Therapeutic Services
+            {t('title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="services-subtitle">
-            Comprehensive mental health services designed to support your journey toward healing and growth.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -71,11 +74,11 @@ export default function Services() {
                   <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4 text-muted-foreground" />
                     <span className="text-muted-foreground" data-testid={`service-duration-${service.id}`}>
-                      Session Length: {service.duration}
+                      {t('session_length')} {service.duration}
                     </span>
                   </div>
                   <div>
-                    <span className="font-medium text-foreground">Approach: </span>
+                    <span className="font-medium text-foreground">{t('approach_label')} </span>
                     <span className="text-muted-foreground" data-testid={`service-approach-${service.id}`}>
                       {service.approach}
                     </span>
@@ -87,7 +90,7 @@ export default function Services() {
                   onClick={() => console.log(`Learn more about ${service.title}`)}
                   data-testid={`button-learn-more-${service.id}`}
                 >
-                  Learn More
+                  {t('learn_more')}
                 </Button>
               </CardContent>
             </Card>
@@ -98,36 +101,34 @@ export default function Services() {
         <Card className="bg-muted/20">
           <CardContent className="p-8 text-center">
             <h3 className="text-2xl font-serif font-semibold text-foreground mb-4" data-testid="approach-title">
-              My Therapeutic Approach
+              {t('approach.title')}
             </h3>
             <p className="text-muted-foreground mb-6 max-w-3xl mx-auto leading-relaxed" data-testid="approach-description">
-              I integrate various evidence-based approaches tailored to each client's unique needs. 
-              My practice emphasizes creating a safe, non-judgmental space where you can explore 
-              your thoughts and feelings while developing practical skills for lasting change.
+              {t('approach.description')}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
               <div className="text-center">
                 <h4 className="font-semibold text-foreground mb-2" data-testid="approach-principle-1-title">
-                  Collaborative Partnership
+                  {t('approach.principles.collaborative.title')}
                 </h4>
                 <p className="text-sm text-muted-foreground" data-testid="approach-principle-1-description">
-                  We work together as partners in your healing journey.
+                  {t('approach.principles.collaborative.description')}
                 </p>
               </div>
               <div className="text-center">
                 <h4 className="font-semibold text-foreground mb-2" data-testid="approach-principle-2-title">
-                  Strength-Based Focus
+                  {t('approach.principles.strength.title')}
                 </h4>
                 <p className="text-sm text-muted-foreground" data-testid="approach-principle-2-description">
-                  Building on your existing strengths and resilience.
+                  {t('approach.principles.strength.description')}
                 </p>
               </div>
               <div className="text-center">
                 <h4 className="font-semibold text-foreground mb-2" data-testid="approach-principle-3-title">
-                  Culturally Responsive
+                  {t('approach.principles.cultural.title')}
                 </h4>
                 <p className="text-sm text-muted-foreground" data-testid="approach-principle-3-description">
-                  Honoring your unique background and experiences.
+                  {t('approach.principles.cultural.description')}
                 </p>
               </div>
             </div>

@@ -9,6 +9,7 @@ import huHome from './locales/hu/home.json';
 import huServices from './locales/hu/services.json';
 import huContact from './locales/hu/contact.json';
 import huAppointment from './locales/hu/appointment.json';
+import huAbout from './locales/hu/about.json';
 import huFooter from './locales/hu/footer.json';
 
 import enCommon from './locales/en/common.json';
@@ -17,6 +18,7 @@ import enHome from './locales/en/home.json';
 import enServices from './locales/en/services.json';
 import enContact from './locales/en/contact.json';
 import enAppointment from './locales/en/appointment.json';
+import enAbout from './locales/en/about.json';
 import enFooter from './locales/en/footer.json';
 
 const resources = {
@@ -27,6 +29,7 @@ const resources = {
     services: huServices,
     contact: huContact,
     appointment: huAppointment,
+    about: huAbout,
     footer: huFooter,
   },
   en: {
@@ -36,6 +39,7 @@ const resources = {
     services: enServices,
     contact: enContact,
     appointment: enAppointment,
+    about: enAbout,
     footer: enFooter,
   },
 };
@@ -48,7 +52,7 @@ i18n
     lng: 'hu', // Default language is Hungarian
     fallbackLng: 'en', // Fallback to English
     defaultNS: 'common',
-    ns: ['common', 'nav', 'home', 'services', 'contact', 'appointment', 'footer'],
+    ns: ['common', 'nav', 'home', 'services', 'contact', 'appointment', 'about', 'footer'],
     
     interpolation: {
       escapeValue: false, // React already does escaping

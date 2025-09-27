@@ -71,7 +71,7 @@ export default function Contact() {
           {/* Contact Form */}
           <Card>
             <CardHeader>
-              <CardTitle data-testid="form-title">{t('form.title', 'Request a Consultation')}</CardTitle>
+              <CardTitle data-testid="form-title">{t('form.title')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Form {...form}>
@@ -132,11 +132,11 @@ export default function Contact() {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="individual">Individual Therapy</SelectItem>
-                              <SelectItem value="couples">Couples Therapy</SelectItem>
-                              <SelectItem value="trauma">Trauma Recovery</SelectItem>
-                              <SelectItem value="stress">Stress Management</SelectItem>
-                              <SelectItem value="consultation">Initial Consultation</SelectItem>
+                              <SelectItem value="individual">{t('services.individual')}</SelectItem>
+                              <SelectItem value="couples">{t('services.couples')}</SelectItem>
+                              <SelectItem value="anxiety">{t('services.anxiety')}</SelectItem>
+                              <SelectItem value="depression">{t('services.depression')}</SelectItem>
+                              <SelectItem value="consultation">{t('services.consultation')}</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -150,17 +150,17 @@ export default function Contact() {
                     name="preferredContact"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Preferred Contact Method</FormLabel>
+                        <FormLabel>{t('form.contact_method')}</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-contact-preference">
-                              <SelectValue placeholder="How would you like to be contacted?" />
+                              <SelectValue placeholder={t('form.contact_method_placeholder')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="email">Email</SelectItem>
-                            <SelectItem value="phone">Phone</SelectItem>
-                            <SelectItem value="either">Either email or phone</SelectItem>
+                            <SelectItem value="email">{t('contact_methods.email')}</SelectItem>
+                            <SelectItem value="phone">{t('contact_methods.phone')}</SelectItem>
+                            <SelectItem value="either">{t('contact_methods.either')}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -173,11 +173,11 @@ export default function Contact() {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Tell me a bit about what brings you here *</FormLabel>
+                        <FormLabel>{t('form.message')} *</FormLabel>
                         <FormControl>
                           <Textarea
                             {...field}
-                            placeholder="Share what you'd like to work on or any questions you have..."
+                            placeholder={t('form.message_placeholder')}
                             rows={4}
                             data-testid="textarea-message"
                           />
@@ -193,7 +193,7 @@ export default function Contact() {
                     disabled={contactMutation.isPending}
                     data-testid="button-submit-form"
                   >
-                    {contactMutation.isPending ? "Sending..." : "Send Message"}
+                    {contactMutation.isPending ? t('form.sending') : t('form.submit')}
                   </Button>
                 </form>
               </Form>
@@ -204,40 +204,40 @@ export default function Contact() {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle data-testid="contact-info-title">Contact Information</CardTitle>
+                <CardTitle data-testid="contact-info-title">{t('info.title')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-primary" />
                   <div>
-                    <p className="font-medium text-foreground">Phone</p>
-                    <p className="text-muted-foreground" data-testid="contact-phone">(555) 123-4567</p>
+                    <p className="font-medium text-foreground">{t('contact_methods.phone')}</p>
+                    <p className="text-muted-foreground" data-testid="contact-phone">{t('info.phone')}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-primary" />
                   <div>
-                    <p className="font-medium text-foreground">Email</p>
-                    <p className="text-muted-foreground" data-testid="contact-email">dr.thompson@example.com</p>
+                    <p className="font-medium text-foreground">{t('contact_methods.email')}</p>
+                    <p className="text-muted-foreground" data-testid="contact-email">{t('info.email')}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="h-5 w-5 text-primary" />
                   <div>
-                    <p className="font-medium text-foreground">Office Location</p>
+                    <p className="font-medium text-foreground">{t('info.address')}</p>
                     <p className="text-muted-foreground" data-testid="contact-address">
-                      123 Wellness Way<br />
-                      Los Angeles, CA 90210
+                      {t('info.address_line1')}<br />
+                      {t('info.address_line2')}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Calendar className="h-5 w-5 text-primary" />
                   <div>
-                    <p className="font-medium text-foreground">Office Hours</p>
+                    <p className="font-medium text-foreground">{t('info.hours')}</p>
                     <p className="text-muted-foreground" data-testid="contact-hours">
-                      Monday - Friday: 9:00 AM - 7:00 PM<br />
-                      Saturday: 10:00 AM - 4:00 PM
+                      {t('info.hours_weekday')}<br />
+                      {t('info.hours_saturday')}
                     </p>
                   </div>
                 </div>
@@ -247,15 +247,15 @@ export default function Contact() {
             <Card className="bg-primary/5">
               <CardContent className="p-6">
                 <h3 className="font-semibold text-foreground mb-2" data-testid="emergency-title">
-                  Emergency Support
+                  {t('emergency.title')}
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3" data-testid="emergency-description">
-                  If you're experiencing a mental health emergency, please contact:
+                  {t('emergency.description')}
                 </p>
                 <ul className="text-sm space-y-1">
-                  <li data-testid="emergency-hotline">• Crisis Hotline: 988 (Suicide & Crisis Lifeline)</li>
-                  <li data-testid="emergency-911">• Emergency Services: 911</li>
-                  <li data-testid="emergency-text">• Crisis Text Line: Text HOME to 741741</li>
+                  <li data-testid="emergency-hotline">{t('emergency.crisis_hotline')}</li>
+                  <li data-testid="emergency-911">{t('emergency.emergency_services')}</li>
+                  <li data-testid="emergency-text">{t('emergency.crisis_text')}</li>
                 </ul>
               </CardContent>
             </Card>

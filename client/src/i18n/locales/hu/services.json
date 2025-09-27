@@ -1,12 +1,51 @@
 {
-  "title": "Szolgáltatások",
-  "subtitle": "Személyre szabott terápiás megoldások minden élethelyzethez",
-  "individual": "Egyéni terápia",
-  "couples": "Párterápia",
-  "anxiety": "Szorongás kezelése", 
-  "depression": "Depresszió kezelése",
-  "session_duration": "Ülés időtartama",
-  "minutes": "perc",
-  "price": "Ár",
-  "book_now": "Időpontfoglalás"
+  "title": "Terápiás szolgáltatások",
+  "subtitle": "Átfogó mentális egészségügyi szolgáltatások, amelyek támogatják a gyógyulás és fejlődés útját.",
+  "services": {
+    "individual": {
+      "title": "Egyéni terápia",
+      "description": "Személyre szabott egyéni ülések az Ön egyedi igényeinek és céljainak megfelelően.",
+      "duration": "50 perc",
+      "approach": "Kognitív viselkedésterápia, Mindfulness-alapú terápia"
+    },
+    "couples": {
+      "title": "Párterápia", 
+      "description": "Kapcsolatok erősítése és kommunikációs minták javítása.",
+      "duration": "75 perc",
+      "approach": "Érzelemfókuszú terápia, Gottman módszer"
+    },
+    "trauma": {
+      "title": "Trauma feldolgozás",
+      "description": "Specializált kezelés trauma, PTSD és nehéz életélmények esetén.",
+      "duration": "50-90 perc", 
+      "approach": "EMDR, Trauma-fókuszú KVT, Szomatikus terápia"
+    },
+    "stress": {
+      "title": "Stresszkezelés",
+      "description": "Hatékony megküzdési stratégiák tanulása munka és élet nyomásaival kapcsolatban.",
+      "duration": "50 perc",
+      "approach": "Mindfulness, Relaxációs technikák, KVT"
+    }
+  },
+  "session_length": "Ülés hossza:",
+  "approach_label": "Megközelítés:",
+  "learn_more": "Többet szeretnék tudni",
+  "approach": {
+    "title": "Terápiás megközelítésem",
+    "description": "Különböző bizonyítékokon alapuló megközelítéseket integálok, minden kliens egyedi igényeihez szabva. Gyakorlatom hangsúlyozza a biztonságos, ítélkezésmentes tér megteremtését, ahol felfedezheti gondolatait és érzéseit, miközben gyakorlati készségeket fejleszt a tartós változáshoz.",
+    "principles": {
+      "collaborative": {
+        "title": "Együttműködő partnerség",
+        "description": "Partnerként dolgozunk együtt a gyógyulási útján."
+      },
+      "strength": {
+        "title": "Erősségalapú fókusz", 
+        "description": "Meglévő erősségeire és rugalmasságára építünk."
+      },
+      "cultural": {
+        "title": "Kulturálisan érzékeny",
+        "description": "Egyedi háttere és tapasztalatai tiszteletben tartása."
+      }
+    }
+  }
 }

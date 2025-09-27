@@ -61,8 +61,8 @@ export default function AppointmentBooking() {
     mutationFn: (data: InsertAppointment) => apiRequest("POST", "/api/appointments", data),
     onSuccess: (data: any) => {
       toast({
-        title: "Appointment Requested",
-        description: data.message || "Your appointment request has been received. I'll contact you within 24 hours to confirm.",
+        title: t('success.title'),
+        description: data.message || t('success.description'),
       });
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["/api/appointments"] });
@@ -70,8 +70,8 @@ export default function AppointmentBooking() {
     onError: (error: any) => {
       console.error("Error booking appointment:", error);
       toast({
-        title: "Error",
-        description: error.message || "Unable to book appointment. Please try again or contact directly.",
+        title: t('error.title'),
+        description: error.message || t('error.description'),
         variant: "destructive"
       });
     }
@@ -173,11 +173,11 @@ export default function AppointmentBooking() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="individual">Individual Therapy (50 min)</SelectItem>
-                            <SelectItem value="couples">Couples Therapy (75 min)</SelectItem>
-                            <SelectItem value="trauma">Trauma Recovery (50-90 min)</SelectItem>
-                            <SelectItem value="stress">Stress Management (50 min)</SelectItem>
-                            <SelectItem value="consultation">Initial Consultation (30 min)</SelectItem>
+                            <SelectItem value="individual">{t('services.individual')}</SelectItem>
+                            <SelectItem value="couples">{t('services.couples')}</SelectItem>
+                            <SelectItem value="anxiety">{t('services.anxiety')}</SelectItem>
+                            <SelectItem value="depression">{t('services.depression')}</SelectItem>
+                            <SelectItem value="consultation">{t('services.consultation')}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -193,11 +193,11 @@ export default function AppointmentBooking() {
                     name="preferredDate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Preferred Date *</FormLabel>
+                        <FormLabel>{t('form.date')} *</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-booking-date">
-                              <SelectValue placeholder="Select a date" />
+                              <SelectValue placeholder={t('form.date_placeholder')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -217,11 +217,11 @@ export default function AppointmentBooking() {
                     name="preferredTime"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Preferred Time *</FormLabel>
+                        <FormLabel>{t('form.time')} *</FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger data-testid="select-booking-time">
-                              <SelectValue placeholder="Select a time" />
+                              <SelectValue placeholder={t('form.time_placeholder')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -247,11 +247,11 @@ export default function AppointmentBooking() {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Additional Information (Optional)</FormLabel>
+                      <FormLabel>{t('form.message')}</FormLabel>
                       <FormControl>
                         <Textarea
                           {...field}
-                          placeholder="Let me know if you have any specific concerns or questions..."
+                          placeholder={t('form.message_placeholder')}
                           rows={3}
                           data-testid="textarea-booking-message"
                         />
@@ -268,15 +268,14 @@ export default function AppointmentBooking() {
                   disabled={appointmentMutation.isPending}
                   data-testid="button-book-appointment"
                 >
-                  {appointmentMutation.isPending ? "Booking..." : "Book Appointment"}
+                  {appointmentMutation.isPending ? t('form.booking') : t('form.submit')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
 
                 {/* Disclaimer */}
                 <div className="text-sm text-muted-foreground text-center bg-muted/20 p-4 rounded-md">
                   <p data-testid="booking-disclaimer">
-                    <strong>Note:</strong> This is a request for an appointment. I'll contact you within 24 hours 
-                    to confirm your preferred time or suggest alternative slots if needed.
+                    {t('disclaimer')}
                   </p>
                 </div>
               </form>

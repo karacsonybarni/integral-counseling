@@ -1,12 +1,51 @@
 {
-  "title": "Services", 
-  "subtitle": "Personalized therapeutic solutions for every life situation",
-  "individual": "Individual Therapy",
-  "couples": "Couples Therapy",
-  "anxiety": "Anxiety Treatment",
-  "depression": "Depression Treatment", 
-  "session_duration": "Session Duration",
-  "minutes": "minutes",
-  "price": "Price",
-  "book_now": "Book Now"
+  "title": "Therapeutic Services",
+  "subtitle": "Comprehensive mental health services designed to support your journey toward healing and growth.",
+  "services": {
+    "individual": {
+      "title": "Individual Therapy",
+      "description": "One-on-one sessions tailored to your specific needs and goals.",
+      "duration": "50 minutes", 
+      "approach": "Cognitive Behavioral Therapy, Mindfulness-Based Therapy"
+    },
+    "couples": {
+      "title": "Couples Therapy",
+      "description": "Strengthen relationships and improve communication patterns.",
+      "duration": "75 minutes",
+      "approach": "Emotionally Focused Therapy, Gottman Method"
+    },
+    "trauma": {
+      "title": "Trauma Recovery",
+      "description": "Specialized treatment for trauma, PTSD, and difficult life experiences.",
+      "duration": "50-90 minutes",
+      "approach": "EMDR, Trauma-Focused CBT, Somatic Therapy"
+    },
+    "stress": {
+      "title": "Stress Management", 
+      "description": "Learn effective coping strategies for work and life pressures.",
+      "duration": "50 minutes",
+      "approach": "Mindfulness, Relaxation Techniques, CBT"
+    }
+  },
+  "session_length": "Session Length:",
+  "approach_label": "Approach:",
+  "learn_more": "Learn More",
+  "approach": {
+    "title": "My Therapeutic Approach",
+    "description": "I integrate various evidence-based approaches tailored to each client's unique needs. My practice emphasizes creating a safe, non-judgmental space where you can explore your thoughts and feelings while developing practical skills for lasting change.",
+    "principles": {
+      "collaborative": {
+        "title": "Collaborative Partnership",
+        "description": "We work together as partners in your healing journey."
+      },
+      "strength": {
+        "title": "Strength-Based Focus",
+        "description": "Building on your existing strengths and resilience."
+      },
+      "cultural": {
+        "title": "Culturally Responsive",
+        "description": "Honoring your unique background and experiences."
+      }
+    }
+  }
 }

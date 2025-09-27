@@ -2,6 +2,7 @@
   "title": "Kapcsolatfelvétel",
   "subtitle": "Vegye fel velem a kapcsolatot, hogy megbeszélhessük, hogyan segíthetek Önnek.",
   "form": {
+    "title": "Kapcsolatfelvételi űrlap",
     "name": "Teljes név",
     "name_placeholder": "Adja meg a teljes nevét",
     "email": "E-mail cím",
@@ -10,6 +11,8 @@
     "phone_placeholder": "+36 30 123 4567",
     "subject": "Tárgy",
     "subject_placeholder": "Miben segíthetek?",
+    "contact_method": "Előnyben részesített kapcsolatfelvételi mód",
+    "contact_method_placeholder": "Hogyan szeretne kapcsolatba lépni?",
     "message": "Üzenet",
     "message_placeholder": "Írja le kérdését vagy részletesen ismertesse helyzetét...",
     "submit": "Üzenet küldése",
@@ -23,12 +26,34 @@
     "title": "Hiba történt",
     "description": "Nem sikerült elküldeni az üzenetet. Kérem próbálja újra."
   },
-  "info": {
+  "contact_methods": {
     "phone": "Telefon",
-    "email": "E-mail",
+    "email": "E-mail", 
+    "either": "Bármelyik"
+  },
+  "services": {
+    "individual": "Egyéni terápia",
+    "couples": "Párterápia", 
+    "anxiety": "Szorongás kezelése",
+    "depression": "Depresszió kezelése",
+    "consultation": "Ingyenes konzultáció"
+  },
+  "info": {
+    "title": "Kapcsolati információk",
+    "phone": "+36 1 234 5678",
+    "email": "dr.kovacs@example.com",
+    "address_line1": "Wellness utca 123",
+    "address_line2": "Budapest, 1011", 
     "hours": "Rendelési idő",
-    "hours_value": "Hétfő - Péntek: 9:00 - 18:00",
-    "address": "Cím",
+    "hours_weekday": "Hétfő - Péntek: 9:00 - 19:00",
+    "hours_saturday": "Szombat: 10:00 - 16:00",
     "response_time": "Válaszidő: 24 óra"
+  },
+  "emergency": {
+    "title": "Vészhelyzeti segítség",
+    "description": "Ha mentális egészségügyi vészhelyzet esetén segítségre van szüksége, kérjük vegye fel a kapcsolatot:",
+    "crisis_hotline": "• Krízis vonala: 116-123 (Lelki Elsősegély Szolgálat)",
+    "emergency_services": "• Mentők: 112", 
+    "crisis_text": "• SMS krízis vonal: 06-80-820-111"
   }
 }

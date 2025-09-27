@@ -1,9 +1,17 @@
 {
-  "contact_info": "Contact Info",
-  "quick_links": "Quick Links", 
+  "practice_title": "Dr. Michael Thompson",
+  "practice_description": "Licensed Clinical Psychologist providing compassionate, evidence-based therapy to support your mental health journey.",
+  "license": "License #PSY12345 | State of California",
+  "quick_links": "Quick Links",
+  "about": "About",
   "services": "Services",
-  "copyright": "© {{year}} All rights reserved.",
+  "contact": "Contact",
   "privacy": "Privacy Policy",
+  "contact_info": "Contact Information",
+  "phone": "(555) 123-4567",
+  "email": "dr.thompson@example.com",
+  "address": "123 Wellness Way\nLos Angeles, CA 90210",
+  "copyright": "© 2024 Dr. Michael Thompson. All rights reserved.",
   "terms": "Terms of Service",
   "emergency": "In case of emergency, call 911 or visit your nearest hospital."
 }

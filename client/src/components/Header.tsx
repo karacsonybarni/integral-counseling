@@ -39,7 +39,7 @@ export default function Header() {
           <Link href="/">
             <div className="flex items-center">
               <h1 className="text-xl font-serif font-bold text-foreground" data-testid="logo-text">
-                Dr. Michael Thompson
+                {t('logo')}
               </h1>
             </div>
           </Link>
