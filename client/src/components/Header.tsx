@@ -19,10 +19,10 @@ export default function Header() {
   };
 
   const navigation = [
-    { name: t('home'), href: getHref("/") },
-    { name: t('about'), href: getHref("/#about") },
-    { name: t('services'), href: getHref("/#services") },
-    { name: t('contact'), href: getHref("/#contact") },
+    { name: t('home'), href: getHref("/"), action: 'link' },
+    { name: t('about'), href: getHref("/#about"), action: 'scroll', target: 'about' },
+    { name: t('services'), href: getHref("/#services"), action: 'scroll', target: 'services' },
+    { name: t('contact'), href: getHref("/#contact"), action: 'scroll', target: 'contact' },
   ];
 
   const isActive = (href: string) => {
@@ -46,20 +46,41 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            {navigation.map((item) => (
-              <Link key={item.name} href={item.href}>
-                <span
-                  className={`text-sm font-medium transition-colors duration-200 ${
-                    isActive(item.href)
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                  data-testid={`nav-${item.name.toLowerCase()}`}
-                >
-                  {item.name}
-                </span>
-              </Link>
-            ))}
+            {navigation.map((item) => {
+              if (item.action === 'scroll') {
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const section = document.getElementById(item.target!);
+                      section?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`text-sm font-medium transition-colors duration-200 ${
+                      isActive(item.href)
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                    data-testid={`nav-${item.name.toLowerCase()}`}
+                  >
+                    {item.name}
+                  </button>
+                );
+              }
+              return (
+                <Link key={item.name} href={item.href}>
+                  <span
+                    className={`text-sm font-medium transition-colors duration-200 ${
+                      isActive(item.href)
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                    data-testid={`nav-${item.name.toLowerCase()}`}
+                  >
+                    {item.name}
+                  </span>
+                </Link>
+              );
+            })}
             <LanguageSwitcher />
             <Button 
               onClick={() => {
@@ -90,21 +111,43 @@ export default function Header() {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
             <nav className="flex flex-col space-y-3">
-              {navigation.map((item) => (
-                <Link key={item.name} href={item.href}>
-                  <span
-                    className={`block px-3 py-2 text-base font-medium ${
-                      isActive(item.href)
-                        ? "text-primary"
-                        : "text-muted-foreground"
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    data-testid={`mobile-nav-${item.name.toLowerCase()}`}
-                  >
-                    {item.name}
-                  </span>
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                if (item.action === 'scroll') {
+                  return (
+                    <button
+                      key={item.name}
+                      onClick={() => {
+                        const section = document.getElementById(item.target!);
+                        section?.scrollIntoView({ behavior: 'smooth' });
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`block px-3 py-2 text-base font-medium text-left ${
+                        isActive(item.href)
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      }`}
+                      data-testid={`mobile-nav-${item.name.toLowerCase()}`}
+                    >
+                      {item.name}
+                    </button>
+                  );
+                }
+                return (
+                  <Link key={item.name} href={item.href}>
+                    <span
+                      className={`block px-3 py-2 text-base font-medium ${
+                        isActive(item.href)
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      data-testid={`mobile-nav-${item.name.toLowerCase()}`}
+                    >
+                      {item.name}
+                    </span>
+                  </Link>
+                );
+              })}
               <div className="px-3 pt-2 space-y-2">
                 <LanguageSwitcher />
                 <Button 

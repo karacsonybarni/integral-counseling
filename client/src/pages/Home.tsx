@@ -12,14 +12,18 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <About />
+        <div id="about">
+          <About />
+        </div>
         <div id="services">
           <Services />
         </div>
         <div id="appointment-booking">
           <AppointmentBooking />
         </div>
-        <Contact />
+        <div id="contact">
+          <Contact />
+        </div>
       </main>
       <Footer />
     </div>
