@@ -11,6 +11,7 @@ import huContact from './locales/hu/contact.json';
 import huAppointment from './locales/hu/appointment.json';
 import huAbout from './locales/hu/about.json';
 import huFooter from './locales/hu/footer.json';
+import huLegal from './locales/hu/legal.json';
 
 import enCommon from './locales/en/common.json';
 import enNav from './locales/en/nav.json';
@@ -20,6 +21,7 @@ import enContact from './locales/en/contact.json';
 import enAppointment from './locales/en/appointment.json';
 import enAbout from './locales/en/about.json';
 import enFooter from './locales/en/footer.json';
+import enLegal from './locales/en/legal.json';
 
 const resources = {
   hu: {
@@ -31,6 +33,7 @@ const resources = {
     appointment: huAppointment,
     about: huAbout,
     footer: huFooter,
+    legal: huLegal,
   },
   en: {
     common: enCommon,
@@ -41,6 +44,7 @@ const resources = {
     appointment: enAppointment,
     about: enAbout,
     footer: enFooter,
+    legal: enLegal,
   },
 };
 
@@ -52,7 +56,7 @@ i18n
     lng: 'hu', // Default language is Hungarian
     fallbackLng: 'en', // Fallback to English
     defaultNS: 'common',
-    ns: ['common', 'nav', 'home', 'services', 'contact', 'appointment', 'about', 'footer'],
+    ns: ['common', 'nav', 'home', 'services', 'contact', 'appointment', 'about', 'footer', 'legal'],
     
     interpolation: {
       escapeValue: false, // React already does escaping

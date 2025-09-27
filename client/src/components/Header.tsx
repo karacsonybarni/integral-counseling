@@ -31,6 +31,13 @@ export default function Header() {
     return false;
   };
 
+  const baseNavClasses = "inline-flex items-center text-sm font-medium leading-none transition-colors duration-200";
+  const focusRingClasses = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary/40";
+  const activeNavClasses = "text-primary";
+  const inactiveNavClasses = "text-muted-foreground hover:text-foreground";
+  const linkNavClasses = `${baseNavClasses} ${focusRingClasses}`;
+  const buttonNavClasses = `${baseNavClasses} border-0 bg-transparent p-0 appearance-none ${focusRingClasses}`;
+
   return (
     <header className="bg-background border-b border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,14 +58,15 @@ export default function Header() {
                 return (
                   <button
                     key={item.name}
+                    type="button"
                     onClick={() => {
                       const section = document.getElementById(item.target!);
                       section?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className={`text-sm font-medium transition-colors duration-200 ${
+                    className={`${buttonNavClasses} ${
                       isActive(item.href)
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        ? activeNavClasses
+                        : inactiveNavClasses
                     }`}
                     data-testid={`nav-${item.name.toLowerCase()}`}
                   >
@@ -67,22 +75,22 @@ export default function Header() {
                 );
               }
               return (
-                <Link key={item.name} href={item.href}>
-                  <span
-                    className={`text-sm font-medium transition-colors duration-200 ${
-                      isActive(item.href)
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                    data-testid={`nav-${item.name.toLowerCase()}`}
-                  >
-                    {item.name}
-                  </span>
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`${linkNavClasses} ${
+                    isActive(item.href)
+                      ? activeNavClasses
+                      : inactiveNavClasses
+                  }`}
+                  data-testid={`nav-${item.name.toLowerCase()}`}
+                >
+                  {item.name}
                 </Link>
               );
             })}
             <LanguageSwitcher />
-            <Button 
+            <Button
               onClick={() => {
                 const bookingSection = document.getElementById('appointment-booking');
                 bookingSection?.scrollIntoView({ behavior: 'smooth' });
@@ -116,6 +124,7 @@ export default function Header() {
                   return (
                     <button
                       key={item.name}
+                      type="button"
                       onClick={() => {
                         const section = document.getElementById(item.target!);
                         section?.scrollIntoView({ behavior: 'smooth' });
@@ -150,7 +159,7 @@ export default function Header() {
               })}
               <div className="px-3 pt-2 space-y-2">
                 <LanguageSwitcher />
-                <Button 
+                <Button
                   className="w-full"
                   onClick={() => {
                     const bookingSection = document.getElementById('appointment-booking');

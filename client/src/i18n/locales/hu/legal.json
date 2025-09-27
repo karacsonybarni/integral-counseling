@@ -1,0 +1,111 @@
+{
+  "terms": {
+    "title": "Szolgáltatási feltételek",
+    "updated": "Utolsó frissítés: 2025. szeptember 27.",
+    "intro": "A szolgáltatási feltételek Barna Karácsony integrál tanácsadási üléseire vonatkoznak. Időpontfoglalással vagy részvétellel elfogadod az itt leírtakat.",
+    "sections": [
+      {
+        "title": "Szolgáltatás jellege",
+        "body": "A praxis integrál szemléletű tanácsadást nyújt, amely támogató, nem klinikai módszer.",
+        "items": [
+          "Az ülések az önismeretre, személyes fejlődésre és érzelmi támogatásra koncentrálnak.",
+          "A szolgáltatás nem helyettesíti a pszichoterápiát, pszichiátriai kezelést vagy sürgősségi ellátást.",
+          "Ha más szintű segítségre van szükség, megfelelő szakemberhez irányítunk."
+        ]
+      },
+      {
+        "title": "Ügyfél kötelezettségei",
+        "items": [
+          "A szolgáltatás igénybevételéhez 18 év felettinek kell lenned, vagy írásos szülői/gondviselői hozzájárulást kell bemutatnod.",
+          "Vállalod, hogy a tudomásod szerinti valós adatokat osztod meg.",
+          "A döntéseidért – akár az ülések alatt, akár azon kívül – továbbra is te felelsz."
+        ]
+      },
+      {
+        "title": "Ülések és lemondás",
+        "items": [
+          "Egy ülés hossza 55 perc, hacsak másban nem állapodunk meg.",
+          "Kérjük, legalább 24 órával előre mondd le vagy módosítsd az időpontot; késői lemondás esetén a találkozó megtartottnak minősülhet.",
+          "Többszöri meg nem jelenés a jövőbeni foglalások felfüggesztését eredményezheti."
+        ]
+      },
+      {
+        "title": "Titoktartás",
+        "body": "A megosztott személyes adatok bizalmasak, kezelésükre az Adatkezelési tájékoztató vonatkozik.",
+        "items": [
+          "A titoktartás csak akkor törhető meg, ha súlyos veszély fenyeget téged vagy másokat.",
+          "A szakmai minőség fejlesztése érdekében anonim szupervízió igénybe vehető."
+        ]
+      },
+      {
+        "title": "Feltételek módosítása",
+        "items": [
+          "A feltételek tartalma a szolgáltatás vagy a jogszabályok változása esetén frissülhet.",
+          "A lényeges változásokról a weboldalon vagy e-mailben kapsz tájékoztatást."
+        ]
+      }
+    ],
+    "contact": {
+      "title": "Kérdések és észrevételek",
+      "body": "Ha kérdésed van a feltételekkel kapcsolatban, írj a karacsony.barni@gmail.com címre vagy hívd a +36 70 572 8313 telefonszámot."
+    }
+  },
+  "privacy": {
+    "title": "Adatkezelési tájékoztató",
+    "updated": "Utolsó frissítés: 2025. szeptember 27.",
+    "intro": "Ez az adatkezelési tájékoztató ismerteti, hogyan gyűjti, használja és védi személyes adataidat Barna Karácsony az integrál tanácsadási szolgáltatás során.",
+    "sections": [
+      {
+        "title": "Adatkezelő",
+        "items": [
+          "Adatkezelő: Barna Karácsony, Budapest, Magyarország.",
+          "Kapcsolat: karacsony.barni@gmail.com, +36 70 572 8313."
+        ]
+      },
+      {
+        "title": "Milyen adatokat gyűjtünk",
+        "items": [
+          "Kapcsolattartási adatok (név, e-mail cím, telefonszám).",
+          "Az ülésekre vonatkozó háttérinformációk, amelyeket a szolgáltatás személyre szabásához osztasz meg.",
+          "Időpontfoglalással kapcsolatos adatok, például preferált időpontok és ülésekről készült jegyzetek."
+        ]
+      },
+      {
+        "title": "Az adatkezelés céljai",
+        "items": [
+          "A tanácsadási ülések biztosítása és személyre szabása.",
+          "Időpontok egyeztetése, emlékeztetők és utókövető kommunikáció kezelése.",
+          "Jogi kötelezettségek teljesítése, beleértve a nyilvántartási és megőrzési előírásokat."
+        ]
+      },
+      {
+        "title": "Jogi alap",
+        "items": [
+          "Az általad adott hozzájárulás, amikor ülést kérsz vagy részt veszel rajta.",
+          "Jogos érdek a biztonságos és hatékony tanácsadás nyújtásához.",
+          "Jogszabályi kötelezettség teljesítése, amikor ez alkalmazandó."
+        ]
+      },
+      {
+        "title": "Adatmegőrzés",
+        "items": [
+          "Az ülésjegyzeteket biztonságosan tároljuk, legfeljebb öt évig őrizzük, majd töröljük.",
+          "A jogszabály által előírt adminisztratív iratokat hosszabb ideig kell megőrizni, ezután biztonságosan megsemmisítjük."
+        ]
+      },
+      {
+        "title": "Jogosultságaid",
+        "items": [
+          "Kérheted személyes adataid hozzáférését, helyesbítését vagy törlését.",
+          "Bármikor visszavonhatod a hozzájárulásodat, ami a tanácsadási kapcsolat megszűnését eredményezheti.",
+          "Panaszt tehetsz a Nemzeti Adatvédelmi és Információszabadság Hatóságnál (NAIH)."
+        ]
+      }
+    ],
+    "note": "Személyes adataidat nem adjuk át harmadik félnek, kivéve ha azt jogszabály írja elő vagy ahhoz kifejezetten hozzájárulsz.",
+    "contact": {
+      "title": "Adatkezeléssel kapcsolatos megkeresések",
+      "body": "Adatvédelmi ügyekben a karacsony.barni@gmail.com címen kereshetsz. A megkeresésekre 30 napon belül válasz érkezik."
+    }
+  }
+}

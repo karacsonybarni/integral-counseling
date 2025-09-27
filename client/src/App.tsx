@@ -4,6 +4,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/Home";
+import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/not-found";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -30,6 +32,10 @@ function LanguageRouter() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/terms" component={Terms} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/en/terms" component={Terms} />
+      <Route path="/en/privacy" component={Privacy} />
       <Route path="/en" component={Home} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
@@ -49,3 +55,4 @@ function App() {
 }
 
 export default App;
+

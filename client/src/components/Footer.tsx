@@ -2,7 +2,9 @@ import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 
 export default function Footer() {
-  const { t } = useTranslation('footer');
+  const { t, i18n } = useTranslation('footer');
+  const getHref = (path: string) => (i18n.language === 'en' ? `/en${path}` : path);
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -56,7 +58,7 @@ export default function Footer() {
               >
                 {t('contact')}
               </button>
-              <Link href="/privacy">
+              <Link href={getHref('/privacy')}>
                 <span className="text-muted-foreground hover:text-foreground transition-colors" data-testid="footer-link-privacy">
                   {t('privacy')}
                 </span>
@@ -90,12 +92,12 @@ export default function Footer() {
               {t('copyright')}
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href="/terms">
+              <Link href={getHref('/terms')}>
                 <span className="text-muted-foreground hover:text-foreground text-sm transition-colors" data-testid="footer-link-terms">
                   {t('terms')}
                 </span>
               </Link>
-              <Link href="/privacy">
+              <Link href={getHref('/privacy')}>
                 <span className="text-muted-foreground hover:text-foreground text-sm transition-colors" data-testid="footer-link-privacy-bottom">
                   {t('privacy')}
                 </span>
@@ -107,3 +109,4 @@ export default function Footer() {
     </footer>
   );
 }
+
