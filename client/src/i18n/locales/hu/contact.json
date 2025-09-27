@@ -1,58 +1,55 @@
 {
   "title": "Kapcsolatfelvétel",
-  "subtitle": "Vegye fel velem a kapcsolatot, hogy megbeszélhessük, hogyan segíthetek Önnek.",
+  "subtitle": "Írjon üzenetet vagy kérjen konzultációt.",
   "form": {
     "title": "Kapcsolatfelvételi űrlap",
     "name": "Teljes név",
     "name_placeholder": "Adja meg a teljes nevét",
-    "email": "E-mail cím",
-    "email_placeholder": "pelda@email.com",
+    "email": "E‑mail cím",
+    "email_placeholder": "nev@example.com",
     "phone": "Telefonszám",
     "phone_placeholder": "+36 30 123 4567",
     "subject": "Tárgy",
     "subject_placeholder": "Miben segíthetek?",
     "contact_method": "Előnyben részesített kapcsolatfelvételi mód",
-    "contact_method_placeholder": "Hogyan szeretne kapcsolatba lépni?",
+    "contact_method_placeholder": "Hogyan szeretné, hogy kapcsolatba lépjek?",
     "message": "Üzenet",
-    "message_placeholder": "Írja le kérdését vagy részletesen ismertesse helyzetét...",
+    "message_placeholder": "Ossza meg röviden a témát vagy kérdéseit...",
     "submit": "Üzenet küldése",
     "sending": "Küldés..."
   },
   "success": {
     "title": "Üzenet elküldve",
-    "description": "Köszönöm megkeresését. 24 órán belül válaszolok."
+    "description": "Köszönöm a megkeresést. 24 órán belül válaszolok."
   },
   "error": {
     "title": "Hiba történt",
-    "description": "Nem sikerült elküldeni az üzenetet. Kérem próbálja újra."
+    "description": "Az üzenet elküldése nem sikerült. Kérem, próbálja újra."
   },
   "contact_methods": {
     "phone": "Telefon",
-    "email": "E-mail", 
+    "email": "E‑mail",
     "either": "Bármelyik"
   },
   "services": {
-    "individual": "Egyéni terápia",
-    "anxiety": "Szorongás kezelése",
-    "depression": "Depresszió kezelése",
-    "consultation": "Ingyenes konzultáció"
+    "individual": "Integrál tanácsadás (55 perc)"
   },
   "info": {
-    "title": "Kapcsolati információk",
-    "phone": "+36 1 234 5678",
-    "email": "dr.kovacs@example.com",
-    "address_line1": "Wellness utca 123",
-    "address_line2": "Budapest, 1011", 
-    "hours": "Rendelési idő",
-    "hours_weekday": "Hétfő - Péntek: 9:00 - 19:00",
-    "hours_saturday": "Szombat: 10:00 - 16:00",
-    "response_time": "Válaszidő: 24 óra"
+    "title": "Kapcsolati információ",
+    "phone": "+36 70 572 8313",
+    "email": "karacsony.barni@gmail.com",
+    "address": "Cím",
+    "address_line1": "Budapest",
+    "address_line2": "Magyarország",
+    "hours": "Elérhetőség",
+    "hours_by_appointment": "Hétköznap és hétvégén: egyeztetés szerint",
+    "response_time": "Válasz általában 24 órán belül"
   },
   "emergency": {
-    "title": "Vészhelyzeti segítség",
-    "description": "Ha mentális egészségügyi vészhelyzet esetén segítségre van szüksége, kérjük vegye fel a kapcsolatot:",
-    "crisis_hotline": "• Krízis vonala: 116-123 (Lelki Elsősegély Szolgálat)",
-    "emergency_services": "• Mentők: 112", 
-    "crisis_text": "• SMS krízis vonal: 06-80-820-111"
+    "title": "Sürgős segítségre van szüksége?",
+    "description": "Itt nem nyújtunk sürgősségi ellátást. Sürgős helyzetben:",
+    "crisis_hotline": "Lelki elsősegély: 116‑123 (0–24)",
+    "emergency_services": "Sürgősségi hívószám: 112",
+    "crisis_text": "Ha nem Magyarországon tartózkodik, hívja a helyi segélyhívót."
   }
 }

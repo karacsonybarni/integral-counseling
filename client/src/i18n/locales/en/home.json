@@ -1,63 +1,51 @@
 {
   "hero": {
-    "title": "Professional Psychotherapy Services",
-    "subtitle": "I'm an experienced psychotherapist helping you find balance and well-being in your life.",
-    "cta": "Learn More About My Approach",
-    "appointment": "Schedule a Consultation"
+    "title": "Integral Counseling in Budapest",
+    "subtitle": "I’m an Integral Counselor Candidate trained at the Integral Academy, offering a practical, compassionate space to explore life’s challenges and personal growth.",
+    "cta": "Learn About My Approach",
+    "appointment": "Book a Consultation"
   },
   "benefits": {
     "safe": {
-      "title": "Confidential & Safe",
-      "description": "A judgment-free space where you can explore your thoughts and feelings openly."
+      "title": "Confidential, Respectful Space",
+      "description": "A non-judgmental setting to explore thoughts, emotions, and next steps."
     },
     "evidence": {
-      "title": "Evidence-Based",
-      "description": "Treatment approaches grounded in proven psychological research and methods."
+      "title": "Evidence‑informed & Practical",
+      "description": "Integrates modern psychology with mindfulness and integral frameworks."
     },
     "personalized": {
-      "title": "Personalized Care",
-      "description": "Tailored treatment plans that address your unique needs and goals."
+      "title": "Personal & Collaborative",
+      "description": "We set goals together and work at your pace."
     }
   },
   "about": {
     "title": "About Me",
-    "description": "With over 10 years of experience in psychotherapy, I use my professional qualifications and empathetic approach to support clients in improving their mental health.",
-    "qualifications": "Qualifications",
-    "experience": "Experience",
+    "description": "I’m an Integral Counselor Candidate, trained at the Integral Academy in Budapest. I blend modern psychology with mindfulness and integral perspectives to support clarity, resilience, and meaning.",
+    "qualifications": "Training & Background",
+    "experience": "Focus & Experience",
     "approach": "My Approach"
   },
   "services": {
     "title": "Services",
     "individual": {
-      "title": "Individual Therapy",
-      "description": "Personalized therapy sessions tailored to individual needs."
-    },
-    "couples": {
-      "title": "Couples Therapy",
-      "description": "Help with relationship issues and improving communication."
-    },
-    "anxiety": {
-      "title": "Anxiety Treatment",
-      "description": "Specialized techniques for managing anxiety and panic attacks."
-    },
-    "depression": {
-      "title": "Depression Treatment",
-      "description": "Supportive therapy for depression and mood disorders."
+      "title": "Integral Counseling",
+      "description": "Focused conversations to clarify what matters and move forward with confidence."
     }
   },
   "process": {
     "title": "How It Works",
     "step1": {
       "title": "Contact",
-      "description": "Reach out to me by phone or email."
+      "description": "Reach out via the contact form or email."
     },
     "step2": {
-      "title": "Initial Consultation",
-      "description": "Personal or online consultation to assess your needs."
+      "title": "Intro session",
+      "description": "A 55 minutes session to get to know each other find the goal of the next sessions."
     },
     "step3": {
-      "title": "Therapy Plan",
-      "description": "Development of an individual therapy plan aligned with your goals."
+      "title": "Sessions",
+      "description": "Regular sessions in-person or online, tailored to your goals."
     }
   }
 }

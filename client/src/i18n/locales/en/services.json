@@ -1,32 +1,32 @@
 {
-  "title": "Therapeutic Services",
-  "subtitle": "Comprehensive mental health services designed to support your journey toward healing and growth.",
+  "title": "Integral Counseling",
+  "subtitle": "Conversations that integrate mind, body, and context—grounded, compassionate, and action‑oriented when helpful.",
   "services": {
     "individual": {
-      "title": "Individual Therapy",
-      "description": "One-on-one sessions tailored to your specific needs and goals.",
-      "duration": "50 minutes", 
-      "approach": "Cognitive Behavioral Therapy, Mindfulness-Based Therapy"
+      "title": "Integral Counseling Session",
+      "description": "One‑on‑one sessions tailored to your needs and context.",
+      "duration": "55 minutes",
+      "approach": "Integral model, mindfulness, parts work, somatic awareness, values clarification"
     }
   },
-  "session_length": "Session Length:",
+  "session_length": "Session length:",
   "approach_label": "Approach:",
-  "learn_more": "Learn More",
+  "learn_more": "Get in touch",
   "approach": {
-    "title": "My Therapeutic Approach",
-    "description": "I integrate various evidence-based approaches tailored to each client's unique needs. My practice emphasizes creating a safe, non-judgmental space where you can explore your thoughts and feelings while developing practical skills for lasting change.",
+    "title": "How I Work",
+    "description": "We integrate perspectives meaningfully and work at a pace that fits your life, focusing on clarity, agency, and practice.",
     "principles": {
       "collaborative": {
-        "title": "Collaborative Partnership",
-        "description": "We work together as partners in your healing journey."
+        "title": "Collaborative",
+        "description": "We co‑create a direction that fits your life."
       },
       "strength": {
-        "title": "Strength-Based Focus",
-        "description": "Building on your existing strengths and resilience."
+        "title": "Strength‑based",
+        "description": "We build on your strengths and resources."
       },
       "cultural": {
-        "title": "Culturally Responsive",
-        "description": "Honoring your unique background and experiences."
+        "title": "Respectful",
+        "description": "Your background, beliefs, and context are respected."
       }
     }
   }

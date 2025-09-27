@@ -1,63 +1,63 @@
 {
   "hero": {
-    "title": "Professzionális pszichoterápiás segítség",
-    "subtitle": "Tapasztalt pszichoterapeuta vagyok, aki segít megtalálni az egyensúlyt és jóllétet az életében.",
-    "cta": "További információ a módszeremről",
+    "title": "Integrál tanácsadás Budapesten",
+    "subtitle": "Integrál tanácsadó jelöltként (Integrál Akadémia) gyakorlati, együttérző teret kínálok élethelyzeti kihívások és személyes fejlődés támogatására.",
+    "cta": "Módszerem",
     "appointment": "Konzultáció foglalása"
   },
   "benefits": {
     "safe": {
-      "title": "Bizalmas és biztonságos",
-      "description": "Ítélkezésmentes környezet, ahol szabadon feltárhatja gondolatait és érzéseit."
+      "title": "Bizalmas, elfogadó tér",
+      "description": "Ítélkezésmentes közeg, ahol nyugodtan átgondolhatja gondolatait, érzéseit és következő lépéseit."
     },
     "evidence": {
-      "title": "Bizonyítékokon alapuló",
-      "description": "Bevált pszichológiai kutatáson és módszereken alapuló kezelési megközelítések."
+      "title": "Integratív, gyakorlatias",
+      "description": "A modern pszichológia, a mindfulness és az integrál szemlélet ötvözete."
     },
     "personalized": {
-      "title": "Személyre szabott ellátás",
-      "description": "Személyre szabott kezelési tervek, amelyek az Ön egyedi igényeire és céljaira összpontosítanak."
+      "title": "Személyre szabott, közös irány",
+      "description": "Közösen jelöljük ki a célt, az Ön tempójában haladunk."
     }
   },
   "about": {
     "title": "Rólam",
-    "description": "Több mint 10 éves tapasztalattal rendelkezem a pszichoterápia területén. Szakmai képesítéseim és empatikus megközelítésem segítségével támogatom ügyfeleimet mentális egészségük javításában.",
-    "qualifications": "Képesítések",
-    "experience": "Tapasztalat",
+    "description": "Integrál tanácsadó jelölt vagyok, az Integrál Akadémián vagyok végzős hallgató Budapesten. A modern pszichológiát, a tudatosságot és az integrál szemléletet kapcsolom össze a tisztán látás és a megküzdőképesség támogatására.",
+    "qualifications": "Képzettség és háttér",
+    "experience": "Fókusz és tapasztalat",
     "approach": "Módszerem"
   },
   "services": {
     "title": "Szolgáltatások",
     "individual": {
-      "title": "Egyéni terápia",
-      "description": "Személyre szabott terápiás ülések egyéni igények szerint."
+      "title": "Integrál tanácsadás",
+      "description": "Támogató beszélgetések a tisztánlátásért és a továbblépésért."
     },
     "couples": {
-      "title": "Párterápia", 
-      "description": "Segítség kapcsolati problémák megoldásában és kommunikáció javításában."
+      "title": "Kapcsolatok és kommunikáció",
+      "description": "Mintázatok és szükségletek feltárása, tisztább kapcsolódás."
     },
     "anxiety": {
-      "title": "Szorongás kezelése",
-      "description": "Speciális technikák a szorongás és pánikrohamok kezelésére."
+      "title": "Stressz és túlterheltség",
+      "description": "Jelenlét, perspektíva és gyakorlati eszközök intenzív időszakokban."
     },
     "depression": {
-      "title": "Depresszió kezelése",
-      "description": "Támogató terápia a depresszió és hangulatzavarok esetén."
+      "title": "Irány és jelentés",
+      "description": "Értékek és irány tisztázása bizonytalan helyzetekben."
     }
   },
   "process": {
-    "title": "Így működik",
+    "title": "Hogyan működik",
     "step1": {
       "title": "Kapcsolatfelvétel",
-      "description": "Vegye fel velem a kapcsolatot telefonon vagy e-mailben."
+      "description": "Írjon az űrlapon vagy e‑mailben."
     },
     "step2": {
-      "title": "Első konzultáció",
-      "description": "Személyes vagy online konzultáció az igények felmérésére."
+      "title": "Ismerkedő beszélgetés",
+      "description": "Egy 55 perces ülés, hogy megismerjük egymást, és megtaláljuk a további ülések célját."
     },
     "step3": {
-      "title": "Terápiás terv",
-      "description": "Egyéni terápiás terv kidolgozása az Ön céljainak megfelelően."
+      "title": "Ülések",
+      "description": "Rendszeres, személyes vagy online ülések, az Ön céljaihoz igazítva."
     }
   }
 }

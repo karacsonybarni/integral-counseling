@@ -1,32 +1,32 @@
 {
-  "title": "Terápiás szolgáltatások",
-  "subtitle": "Átfogó mentális egészségügyi szolgáltatások, amelyek támogatják a gyógyulás és fejlődés útját.",
+  "title": "Integrál tanácsadás",
+  "subtitle": "Elmélyült beszélgetések a test‑lélek‑kapcsolatok egységét figyelembe véve — együttérző, gyakorlatias, szükség esetén cselekvésorientált.",
   "services": {
     "individual": {
-      "title": "Egyéni terápia",
-      "description": "Személyre szabott egyéni ülések az Ön egyedi igényeinek és céljainak megfelelően.",
-      "duration": "50 perc",
-      "approach": "Kognitív viselkedésterápia, Mindfulness-alapú terápia"
+      "title": "Integrál tanácsadói ülés",
+      "description": "Személyre szabott beszélgetések az Ön témáihoz és élethelyzetéhez igazítva.",
+      "duration": "55 perc",
+      "approach": "Integrál modell, tudatosság, én-részekkel végzett munka, szomatikus tudatosság, értéktisztázás"
     }
   },
   "session_length": "Ülés hossza:",
-  "approach_label": "Megközelítés:",
-  "learn_more": "Többet szeretnék tudni",
+  "approach_label": "Módszer:",
+  "learn_more": "Kapcsolatfelvétel",
   "approach": {
-    "title": "Terápiás megközelítésem",
-    "description": "Különböző bizonyítékokon alapuló megközelítéseket integálok, minden kliens egyedi igényeihez szabva. Gyakorlatom hangsúlyozza a biztonságos, ítélkezésmentes tér megteremtését, ahol felfedezheti gondolatait és érzéseit, miközben gyakorlati készségeket fejleszt a tartós változáshoz.",
+    "title": "Hogyan dolgozom",
+    "description": "A különböző nézőpontokat értelmes egésszé rendezzük, az életritmusodhoz igazodva; a tisztán látást, a cselekvőképességet és a gyakorlást támogatom.",
     "principles": {
       "collaborative": {
-        "title": "Együttműködő partnerség",
-        "description": "Partnerként dolgozunk együtt a gyógyulási útján."
+        "title": "Együttműködés",
+        "description": "Közösen alakítjuk ki a neked illeszkedő irányt."
       },
       "strength": {
-        "title": "Erősségalapú fókusz", 
-        "description": "Meglévő erősségeire és rugalmasságára építünk."
+        "title": "Erőforrás‑fókusz",
+        "description": "Meglévő erősségeidre és erőforrásaidra építünk."
       },
       "cultural": {
-        "title": "Kulturálisan érzékeny",
-        "description": "Egyedi háttere és tapasztalatai tiszteletben tartása."
+        "title": "Tisztelet",
+        "description": "Hátteredet, értékeidet és tapasztalataidat tiszteletben tartom."
       }
     }
   }

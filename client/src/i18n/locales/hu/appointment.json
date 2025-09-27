@@ -1,37 +1,34 @@
 {
-  "title": "Időpontfoglalás",
-  "subtitle": "Foglaljon időpontot online, és kezdje el útját a mentális jólét felé.",
+  "title": "Konzultáció foglalása",
+  "subtitle": "Küldje el időpontkérését; 24 órán belül válaszolok.",
   "form": {
     "name": "Teljes név",
     "name_placeholder": "Adja meg a teljes nevét",
-    "email": "E-mail cím", 
-    "email_placeholder": "pelda@email.com",
+    "email": "E‑mail cím",
+    "email_placeholder": "nev@example.com",
     "phone": "Telefonszám",
     "phone_placeholder": "+36 30 123 4567",
-    "service": "Szolgáltatás típusa",
+    "service": "Szolgáltatás",
     "service_placeholder": "Válasszon szolgáltatást",
     "date": "Előnyben részesített dátum",
     "date_placeholder": "Válasszon dátumot",
-    "time": "Előnyben részesített időpont", 
+    "time": "Előnyben részesített időpont",
     "time_placeholder": "Válasszon időpontot",
     "message": "További információ",
-    "message_placeholder": "Ossza meg velünk, ha van konkrét kérdése vagy aggálya...",
-    "submit": "Időpontfoglalás",
+    "message_placeholder": "Amit érdemes tudnom előre...",
+    "submit": "Konzultáció foglalása",
     "booking": "Foglalás..."
   },
   "services": {
-    "individual": "Egyéni terápia (50 perc)",
-    "consultation": "Ingyenes konzultáció (30 perc)",
-    "anxiety": "Szorongás kezelése (50 perc)",
-    "depression": "Depresszió kezelése (50 perc)"
+    "individual": "Integrál tanácsadás (55 perc)"
   },
   "success": {
-    "title": "Időpont igényelve",
-    "description": "Időpontfoglalási kérését megkaptam. 24 órán belül felveszem Önnel a kapcsolatot a megerősítéshez."
+    "title": "Időpontkérés rögzítve",
+    "description": "Köszönöm a megkeresést. Hamarosan egyeztetünk a megerősítésről."
   },
   "error": {
     "title": "Hiba történt",
-    "description": "Nem sikerült elküldeni az időpontfoglalást. Kérem próbálja újra."
+    "description": "Az időpontkérés elküldése nem sikerült. Kérem, próbálja újra."
   },
-  "disclaimer": "Megjegyzés: Ez egy időpontfoglalási kérelem. 24 órán belül felveszem Önnel a kapcsolatot a kívánt időpont megerősítéséhez vagy alternatív időpontok javaslásához."
+  "disclaimer": "A szolgáltatás nem orvosi vagy pszichiátriai ellátás. Sürgős helyzetben hívja a 112‑t."
 }

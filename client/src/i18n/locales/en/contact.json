@@ -1,26 +1,26 @@
 {
   "title": "Get in Touch",
-  "subtitle": "Contact me to discuss how I can help you on your journey.",
+  "subtitle": "Send a message or request a consultation.",
   "form": {
     "title": "Contact Form",
     "name": "Full Name",
     "name_placeholder": "Enter your full name",
     "email": "Email Address",
-    "email_placeholder": "example@email.com",
+    "email_placeholder": "name@example.com",
     "phone": "Phone Number",
-    "phone_placeholder": "+1 (555) 123-4567",
+    "phone_placeholder": "+36 30 123 4567",
     "subject": "Subject",
     "subject_placeholder": "How can I help you?",
     "contact_method": "Preferred Contact Method",
     "contact_method_placeholder": "How would you like to be contacted?",
     "message": "Message",
-    "message_placeholder": "Describe your question or situation in detail...",
+    "message_placeholder": "Share any context or questions you’d like to discuss...",
     "submit": "Send Message",
     "sending": "Sending..."
   },
   "success": {
     "title": "Message Sent",
-    "description": "Thank you for reaching out. I'll get back to you within 24 hours."
+    "description": "Thank you for reaching out. I’ll get back to you within 24 hours."
   },
   "error": {
     "title": "Error Occurred",
@@ -32,27 +32,24 @@
     "either": "Either"
   },
   "services": {
-    "individual": "Individual Therapy",
-    "anxiety": "Anxiety Treatment", 
-    "depression": "Depression Treatment",
-    "consultation": "Free Consultation"
+    "individual": "Integral Counseling (55 min)"
   },
   "info": {
     "title": "Contact Information",
-    "phone": "(555) 123-4567",
-    "email": "dr.thompson@example.com",
-    "address_line1": "123 Wellness Way",
-    "address_line2": "Los Angeles, CA 90210",
-    "hours": "Office Hours", 
-    "hours_weekday": "Monday - Friday: 9:00 AM - 7:00 PM",
-    "hours_saturday": "Saturday: 10:00 AM - 4:00 PM",
-    "response_time": "Response time: 24 hours"
+    "phone": "+36 70 572 8313",
+    "email": "karacsony.barni@gmail.com",
+    "address": "Address",
+    "address_line1": "Budapest",
+    "address_line2": "Hungary",
+    "hours": "Availability",
+    "hours_by_appointment": "Weekdays and weekends by appointment",
+    "response_time": "Usual response time: 24 hours"
   },
   "emergency": {
-    "title": "Emergency Support",
-    "description": "If you're experiencing a mental health emergency, please contact:",
-    "crisis_hotline": "• Crisis Hotline: 988 (Suicide & Crisis Lifeline)",
-    "emergency_services": "• Emergency Services: 911",
-    "crisis_text": "• Crisis Text Line: Text HOME to 741741"
+    "title": "Need urgent help?",
+    "description": "This service is not for emergencies. If you need immediate support:",
+    "crisis_hotline": "Emotional support (Hungary): 116-123 (0–24)",
+    "emergency_services": "Emergency services (Hungary): 112",
+    "crisis_text": "If outside Hungary, contact your local emergency number."
   }
 }

@@ -1,23 +1,23 @@
 {
   "title": "Karácsony Barnáról",
-  "subtitle": "Engedéllyel rendelkező klinikai pszichológus, több mint 15 éves tapasztalattal az egyének segítésében a kihívások leküzdésében és az érzelmi jólét elérésében.",
+  "subtitle": "Integrál tanácsadó jelölt (Integrál Akadémia, Budapest) — figyelmes jelenlét és gyakorlati eszközök önismerethez, rugalmassághoz és értelmes változáshoz.",
   "credentials": {
-    "title": "Szakmai képesítések",
-    "license": "• Engedéllyel rendelkező klinikai pszichológus (HU #PSY12345)",
-    "phd": "• PhD klinikai pszichológiából, ELTE",
-    "masters": "• Mester fokozat tanácsadó pszichológiából, PPKE",
-    "membership": "• Magyar Pszichológiai Társaság tagja"
+    "title": "Képzettség és háttér",
+    "license": "Integrál tanácsadó jelölt, Integrál Akadémia (Budapest)",
+    "phd": "Ülések magyarul és angolul",
+    "masters": "Folyamatos szakmai fejlődés: tudatosság, trauma‑érzékeny gyakorlat, kommunikáció",
+    "membership": "Integrál Akadémia közösség tagja"
   },
   "specializations": {
-    "title": "Szakterületek",
-    "anxiety": "• Szorongás és depresszió kezelése",
-    "couples": "• Kapcsolati és párterápia",
-    "trauma": "• Trauma és PTSD felépülés",
-    "stress": "• Stresszkezelés és mindfulness"
+    "title": "Fókuszterületek",
+    "anxiety": "Élethelyzeti döntések és változások",
+    "couples": "Kapcsolatok és kommunikáció",
+    "trauma": "Stressz, túlterheltség, kiégés",
+    "stress": "Önismeret és értékek tisztázása"
   },
-  "personal_note": "\"Megközelítésem ötvözi a bizonyítékokon alapuló terápiás technikákat az őszinte együttérzéssel. Hiszek abban, hogy együttműködő partnerséget kell kialakítani, ahol Ön hallottnak, megértettnek érzi magát, és képessé válik pozitív változásokat végrehajtani az életében.\"",
+  "personal_note": "\"Figyelmes, ítélkezésmentes jelenlétet és gyakorlati eszközöket kínálok. Nem nyújtok orvosi vagy pszichiátriai ellátást; szükség esetén más szakemberekkel együttműködöm.\"",
   "office": {
-    "title": "Kényelmes, barátságos környezet",
-    "description": "Gyakorlatom úgy van kialakítva, hogy nyugodt, privát teret biztosítson, ahol kényelmesen érezheti magát gondolatai és érzései megosztásakor és felfedezésekor."
+    "title": "Személyesen és online",
+    "description": "Ülések Budapesten vagy online. Nyugodt, támogató közeg a reflektáláshoz és továbblépéshez."
   }
 }

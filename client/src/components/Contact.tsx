@@ -235,8 +235,7 @@ export default function Contact() {
                   <div>
                     <p className="font-medium text-foreground">{t('info.hours')}</p>
                     <p className="text-muted-foreground" data-testid="contact-hours">
-                      {t('info.hours_weekday')}<br />
-                      {t('info.hours_saturday')}
+                      {t('info.hours_by_appointment')}
                     </p>
                   </div>
                 </div>

@@ -1,23 +1,23 @@
 {
-  "title": "About Barna Karácsony", 
-  "subtitle": "Licensed Clinical Psychologist with over 15 years of experience helping individuals overcome challenges and achieve emotional wellness.",
+  "title": "About Barna Karácsony",
+  "subtitle": "Integral Counselor Candidate trained at the Integral Academy in Budapest, offering attentive presence and practical tools for self‑knowledge, resilience, and meaningful change.",
   "credentials": {
-    "title": "Professional Credentials",
-    "license": "• Licensed Clinical Psychologist (CA #PSY12345)",
-    "phd": "• Ph.D. in Clinical Psychology, UCLA",
-    "masters": "• Master's in Counseling Psychology, USC", 
-    "membership": "• Member, American Psychological Association"
+    "title": "Training & Background",
+    "license": "Integral Counselor Candidate, Integral Academy (Budapest)",
+    "phd": "Sessions available in Hungarian and English",
+    "masters": "Ongoing development: mindfulness, trauma‑sensitive practice, communication",
+    "membership": "Member of the Integral Academy community"
   },
   "specializations": {
-    "title": "Areas of Specialization",
-    "anxiety": "• Anxiety and Depression Treatment",
-    "couples": "• Relationship and Couples Therapy",
-    "trauma": "• Trauma and PTSD Recovery",
-    "stress": "• Stress Management and Mindfulness"
+    "title": "Areas of Focus",
+    "anxiety": "Life transitions and decision support",
+    "couples": "Relationships and communication",
+    "trauma": "Stress, overwhelm, and burnout",
+    "stress": "Self‑knowledge and values clarification"
   },
-  "personal_note": "\"My approach combines evidence-based therapeutic techniques with genuine compassion. I believe in creating a collaborative partnership where you feel heard, understood, and empowered to make positive changes in your life.\"",
+  "personal_note": "\"I offer an attentive, non‑judgmental presence and practical tools. This is not medical or psychiatric treatment.\"",
   "office": {
-    "title": "A Comfortable, Welcoming Environment",
-    "description": "My practice is designed to provide a calm, private space where you can feel comfortable sharing and exploring your thoughts and feelings."
+    "title": "In‑Person and Online",
+    "description": "Sessions available in Budapest or online. A calm, supportive setting to reflect and move forward."
   }
 }

@@ -25,7 +25,7 @@ export async function sendEmail(params: EmailParams): Promise<boolean> {
       to: params.to,
       from: {
         email: params.from,
-        name: 'Dr. Karácsony Barna - Website'
+        name: 'Barna Karácsony — Integrál tanácsadó jelölt'
       },
       subject: params.subject,
     };
@@ -191,3 +191,4 @@ Appointment ID: ${appointment.id}
     html
   };
 }
+
