@@ -2,20 +2,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Brain, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "wouter";
 
 export default function Services() {
   const { t } = useTranslation('services');
   
-  const services = [
-    {
-      icon: Brain,
-      title: t('services.individual.title'),
-      description: t('services.individual.description'),
-      duration: t('services.individual.duration'),
-      approach: t('services.individual.approach'),
-      id: "individual"
-    }
-  ];
+  // Individual therapy service data
+  const service = {
+    icon: Brain,
+    title: t('services.individual.title'),
+    description: t('services.individual.description'),
+    duration: t('services.individual.duration'),
+    approach: t('services.individual.approach'),
+    id: "individual"
+  };
 
   return (
     <section className="py-16 bg-background">
@@ -38,10 +38,10 @@ export default function Services() {
                   <Brain className="h-8 w-8 text-primary" />
                 </div>
                 <CardTitle className="text-2xl sm:text-3xl font-serif mb-3" data-testid="service-title-individual">
-                  {t('services.individual.title')}
+                  {service.title}
                 </CardTitle>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed" data-testid="service-description-individual">
-                  {t('services.individual.description')}
+                  {service.description}
                 </p>
               </div>
               
@@ -51,7 +51,7 @@ export default function Services() {
                   <div>
                     <span className="font-medium text-foreground block">{t('session_length')}</span>
                     <span className="text-muted-foreground" data-testid="service-duration-individual">
-                      {t('services.individual.duration')}
+                      {service.duration}
                     </span>
                   </div>
                 </div>
@@ -60,7 +60,7 @@ export default function Services() {
                   <div>
                     <span className="font-medium text-foreground block">{t('approach_label')}</span>
                     <span className="text-muted-foreground" data-testid="service-approach-individual">
-                      {t('services.individual.approach')}
+                      {service.approach}
                     </span>
                   </div>
                 </div>
@@ -71,10 +71,12 @@ export default function Services() {
                   variant="default" 
                   size="lg"
                   className="px-8"
-                  onClick={() => console.log(`Learn more about ${t('services.individual.title')}`)}
+                  asChild
                   data-testid="button-learn-more-individual"
                 >
-                  {t('learn_more')}
+                  <Link href="/#contact">
+                    {t('learn_more')}
+                  </Link>
                 </Button>
               </div>
             </CardContent>
