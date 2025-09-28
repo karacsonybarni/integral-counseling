@@ -1,4 +1,4 @@
-import { Switch, Route, useLocation } from "wouter";
+import { Switch, Route, useLocation, Router } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -44,11 +44,15 @@ function LanguageRouter() {
 }
 
 function App() {
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <LanguageRouter />
+        <Router base={basePath === "" ? undefined : basePath}>
+          <LanguageRouter />
+        </Router>
       </TooltipProvider>
     </QueryClientProvider>
   );
