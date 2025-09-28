@@ -37,3 +37,11 @@ Provide a `.env` with `DATABASE_URL`, `SENDGRID_API_KEY`, and optionally `PORT`.
 - Terms/Privacy mount effects call `window.scrollTo({ top: 0, behavior: "auto" })` to reset position; mirror this for future standalone routes.
 - Language-sensitive routing expects both `/path` and `/en/path` entries in `client/src/App.tsx`, and `getHref` in `Header` prepends `/en` when English is active.
 - `npm run check` currently fails because `serviceType` is missing on payload types in `server/routes.ts` and `server/storage.ts`; fix before relying on the TypeScript gate.
+
+## Replit & Runtime Notes
+- `.replit` ensures deps are installed before dev: `npm install --no-audit --no-fund && npm run dev`. If `cross-env: not found` appears, re-run install.
+- `cross-env` is in `dependencies` so `NODE_ENV` is available in both dev and production. Do not move it back to `devDependencies`.
+- Dev: `npm run dev` runs `tsx server/index.ts` with `NODE_ENV=development`. Vite middleware only loads when `NODE_ENV=development` in `server/index.ts`.
+- Prod: `npm run build` creates `dist/index.js`; `npm run start` uses `NODE_ENV=production` to serve static files. Keep `.replit [deployment]` steps in sync.
+- Ports: server binds `0.0.0.0` on `process.env.PORT || 5000`. `.replit` sets `PORT=5000` and maps external ports accordingly.
+- Environment: PowerShell-based shell on Replit; prefer `pwsh`-friendly commands as noted in General Learnings.
