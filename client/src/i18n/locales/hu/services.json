@@ -11,7 +11,7 @@
   },
   "session_length": "Ülés hossza:",
   "approach_label": "Módszer:",
-  "learn_more": "Kapcsolatfelvétel",
+  "learn_more": "Foglalj konzultaciot",
   "approach": {
     "title": "Hogyan dolgozom",
     "description": "A különböző nézőpontokat értelmes egésszé rendezzük, az életritmusodhoz igazodva; a tisztán látást, a cselekvőképességet és a gyakorlást támogatom.",
@@ -31,3 +31,4 @@
     }
   }
 }
+

@@ -2,11 +2,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Brain, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Link } from "wouter";
 
 export default function Services() {
   const { t } = useTranslation('services');
   
+  const scrollToAppointmentBooking = () => {
+    const bookingSection = document.getElementById("appointment-booking");
+    bookingSection?.scrollIntoView({ behavior: "smooth" });
+  };
+
   // Individual therapy service data
   const service = {
     icon: Brain,
@@ -67,16 +71,14 @@ export default function Services() {
               </div>
               
               <div className="text-center">
-                <Button 
-                  variant="default" 
+                <Button
+                  variant="default"
                   size="lg"
                   className="px-8"
-                  asChild
+                  onClick={scrollToAppointmentBooking}
                   data-testid="button-learn-more-individual"
                 >
-                  <Link href="/#contact">
-                    {t('learn_more')}
-                  </Link>
+                  {t('learn_more')}
                 </Button>
               </div>
             </CardContent>
