@@ -41,6 +41,7 @@ Provide a `.env` with `DATABASE_URL`, `SENDGRID_API_KEY`, and optionally `PORT`.
 ## Replit & Runtime Notes
 - `.replit` ensures deps are installed before dev: `npm install --no-audit --no-fund && npm run dev`. If `cross-env: not found` appears, re-run install.
 - `cross-env` is in `dependencies` so `NODE_ENV` is available in both dev and production. Do not move it back to `devDependencies`.
+- Rollup: use cross-platform `rollup` package. Do not add `@rollup/rollup-win32-x64-msvc`; it breaks installs on Linux (Replit).
 - Dev: `npm run dev` runs `tsx server/index.ts` with `NODE_ENV=development`. Vite middleware only loads when `NODE_ENV=development` in `server/index.ts`.
 - Prod: `npm run build` creates `dist/index.js`; `npm run start` uses `NODE_ENV=production` to serve static files. Keep `.replit [deployment]` steps in sync.
 - Ports: server binds `0.0.0.0` on `process.env.PORT || 5000`. `.replit` sets `PORT=5000` and maps external ports accordingly.
