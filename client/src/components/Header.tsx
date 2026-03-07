@@ -4,28 +4,19 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
-
-const PENDING_SCROLL_KEY = "pending-scroll-target";
+import { getLocalizedPath, scrollToSection, storePendingScrollTarget } from "@/lib/routing";
 
 export default function Header() {
   const [location, navigate] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { t, i18n } = useTranslation("nav");
 
-  // Get language-aware navigation links
-  const getHref = (path: string) => {
-    if (i18n.language === "en") {
-      return path === "/" ? "/en" : `/en${path}`;
-    }
-    return path;
-  };
-
-  const homePath = getHref("/");
+  const homePath = getLocalizedPath("/", i18n.language);
   const navigation = [
     { name: t("home"), href: homePath, action: "link" as const },
-    { name: t("about"), href: getHref("/#about"), action: "scroll" as const, target: "about" },
-    { name: t("services"), href: getHref("/#services"), action: "scroll" as const, target: "services" },
-    { name: t("contact"), href: getHref("/#contact"), action: "scroll" as const, target: "contact" },
+    { name: t("about"), href: getLocalizedPath("/#about", i18n.language), action: "scroll" as const, target: "about" },
+    { name: t("services"), href: getLocalizedPath("/#services", i18n.language), action: "scroll" as const, target: "services" },
+    { name: t("contact"), href: getLocalizedPath("/#contact", i18n.language), action: "scroll" as const, target: "contact" },
   ];
 
   const isActive = (href: string) => {
@@ -46,20 +37,6 @@ export default function Header() {
   const linkNavClasses = `${baseNavClasses} ${focusRingClasses}`;
   const buttonNavClasses = `${baseNavClasses} border-0 bg-transparent p-0 appearance-none ${focusRingClasses}`;
 
-  const scrollToSection = (target: string) => {
-    const section = document.getElementById(target);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-      return;
-    }
-
-    // Retry once on the next animation frame in case the section mounts slightly later.
-    requestAnimationFrame(() => {
-      const retrySection = document.getElementById(target);
-      retrySection?.scrollIntoView({ behavior: "smooth" });
-    });
-  };
-
   const handleScrollNavigation = (target: string, closeMenu?: boolean) => {
     const normalizedLocation = location.split("?")[0];
 
@@ -72,9 +49,7 @@ export default function Header() {
       return;
     }
 
-    if (typeof window !== "undefined") {
-      window.sessionStorage.setItem(PENDING_SCROLL_KEY, target);
-    }
+    storePendingScrollTarget(target);
     navigate(homePath);
   };
 
@@ -83,7 +58,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link href="/">
+          <Link href={homePath}>
             <div className="flex items-center">
               <h1 className="text-xl font-serif font-bold text-foreground" data-testid="logo-text">
                 {t("logo")}
@@ -124,10 +99,7 @@ export default function Header() {
             })}
             <LanguageSwitcher />
             <Button
-              onClick={() => {
-                const bookingSection = document.getElementById("appointment-booking");
-                bookingSection?.scrollIntoView({ behavior: "smooth" });
-              }}
+              onClick={() => handleScrollNavigation("appointment-booking")}
               data-testid="button-book-consultation"
             >
               {t("appointment")}
@@ -182,11 +154,7 @@ export default function Header() {
                 <LanguageSwitcher />
                 <Button
                   className="w-full"
-                  onClick={() => {
-                    const bookingSection = document.getElementById("appointment-booking");
-                    bookingSection?.scrollIntoView({ behavior: "smooth" });
-                    setIsMobileMenuOpen(false);
-                  }}
+                  onClick={() => handleScrollNavigation("appointment-booking", true)}
                   data-testid="mobile-button-book-consultation"
                 >
                   {t("appointment")}

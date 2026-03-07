@@ -8,35 +8,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Globe } from "lucide-react";
+import { getLocalizedPath } from "@/lib/routing";
 
 export default function LanguageSwitcher() {
-  const { i18n, t } = useTranslation('nav');
-  const [, setLocation] = useLocation();
+  const { i18n, t } = useTranslation("nav");
+  const [location, setLocation] = useLocation();
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
-    
-    // Update URL based on language
-    const currentPath = window.location.pathname;
-    if (lng === 'hu') {
-      // For Hungarian, redirect to root or remove /en prefix
-      if (currentPath.startsWith('/en')) {
-        setLocation(currentPath.replace('/en', '') || '/');
-      } else if (currentPath !== '/') {
-        setLocation('/');
-      }
-    } else if (lng === 'en') {
-      // For English, add /en prefix
-      if (!currentPath.startsWith('/en')) {
-        setLocation('/en');
-      }
-    }
+    setLocation(getLocalizedPath(location, lng));
   };
 
-  const currentLang = i18n.language || 'hu';
+  const currentLang = i18n.language || "hu";
   const languages = [
-    { code: 'hu', name: 'Magyar' },
-    { code: 'en', name: 'English' }
+    { code: "hu", name: "Magyar" },
+    { code: "en", name: "English" }
   ];
 
   return (
@@ -49,7 +35,7 @@ export default function LanguageSwitcher() {
           data-testid="button-language-switcher"
         >
           <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline">{t('language')}</span>
+          <span className="hidden sm:inline">{t("language")}</span>
           <span className="text-xs font-medium">
             {languages.find(lang => lang.code === currentLang)?.code.toUpperCase()}
           </span>

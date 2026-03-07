@@ -6,24 +6,17 @@ import Services from "@/components/Services";
 import AppointmentBooking from "@/components/AppointmentBooking";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-
-const PENDING_SCROLL_KEY = "pending-scroll-target";
+import { consumePendingScrollTarget, scrollToSection } from "@/lib/routing";
 
 export default function Home() {
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const target = window.sessionStorage.getItem(PENDING_SCROLL_KEY);
+    const target = consumePendingScrollTarget();
     if (!target) {
       return;
     }
 
-    window.sessionStorage.removeItem(PENDING_SCROLL_KEY);
     requestAnimationFrame(() => {
-      const section = document.getElementById(target);
-      section?.scrollIntoView({ behavior: "smooth" });
+      scrollToSection(target);
     });
   }, []);
 

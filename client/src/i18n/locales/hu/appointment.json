@@ -23,12 +23,16 @@
     "individual": "Integrál tanácsadás (55 perc)"
   },
   "success": {
-    "title": "Időpontkérés rögzítve",
-    "description": "Köszönöm a megkeresést. Hamarosan egyeztetünk a megerősítésről."
+    "title": "Időpontkérő e-mail előkészítve",
+    "description": "Meg kell nyílnia az e-mail alkalmazásának egy előkészített időpontkéréssel. Ha mégsem, küldje el közvetlenül erre a címre: {{email}}."
   },
   "error": {
     "title": "Hiba történt",
-    "description": "Az időpontkérés elküldése nem sikerült. Kérem, próbálja újra."
+    "description": "Nem sikerült előkészíteni az időpontkérő e-mailt. Kérem, küldje el közvetlenül erre a címre: {{email}}."
+  },
+  "emailDraft": {
+    "subject": "Időpontkérés a weboldalról: {{name}}",
+    "intro": "Egy látogató a weboldalon keresztül időpontot kért az alábbi adatokkal."
   },
   "disclaimer": "A szolgáltatás nem orvosi vagy pszichiátriai ellátás. Sürgős helyzetben hívja a 112‑t."
 }

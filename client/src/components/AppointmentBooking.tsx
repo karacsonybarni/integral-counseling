@@ -8,18 +8,16 @@ import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import { insertAppointmentSchema, type InsertAppointment } from "@shared/schema";
 import { useTranslation } from "react-i18next";
+import { appointmentSchema, type AppointmentInput } from "@/lib/forms";
+import { openEmailDraft, THERAPIST_EMAIL } from "@/lib/mailto";
 
 export default function AppointmentBooking() {
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const { t } = useTranslation('appointment');
+  const { t, i18n } = useTranslation("appointment");
 
-  const form = useForm<InsertAppointment>({
-    resolver: zodResolver(insertAppointmentSchema),
+  const form = useForm<AppointmentInput>({
+    resolver: zodResolver(appointmentSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -39,7 +37,7 @@ export default function AppointmentBooking() {
 
   // Generate available dates (next 30 weekdays)
   const getAvailableDates = () => {
-    const dates = [];
+    const dates: Date[] = [];
     const today = new Date();
     let currentDate = new Date(today);
     currentDate.setDate(currentDate.getDate() + 1); // Start from tomorrow
@@ -56,41 +54,59 @@ export default function AppointmentBooking() {
 
   const availableDates = getAvailableDates();
 
-  const appointmentMutation = useMutation({
-    mutationFn: (data: InsertAppointment) => apiRequest("POST", "/api/appointments", data),
-    onSuccess: (data: any) => {
+  const handleSubmit = (data: AppointmentInput) => {
+    try {
+      openEmailDraft({
+        subject: t("emailDraft.subject", { name: data.name }),
+        bodyLines: [
+          t("emailDraft.intro"),
+          "",
+          `${t("form.name")}: ${data.name}`,
+          `${t("form.email")}: ${data.email}`,
+          data.phone ? `${t("form.phone")}: ${data.phone}` : undefined,
+          `${t("form.date")}: ${formatDateValue(data.preferredDate)}`,
+          `${t("form.time")}: ${data.preferredTime}`,
+          data.message ? "" : undefined,
+          data.message ? `${t("form.message")}:` : undefined,
+          data.message,
+        ],
+      });
+
       toast({
-        title: t('success.title'),
-        description: data.message || t('success.description'),
+        title: t("success.title"),
+        description: t("success.description", { email: THERAPIST_EMAIL }),
       });
       form.reset();
-      queryClient.invalidateQueries({ queryKey: ["/api/appointments"] });
-    },
-    onError: (error: any) => {
+    } catch (error) {
       console.error("Error booking appointment:", error);
       toast({
-        title: t('error.title'),
-        description: error.message || t('error.description'),
+        title: t("error.title"),
+        description: t("error.description", { email: THERAPIST_EMAIL }),
         variant: "destructive"
       });
     }
-  });
-
-  const handleSubmit = (data: InsertAppointment) => {
-    appointmentMutation.mutate(data);
   };
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'short', 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric' 
-    });
+    return new Intl.DateTimeFormat(i18n.language === "hu" ? "hu-HU" : "en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    }).format(date);
   };
 
   const getDateValue = (date: Date) => {
-    return date.toISOString().split('T')[0];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
+
+  const formatDateValue = (value: string) => {
+    const [year, month, day] = value.split("-").map(Number);
+    return formatDate(new Date(year, month - 1, day));
   };
 
   return (
@@ -238,10 +254,10 @@ export default function AppointmentBooking() {
                 <Button 
                   type="submit" 
                   className="w-full group" 
-                  disabled={appointmentMutation.isPending}
+                  disabled={form.formState.isSubmitting}
                   data-testid="button-book-appointment"
                 >
-                  {appointmentMutation.isPending ? t('form.booking') : t('form.submit')}
+                  {form.formState.isSubmitting ? t("form.booking") : t("form.submit")}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
 

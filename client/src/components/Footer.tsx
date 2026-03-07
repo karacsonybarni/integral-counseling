@@ -1,9 +1,23 @@
 import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
+import { getLocalizedPath, scrollToSection, storePendingScrollTarget } from "@/lib/routing";
 
 export default function Footer() {
-  const { t, i18n } = useTranslation('footer');
-  const getHref = (path: string) => (i18n.language === 'en' ? `/en${path}` : path);
+  const [location, navigate] = useLocation();
+  const { t, i18n } = useTranslation("footer");
+  const homePath = getLocalizedPath("/", i18n.language);
+
+  const handleScrollNavigation = (target: string) => {
+    const normalizedLocation = location.split("?")[0];
+    if (normalizedLocation === homePath) {
+      scrollToSection(target);
+      return;
+    }
+
+    storePendingScrollTarget(target);
+    navigate(homePath);
+  };
 
   return (
     <footer className="bg-card border-t border-border">
@@ -29,41 +43,32 @@ export default function Footer() {
             </h3>
             <nav className="space-y-2">
               <button
-                onClick={() => {
-                  const section = document.getElementById('about');
-                  section?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="block text-left text-muted-foreground hover:text-foreground transition-colors" 
+                onClick={() => handleScrollNavigation("about")}
+                className="block text-left text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="footer-link-about"
               >
-                {t('about')}
+                {t("about")}
               </button>
               <button
-                onClick={() => {
-                  const section = document.getElementById('services');
-                  section?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="block text-left text-muted-foreground hover:text-foreground transition-colors" 
+                onClick={() => handleScrollNavigation("services")}
+                className="block text-left text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="footer-link-services"
               >
-                {t('services')}
+                {t("services")}
               </button>
               <button
-                onClick={() => {
-                  const section = document.getElementById('contact');
-                  section?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="block text-left text-muted-foreground hover:text-foreground transition-colors" 
+                onClick={() => handleScrollNavigation("contact")}
+                className="block text-left text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="footer-link-contact"
               >
-                {t('contact')}
+                {t("contact")}
               </button>
               <Link
-                href={getHref('/privacy')}
+                href={getLocalizedPath("/privacy", i18n.language)}
                 className="block text-left text-muted-foreground hover:text-foreground transition-colors"
                 data-testid="footer-link-privacy"
               >
-                {t('privacy')}
+                {t("privacy")}
               </Link>
             </nav>
           </div>
@@ -77,7 +82,7 @@ export default function Footer() {
               <p data-testid="footer-contact-phone">{t('phone')}</p>
               <p data-testid="footer-contact-email">{t('email')}</p>
               <p data-testid="footer-contact-address">
-                {t('address').split('\n').map((line, index) => (
+                {t("address").split("\n").map((line, index) => (
                   <span key={index}>
                     {line}
                     {index === 0 && <br />}
@@ -91,17 +96,17 @@ export default function Footer() {
         <div className="border-t border-border mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm" data-testid="footer-copyright">
-              {t('copyright')}
+              {t("copyright")}
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href={getHref('/terms')}>
+              <Link href={getLocalizedPath("/terms", i18n.language)}>
                 <span className="text-muted-foreground hover:text-foreground text-sm transition-colors" data-testid="footer-link-terms">
-                  {t('terms')}
+                  {t("terms")}
                 </span>
               </Link>
-              <Link href={getHref('/privacy')}>
+              <Link href={getLocalizedPath("/privacy", i18n.language)}>
                 <span className="text-muted-foreground hover:text-foreground text-sm transition-colors" data-testid="footer-link-privacy-bottom">
-                  {t('privacy')}
+                  {t("privacy")}
                 </span>
               </Link>
             </div>
@@ -111,4 +116,3 @@ export default function Footer() {
     </footer>
   );
 }
-

@@ -19,12 +19,16 @@
     "sending": "Sending..."
   },
   "success": {
-    "title": "Message Sent",
-    "description": "Thank you for reaching out. I’ll get back to you within 24 hours."
+    "title": "Email Draft Ready",
+    "description": "Your email app should open with a prepared message. If it does not, send your message directly to {{email}}."
   },
   "error": {
     "title": "Error Occurred",
-    "description": "Failed to send message. Please try again."
+    "description": "Couldn't prepare the email draft. Please send your message directly to {{email}}."
+  },
+  "emailDraft": {
+    "subject": "Website contact request from {{name}}",
+    "intro": "A visitor submitted the website contact form with the details below."
   },
   "contact_methods": {
     "phone": "Phone",

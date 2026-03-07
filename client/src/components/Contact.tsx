@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -9,18 +8,16 @@ import { Phone, Mail, MapPin, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import { insertContactInquirySchema, type InsertContactInquiry } from "@shared/schema";
 import { useTranslation } from "react-i18next";
+import { contactInquirySchema, type ContactInquiryInput } from "@/lib/forms";
+import { openEmailDraft, THERAPIST_EMAIL } from "@/lib/mailto";
 
 export default function Contact() {
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const { t } = useTranslation('contact');
+  const { t } = useTranslation("contact");
 
-  const form = useForm<InsertContactInquiry>({
-    resolver: zodResolver(insertContactInquirySchema),
+  const form = useForm<ContactInquiryInput>({
+    resolver: zodResolver(contactInquirySchema),
     defaultValues: {
       name: "",
       email: "",
@@ -30,28 +27,38 @@ export default function Contact() {
     }
   });
 
-  const contactMutation = useMutation({
-    mutationFn: (data: InsertContactInquiry) => apiRequest("POST", "/api/contact", data),
-    onSuccess: (data: any) => {
+  const handleSubmit = (data: ContactInquiryInput) => {
+    try {
+      openEmailDraft({
+        subject: t("emailDraft.subject", { name: data.name }),
+        bodyLines: [
+          t("emailDraft.intro"),
+          "",
+          `${t("form.name")}: ${data.name}`,
+          `${t("form.email")}: ${data.email}`,
+          data.phone ? `${t("form.phone")}: ${data.phone}` : undefined,
+          data.preferredContact
+            ? `${t("form.contact_method")}: ${t(`contact_methods.${data.preferredContact}`)}`
+            : undefined,
+          "",
+          `${t("form.message")}:`,
+          data.message,
+        ],
+      });
+
       toast({
-        title: t('success.title'),
-        description: data.message || t('success.description'),
+        title: t("success.title"),
+        description: t("success.description", { email: THERAPIST_EMAIL }),
       });
       form.reset();
-      queryClient.invalidateQueries({ queryKey: ["/api/contact"] });
-    },
-    onError: (error: any) => {
+    } catch (error) {
       console.error("Error submitting form:", error);
       toast({
-        title: t('error.title'),
-        description: error.message || t('error.description'),
+        title: t("error.title"),
+        description: t("error.description", { email: THERAPIST_EMAIL }),
         variant: "destructive"
       });
     }
-  });
-
-  const handleSubmit = (data: InsertContactInquiry) => {
-    contactMutation.mutate(data);
   };
 
   return (
@@ -163,10 +170,10 @@ export default function Contact() {
                   <Button 
                     type="submit" 
                     className="w-full" 
-                    disabled={contactMutation.isPending}
+                    disabled={form.formState.isSubmitting}
                     data-testid="button-submit-form"
                   >
-                    {contactMutation.isPending ? t('form.sending') : t('form.submit')}
+                    {form.formState.isSubmitting ? t("form.sending") : t("form.submit")}
                   </Button>
                 </form>
               </Form>
