@@ -8,13 +8,17 @@ import { Phone, Mail, MapPin, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { contactInquirySchema, type ContactInquiryInput } from "@/lib/forms";
-import { openEmailDraft, THERAPIST_EMAIL } from "@/lib/mailto";
+import { THERAPIST_EMAIL } from "@/lib/mailto";
+import { submitWebsiteForm } from "@/lib/formSubmission";
 
 export default function Contact() {
   const { toast } = useToast();
-  const { t } = useTranslation("contact");
+  const { t, i18n } = useTranslation("contact");
+  const startedAtRef = useRef(Date.now());
+  const honeypotRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<ContactInquiryInput>({
     resolver: zodResolver(contactInquirySchema),
@@ -27,30 +31,56 @@ export default function Contact() {
     }
   });
 
-  const handleSubmit = (data: ContactInquiryInput) => {
+  const handleSubmit = async (data: ContactInquiryInput) => {
     try {
-      openEmailDraft({
-        subject: t("emailDraft.subject", { name: data.name }),
-        bodyLines: [
-          t("emailDraft.intro"),
-          "",
-          `${t("form.name")}: ${data.name}`,
-          `${t("form.email")}: ${data.email}`,
-          data.phone ? `${t("form.phone")}: ${data.phone}` : undefined,
-          data.preferredContact
-            ? `${t("form.contact_method")}: ${t(`contact_methods.${data.preferredContact}`)}`
+      const result = await submitWebsiteForm(
+        {
+          formType: "contact",
+          language: i18n.language,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          preferredContact: data.preferredContact,
+          preferredContactLabel: data.preferredContact
+            ? t(`contact_methods.${data.preferredContact}`)
             : undefined,
-          "",
-          `${t("form.message")}:`,
-          data.message,
-        ],
-      });
+          message: data.message,
+          startedAt: startedAtRef.current,
+          website: honeypotRef.current?.value || "",
+        },
+        {
+          subject: t("emailDraft.subject", { name: data.name }),
+          bodyLines: [
+            t("emailDraft.intro"),
+            "",
+            `${t("form.name")}: ${data.name}`,
+            `${t("form.email")}: ${data.email}`,
+            data.phone ? `${t("form.phone")}: ${data.phone}` : undefined,
+            data.preferredContact
+              ? `${t("form.contact_method")}: ${t(`contact_methods.${data.preferredContact}`)}`
+              : undefined,
+            "",
+            `${t("form.message")}:`,
+            data.message,
+          ],
+        },
+      );
 
       toast({
-        title: t("success.title"),
-        description: t("success.description", { email: THERAPIST_EMAIL }),
+        title:
+          result.deliveryMethod === "appsScript"
+            ? t("success.title")
+            : t("fallback.title"),
+        description:
+          result.deliveryMethod === "appsScript"
+            ? t("success.description")
+            : t("fallback.description", { email: THERAPIST_EMAIL }),
       });
       form.reset();
+      if (honeypotRef.current) {
+        honeypotRef.current.value = "";
+      }
+      startedAtRef.current = Date.now();
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
@@ -80,9 +110,17 @@ export default function Contact() {
               <CardTitle data-testid="form-title">{t('form.title')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+                <input
+                  ref={honeypotRef}
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="hidden"
+                  aria-hidden="true"
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
                       name="name"

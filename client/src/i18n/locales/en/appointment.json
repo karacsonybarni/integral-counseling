@@ -23,12 +23,16 @@
     "individual": "Integral Counseling (55 min)"
   },
   "success": {
-    "title": "Appointment Draft Ready",
-    "description": "Your email app should open with a prepared appointment request. If it does not, send your request directly to {{email}}."
+    "title": "Appointment Requested",
+    "description": "Your request has been sent. I'll contact you within 24 hours."
   },
   "error": {
     "title": "Error Occurred",
-    "description": "Couldn't prepare the appointment email draft. Please send your request directly to {{email}}."
+    "description": "Couldn't send your appointment request automatically. Please email {{email}} directly."
+  },
+  "fallback": {
+    "title": "Appointment Draft Ready",
+    "description": "Automatic sending is unavailable right now, so your email app should open with a prepared appointment request. If it does not, email {{email}} directly."
   },
   "emailDraft": {
     "subject": "Website appointment request from {{name}}",

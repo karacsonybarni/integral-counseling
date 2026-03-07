@@ -19,12 +19,16 @@
     "sending": "Küldés..."
   },
   "success": {
-    "title": "E-mail piszkozat előkészítve",
-    "description": "Meg kell nyílnia az e-mail alkalmazásának egy előkészített üzenettel. Ha mégsem, küldje el közvetlenül erre a címre: {{email}}."
+    "title": "Üzenet elküldve",
+    "description": "Köszönöm a megkeresést. 24 órán belül válaszolok."
   },
   "error": {
     "title": "Hiba történt",
-    "description": "Nem sikerült előkészíteni az e-mailt. Kérem, küldje el közvetlenül erre a címre: {{email}}."
+    "description": "Nem sikerült automatikusan elküldeni az üzenetet. Kérem, küldje el közvetlenül erre a címre: {{email}}."
+  },
+  "fallback": {
+    "title": "E-mail piszkozat előkészítve",
+    "description": "Az automatikus küldés most nem érhető el, ezért az e-mail alkalmazásnak egy előkészített üzenettel kell megnyílnia. Ha mégsem, küldje el közvetlenül erre a címre: {{email}}."
   },
   "emailDraft": {
     "subject": "Kapcsolatfelvétel a weboldalról: {{name}}",

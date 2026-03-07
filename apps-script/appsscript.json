@@ -1,0 +1,8 @@
+{
+  "timeZone": "Europe/Budapest",
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/script.send_mail"
+  ]
+}

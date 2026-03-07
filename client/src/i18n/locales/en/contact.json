@@ -19,12 +19,16 @@
     "sending": "Sending..."
   },
   "success": {
-    "title": "Email Draft Ready",
-    "description": "Your email app should open with a prepared message. If it does not, send your message directly to {{email}}."
+    "title": "Message Sent",
+    "description": "Thank you for reaching out. I'll get back to you within 24 hours."
   },
   "error": {
     "title": "Error Occurred",
-    "description": "Couldn't prepare the email draft. Please send your message directly to {{email}}."
+    "description": "Couldn't send your message automatically. Please email {{email}} directly."
+  },
+  "fallback": {
+    "title": "Email Draft Ready",
+    "description": "Automatic sending is unavailable right now, so your email app should open with a prepared message. If it does not, email {{email}} directly."
   },
   "emailDraft": {
     "subject": "Website contact request from {{name}}",

@@ -8,13 +8,17 @@ import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { appointmentSchema, type AppointmentInput } from "@/lib/forms";
-import { openEmailDraft, THERAPIST_EMAIL } from "@/lib/mailto";
+import { THERAPIST_EMAIL } from "@/lib/mailto";
+import { submitWebsiteForm } from "@/lib/formSubmission";
 
 export default function AppointmentBooking() {
   const { toast } = useToast();
   const { t, i18n } = useTranslation("appointment");
+  const startedAtRef = useRef(Date.now());
+  const honeypotRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<AppointmentInput>({
     resolver: zodResolver(appointmentSchema),
@@ -54,29 +58,54 @@ export default function AppointmentBooking() {
 
   const availableDates = getAvailableDates();
 
-  const handleSubmit = (data: AppointmentInput) => {
+  const handleSubmit = async (data: AppointmentInput) => {
     try {
-      openEmailDraft({
-        subject: t("emailDraft.subject", { name: data.name }),
-        bodyLines: [
-          t("emailDraft.intro"),
-          "",
-          `${t("form.name")}: ${data.name}`,
-          `${t("form.email")}: ${data.email}`,
-          data.phone ? `${t("form.phone")}: ${data.phone}` : undefined,
-          `${t("form.date")}: ${formatDateValue(data.preferredDate)}`,
-          `${t("form.time")}: ${data.preferredTime}`,
-          data.message ? "" : undefined,
-          data.message ? `${t("form.message")}:` : undefined,
-          data.message,
-        ],
-      });
+      const result = await submitWebsiteForm(
+        {
+          formType: "appointment",
+          language: i18n.language,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          preferredDate: data.preferredDate,
+          preferredDateLabel: formatDateValue(data.preferredDate),
+          preferredTime: data.preferredTime,
+          message: data.message,
+          startedAt: startedAtRef.current,
+          website: honeypotRef.current?.value || "",
+        },
+        {
+          subject: t("emailDraft.subject", { name: data.name }),
+          bodyLines: [
+            t("emailDraft.intro"),
+            "",
+            `${t("form.name")}: ${data.name}`,
+            `${t("form.email")}: ${data.email}`,
+            data.phone ? `${t("form.phone")}: ${data.phone}` : undefined,
+            `${t("form.date")}: ${formatDateValue(data.preferredDate)}`,
+            `${t("form.time")}: ${data.preferredTime}`,
+            data.message ? "" : undefined,
+            data.message ? `${t("form.message")}:` : undefined,
+            data.message,
+          ],
+        },
+      );
 
       toast({
-        title: t("success.title"),
-        description: t("success.description", { email: THERAPIST_EMAIL }),
+        title:
+          result.deliveryMethod === "appsScript"
+            ? t("success.title")
+            : t("fallback.title"),
+        description:
+          result.deliveryMethod === "appsScript"
+            ? t("success.description")
+            : t("fallback.description", { email: THERAPIST_EMAIL }),
       });
       form.reset();
+      if (honeypotRef.current) {
+        honeypotRef.current.value = "";
+      }
+      startedAtRef.current = Date.now();
     } catch (error) {
       console.error("Error booking appointment:", error);
       toast({
@@ -131,6 +160,14 @@ export default function AppointmentBooking() {
           <CardContent>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+                <input
+                  ref={honeypotRef}
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="hidden"
+                  aria-hidden="true"
+                />
                 {/* Personal Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField

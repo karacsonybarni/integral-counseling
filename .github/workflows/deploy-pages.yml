@@ -25,6 +25,8 @@ jobs:
           cache: npm
       - run: npm ci --no-audit --no-fund
       - run: npm run build
+        env:
+          VITE_APPS_SCRIPT_WEB_APP_URL: ${{ vars.VITE_APPS_SCRIPT_WEB_APP_URL }}
       - name: Add SPA fallback
         run: cp dist/public/index.html dist/public/404.html
       - name: Upload artifact
