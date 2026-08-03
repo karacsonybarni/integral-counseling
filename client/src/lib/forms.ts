@@ -5,34 +5,51 @@ const optionalTrimmedString = z
   .optional()
   .transform((value) => value?.trim() || undefined);
 
-export const contactInquirySchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters")
-    .trim(),
-  email: z.string().email("Please enter a valid email address").trim(),
-  phone: optionalTrimmedString,
-  message: z
-    .string()
-    .min(1, "Message is required")
-    .max(2000, "Message must be less than 2000 characters")
-    .trim(),
-  preferredContact: optionalTrimmedString,
-});
+type ValidationKey =
+  | "validation.name_required"
+  | "validation.name_too_long"
+  | "validation.email_invalid"
+  | "validation.message_required"
+  | "validation.message_too_long"
+  | "validation.date_required"
+  | "validation.time_required";
 
-export const appointmentSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be less than 100 characters")
-    .trim(),
-  email: z.string().email("Please enter a valid email address").trim(),
-  phone: optionalTrimmedString,
-  preferredDate: z.string().min(1, "Preferred date is required"),
-  preferredTime: z.string().min(1, "Preferred time is required"),
-  message: optionalTrimmedString,
-});
+type ValidationTranslator = (key: ValidationKey) => string;
 
-export type ContactInquiryInput = z.infer<typeof contactInquirySchema>;
-export type AppointmentInput = z.infer<typeof appointmentSchema>;
+export function createContactInquirySchema(t: ValidationTranslator) {
+  return z.object({
+    name: z
+      .string()
+      .min(1, t("validation.name_required"))
+      .max(100, t("validation.name_too_long"))
+      .trim(),
+    email: z.string().email(t("validation.email_invalid")).trim(),
+    phone: optionalTrimmedString,
+    message: z
+      .string()
+      .min(1, t("validation.message_required"))
+      .max(2000, t("validation.message_too_long"))
+      .trim(),
+    preferredContact: optionalTrimmedString,
+  });
+}
+
+export function createAppointmentSchema(t: ValidationTranslator) {
+  return z.object({
+    name: z
+      .string()
+      .min(1, t("validation.name_required"))
+      .max(100, t("validation.name_too_long"))
+      .trim(),
+    email: z.string().email(t("validation.email_invalid")).trim(),
+    phone: optionalTrimmedString,
+    preferredDate: z.string().min(1, t("validation.date_required")),
+    preferredTime: z.string().min(1, t("validation.time_required")),
+    message: optionalTrimmedString,
+  });
+}
+
+export type ContactInquiryInput = z.infer<
+  ReturnType<typeof createContactInquirySchema>
+>;
+export type AppointmentInput = z.infer<ReturnType<typeof createAppointmentSchema>>;

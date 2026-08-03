@@ -20,5 +20,10 @@
   "name": "Name",
   "message": "Message",
   "date": "Date",
-  "time": "Time"
+  "time": "Time",
+  "not_found": {
+    "title": "404 — Page not found",
+    "description": "The page you requested does not exist or has moved.",
+    "home": "Back to the home page"
+  }
 }

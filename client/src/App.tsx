@@ -14,15 +14,17 @@ function LanguageRouter() {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    const path = location.toLowerCase();
-    if (path.startsWith('/en')) {
-      if (i18n.language !== 'en') {
-        i18n.changeLanguage('en');
+    const path = location.toLowerCase().split("?")[0];
+    const isEnglishPath = path === "/en" || path.startsWith("/en/");
+
+    if (isEnglishPath) {
+      if (i18n.language !== "en") {
+        i18n.changeLanguage("en");
       }
     } else {
       // Default to Hungarian for root path and any other path
-      if (i18n.language !== 'hu') {
-        i18n.changeLanguage('hu');
+      if (i18n.language !== "hu") {
+        i18n.changeLanguage("hu");
       }
     }
   }, [location, i18n]);

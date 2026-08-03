@@ -30,6 +30,13 @@
     "title": "Email Draft Ready",
     "description": "Automatic sending is unavailable right now, so your email app should open with a prepared message. If it does not, email {{email}} directly."
   },
+  "validation": {
+    "name_required": "Name is required.",
+    "name_too_long": "Name must be 100 characters or fewer.",
+    "email_invalid": "Enter a valid email address.",
+    "message_required": "Message is required.",
+    "message_too_long": "Message must be 2000 characters or fewer."
+  },
   "emailDraft": {
     "subject": "Website contact request from {{name}}",
     "intro": "A visitor submitted the website contact form with the details below."

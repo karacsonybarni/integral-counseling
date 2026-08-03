@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import profileImage from "@assets/generated_images/Professional_therapist_headshot_d6da5109.png";
-import officeImage from "@assets/generated_images/Therapy_office_interior_578cbac1.png";
+import profileImage from "@/assets/barna-armchair.jpeg";
 import { useTranslation } from "react-i18next";
 
 export default function About() {
@@ -23,7 +22,11 @@ export default function About() {
           <div className="order-2 lg:order-1">
             <img 
               src={profileImage} 
-              alt={t('title')} 
+              alt={t("profile_alt")}
+              width={1086}
+              height={1448}
+              loading="lazy"
+              decoding="async"
               className="rounded-lg shadow-md w-full max-w-md mx-auto"
               data-testid="profile-image"
             />
@@ -59,22 +62,6 @@ export default function About() {
               </CardContent>
             </Card>
           </div>
-        </div>
-
-        {/* Office Image */}
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-serif font-semibold text-foreground mb-6" data-testid="office-title">
-            {t('office.title')}
-          </h3>
-          <img 
-            src={officeImage} 
-            alt="Therapy Office" 
-            className="rounded-lg shadow-md mx-auto max-w-4xl w-full"
-            data-testid="office-image"
-          />
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto" data-testid="office-description">
-            {t('office.description')}
-          </p>
         </div>
       </div>
     </section>

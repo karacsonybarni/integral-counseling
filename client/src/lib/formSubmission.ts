@@ -34,6 +34,7 @@ interface WebsiteFormPayload {
 interface AppsScriptMessage {
   source?: string;
   ok?: boolean;
+  ignored?: boolean;
   error?: string;
   requestId?: string;
 }
@@ -129,7 +130,10 @@ async function submitToAppsScript(payload: WebsiteFormPayload) {
     };
 
     const handleMessage = (event: MessageEvent<AppsScriptMessage>) => {
-      if (!isTrustedAppsScriptOrigin(event.origin)) {
+      if (
+        event.source !== iframe.contentWindow ||
+        !isTrustedAppsScriptOrigin(event.origin)
+      ) {
         return;
       }
 
@@ -142,12 +146,18 @@ async function submitToAppsScript(payload: WebsiteFormPayload) {
         return;
       }
 
-      if (message.ok) {
+      if (message.ok && !message.ignored) {
         resolveOnce();
         return;
       }
 
-      rejectOnce(new Error(message.error || "Apps Script rejected the submission."));
+      rejectOnce(
+        new Error(
+          message.ignored
+            ? "Apps Script ignored the submission as suspected spam."
+            : message.error || "Apps Script rejected the submission.",
+        ),
+      );
     };
 
     const timeoutId = window.setTimeout(() => {

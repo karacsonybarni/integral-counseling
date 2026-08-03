@@ -34,6 +34,13 @@
     "title": "Appointment Draft Ready",
     "description": "Automatic sending is unavailable right now, so your email app should open with a prepared appointment request. If it does not, email {{email}} directly."
   },
+  "validation": {
+    "name_required": "Name is required.",
+    "name_too_long": "Name must be 100 characters or fewer.",
+    "email_invalid": "Enter a valid email address.",
+    "date_required": "Choose a preferred date.",
+    "time_required": "Choose a preferred time."
+  },
   "emailDraft": {
     "subject": "Website appointment request from {{name}}",
     "intro": "A visitor requested an appointment through the website with the details below."

@@ -70,9 +70,14 @@ i18n
     },
   });
 
-// Set document language attribute
-i18n.on('languageChanged', (lng) => {
-  document.documentElement.lang = lng;
-});
+function setDocumentLanguage(language: string) {
+  if (typeof document !== "undefined") {
+    document.documentElement.lang = language.split("-")[0];
+  }
+}
+
+// Keep assistive technologies in sync with both the initial and selected language.
+i18n.on("languageChanged", setDocumentLanguage);
+setDocumentLanguage(i18n.resolvedLanguage || i18n.language || "hu");
 
 export default i18n;

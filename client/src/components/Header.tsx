@@ -108,8 +108,12 @@ export default function Header() {
 
           {/* Mobile menu button */}
           <button
+            type="button"
             className="md:hidden p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? t("close_menu") : t("open_menu")}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation"
             data-testid="button-mobile-menu"
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -118,7 +122,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
+          <div id="mobile-navigation" className="md:hidden py-4 border-t border-border">
             <nav className="flex flex-col space-y-3">
               {navigation.map((item) => {
                 if (item.action === "scroll") {

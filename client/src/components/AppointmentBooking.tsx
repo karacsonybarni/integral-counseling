@@ -8,9 +8,9 @@ import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { appointmentSchema, type AppointmentInput } from "@/lib/forms";
+import { createAppointmentSchema, type AppointmentInput } from "@/lib/forms";
 import { THERAPIST_EMAIL } from "@/lib/mailto";
 import { submitWebsiteForm } from "@/lib/formSubmission";
 
@@ -19,9 +19,10 @@ export default function AppointmentBooking() {
   const { t, i18n } = useTranslation("appointment");
   const startedAtRef = useRef(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
+  const validationSchema = useMemo(() => createAppointmentSchema(t), [t]);
 
   const form = useForm<AppointmentInput>({
-    resolver: zodResolver(appointmentSchema),
+    resolver: zodResolver(validationSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -177,7 +178,11 @@ export default function AppointmentBooking() {
                       <FormItem>
                         <FormLabel>{t('form.name')} *</FormLabel>
                         <FormControl>
-                          <Input {...field} data-testid="input-booking-name" />
+                          <Input
+                            {...field}
+                            placeholder={t("form.name_placeholder")}
+                            data-testid="input-booking-name"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -190,7 +195,12 @@ export default function AppointmentBooking() {
                       <FormItem>
                         <FormLabel>{t('form.email')} *</FormLabel>
                         <FormControl>
-                          <Input type="email" {...field} data-testid="input-booking-email" />
+                          <Input
+                            type="email"
+                            {...field}
+                            placeholder={t("form.email_placeholder")}
+                            data-testid="input-booking-email"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -205,7 +215,13 @@ export default function AppointmentBooking() {
                     <FormItem>
                       <FormLabel>{t('form.phone')}</FormLabel>
                       <FormControl>
-                        <Input type="tel" {...field} className="max-w-xs" data-testid="input-booking-phone" />
+                        <Input
+                          type="tel"
+                          {...field}
+                          placeholder={t("form.phone_placeholder")}
+                          className="max-w-xs"
+                          data-testid="input-booking-phone"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

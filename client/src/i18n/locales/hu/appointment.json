@@ -34,6 +34,13 @@
     "title": "Időpontkérő e-mail előkészítve",
     "description": "Az automatikus küldés most nem érhető el, ezért az e-mail alkalmazásnak egy előkészített időpontkéréssel kell megnyílnia. Ha mégsem, küldje el közvetlenül erre a címre: {{email}}."
   },
+  "validation": {
+    "name_required": "A név megadása kötelező.",
+    "name_too_long": "A név legfeljebb 100 karakter lehet.",
+    "email_invalid": "Adjon meg egy érvényes e-mail címet.",
+    "date_required": "Válasszon egy dátumot.",
+    "time_required": "Válasszon egy időpontot."
+  },
   "emailDraft": {
     "subject": "Időpontkérés a weboldalról: {{name}}",
     "intro": "Egy látogató a weboldalon keresztül időpontot kért az alábbi adatokkal."

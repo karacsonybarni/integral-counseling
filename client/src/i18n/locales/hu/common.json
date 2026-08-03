@@ -20,5 +20,10 @@
   "name": "Név",
   "message": "Üzenet",
   "date": "Dátum",
-  "time": "Időpont"
+  "time": "Időpont",
+  "not_found": {
+    "title": "404 – Az oldal nem található",
+    "description": "A keresett oldal nem létezik vagy áthelyezték.",
+    "home": "Vissza a főoldalra"
+  }
 }
