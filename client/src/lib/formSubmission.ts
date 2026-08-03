@@ -102,10 +102,10 @@ async function submitToAppsScript(payload: WebsiteFormPayload) {
     };
 
     const handleMessage = (event: MessageEvent<AppsScriptMessage>) => {
-      if (
-        event.source !== iframe.contentWindow ||
-        !isTrustedAppsScriptOrigin(event.origin)
-      ) {
+      // HtmlService runs the callback in a nested googleusercontent sandbox, so
+      // its window is a descendant of the submission iframe rather than the
+      // iframe window itself. The trusted origin and request ID correlate it.
+      if (!isTrustedAppsScriptOrigin(event.origin)) {
         return;
       }
 
