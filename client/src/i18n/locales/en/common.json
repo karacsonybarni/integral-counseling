@@ -21,6 +21,25 @@
   "message": "Message",
   "date": "Date",
   "time": "Time",
+  "skip_to_content": "Skip to main content",
+  "meta": {
+    "home": {
+      "title": "Barna Karácsony — Integral Counselor Candidate | Budapest",
+      "description": "Integral counseling with Barna Karácsony. Practical, compassionate conversations for clarity, resilience, and meaningful change. Sessions in Hungarian and English."
+    },
+    "terms": {
+      "title": "Terms of Service | Barna Karácsony",
+      "description": "Terms of service for integral counseling with Barna Karácsony."
+    },
+    "privacy": {
+      "title": "Privacy Policy | Barna Karácsony",
+      "description": "Privacy information for the Barna Karácsony integral counseling website."
+    },
+    "not_found": {
+      "title": "Page Not Found | Barna Karácsony",
+      "description": "The requested page could not be found."
+    }
+  },
   "not_found": {
     "title": "404 — Page not found",
     "description": "The page you requested does not exist or has moved.",

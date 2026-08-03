@@ -2,15 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Brain, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { scrollToSection } from "@/lib/routing";
 
 export default function Services() {
   const { t } = useTranslation('services');
   
-  const scrollToAppointmentBooking = () => {
-    const bookingSection = document.getElementById("appointment-booking");
-    bookingSection?.scrollIntoView({ behavior: "smooth" });
-  };
-
   // Individual therapy service data
   const service = {
     icon: Brain,
@@ -35,11 +31,11 @@ export default function Services() {
 
         {/* Featured Service Section */}
         <div className="max-w-4xl mx-auto mb-12">
-          <Card className="hover-elevate bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+          <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
             <CardContent className="p-8">
               <div className="text-center mb-6">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Brain className="h-8 w-8 text-primary" />
+                  <Brain className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <CardTitle className="text-2xl sm:text-3xl font-serif mb-3" data-testid="service-title-individual">
                   {service.title}
@@ -51,7 +47,7 @@ export default function Services() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div className="flex items-center justify-center gap-3 p-4 bg-background/50 rounded-lg">
-                  <Clock className="h-5 w-5 text-primary flex-shrink-0" />
+                  <Clock className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
                   <div>
                     <span className="font-medium text-foreground block">{t('session_length')}</span>
                     <span className="text-muted-foreground" data-testid="service-duration-individual">
@@ -60,7 +56,7 @@ export default function Services() {
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-3 p-4 bg-background/50 rounded-lg">
-                  <Brain className="h-5 w-5 text-primary flex-shrink-0" />
+                  <Brain className="h-5 w-5 text-primary flex-shrink-0" aria-hidden="true" />
                   <div>
                     <span className="font-medium text-foreground block">{t('approach_label')}</span>
                     <span className="text-muted-foreground" data-testid="service-approach-individual">
@@ -72,13 +68,21 @@ export default function Services() {
               
               <div className="text-center">
                 <Button
+                  asChild
                   variant="default"
                   size="lg"
                   className="px-8"
-                  onClick={scrollToAppointmentBooking}
-                  data-testid="button-learn-more-individual"
                 >
-                  {t('learn_more')}
+                  <a
+                    href="#appointment-booking"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      scrollToSection("appointment-booking");
+                    }}
+                    data-testid="button-learn-more-individual"
+                  >
+                    {t('learn_more')}
+                  </a>
                 </Button>
               </div>
             </CardContent>

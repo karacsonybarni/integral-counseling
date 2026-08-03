@@ -3,9 +3,11 @@
   "about": "About",
   "services": "Services",
   "contact": "Contact",
-  "appointment": "Book Consultation",
+  "appointment": "Request a Consultation",
   "language": "Language",
+  "change_language": "Change language. Current language: {{language}}",
   "open_menu": "Open navigation menu",
   "close_menu": "Close navigation menu",
+  "primary_navigation": "Primary navigation",
   "logo": "Barna Karácsony"
 }

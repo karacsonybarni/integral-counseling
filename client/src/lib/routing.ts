@@ -25,14 +25,25 @@ export function scrollToSection(target: string) {
 
   const section = document.getElementById(target);
   if (section) {
-    section.scrollIntoView({ behavior: "smooth" });
+    section.scrollIntoView({ behavior: getPreferredScrollBehavior() });
     return;
   }
 
   requestAnimationFrame(() => {
     const retrySection = document.getElementById(target);
-    retrySection?.scrollIntoView({ behavior: "smooth" });
+    retrySection?.scrollIntoView({ behavior: getPreferredScrollBehavior() });
   });
+}
+
+function getPreferredScrollBehavior(): ScrollBehavior {
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    return "auto";
+  }
+
+  return "smooth";
 }
 
 export function storePendingScrollTarget(target: string) {

@@ -1,12 +1,16 @@
 import { Link } from "wouter";
 import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
+import type { MouseEvent } from "react";
 import { getLocalizedPath, scrollToSection, storePendingScrollTarget } from "@/lib/routing";
+import { THERAPIST_EMAIL, THERAPIST_PHONE_HREF } from "@/lib/contactDetails";
 
 export default function Footer() {
   const [location, navigate] = useLocation();
   const { t, i18n } = useTranslation("footer");
   const homePath = getLocalizedPath("/", i18n.language);
+  const footerLinkClasses =
+    "flex min-h-11 items-center rounded-sm text-left text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
   const handleScrollNavigation = (target: string) => {
     const normalizedLocation = location.split("?")[0];
@@ -17,6 +21,14 @@ export default function Footer() {
 
     storePendingScrollTarget(target);
     navigate(homePath);
+  };
+
+  const handleSectionLink = (
+    event: MouseEvent<HTMLAnchorElement>,
+    target: string,
+  ) => {
+    event.preventDefault();
+    handleScrollNavigation(target);
   };
 
   return (
@@ -42,30 +54,33 @@ export default function Footer() {
               {t('quick_links')}
             </h3>
             <nav className="space-y-2">
-              <button
-                onClick={() => handleScrollNavigation("about")}
-                className="block text-left text-muted-foreground hover:text-foreground transition-colors"
+              <Link
+                href={getLocalizedPath("/#about", i18n.language)}
+                onClick={(event) => handleSectionLink(event, "about")}
+                className={footerLinkClasses}
                 data-testid="footer-link-about"
               >
                 {t("about")}
-              </button>
-              <button
-                onClick={() => handleScrollNavigation("services")}
-                className="block text-left text-muted-foreground hover:text-foreground transition-colors"
+              </Link>
+              <Link
+                href={getLocalizedPath("/#services", i18n.language)}
+                onClick={(event) => handleSectionLink(event, "services")}
+                className={footerLinkClasses}
                 data-testid="footer-link-services"
               >
                 {t("services")}
-              </button>
-              <button
-                onClick={() => handleScrollNavigation("contact")}
-                className="block text-left text-muted-foreground hover:text-foreground transition-colors"
+              </Link>
+              <Link
+                href={getLocalizedPath("/#contact", i18n.language)}
+                onClick={(event) => handleSectionLink(event, "contact")}
+                className={footerLinkClasses}
                 data-testid="footer-link-contact"
               >
                 {t("contact")}
-              </button>
+              </Link>
               <Link
                 href={getLocalizedPath("/privacy", i18n.language)}
-                className="block text-left text-muted-foreground hover:text-foreground transition-colors"
+                className={footerLinkClasses}
                 data-testid="footer-link-privacy"
               >
                 {t("privacy")}
@@ -79,8 +94,20 @@ export default function Footer() {
               {t('contact_info')}
             </h3>
             <div className="space-y-2 text-muted-foreground">
-              <p data-testid="footer-contact-phone">{t('phone')}</p>
-              <p data-testid="footer-contact-email">{t('email')}</p>
+              <a
+                href={THERAPIST_PHONE_HREF}
+                className={footerLinkClasses}
+                data-testid="footer-contact-phone"
+              >
+                {t("phone")}
+              </a>
+              <a
+                href={`mailto:${THERAPIST_EMAIL}`}
+                className={footerLinkClasses}
+                data-testid="footer-contact-email"
+              >
+                {t("email")}
+              </a>
               <p data-testid="footer-contact-address">
                 {t("address").split("\n").map((line, index) => (
                   <span key={index}>
@@ -99,15 +126,19 @@ export default function Footer() {
               {t("copyright", { year: new Date().getFullYear() })}
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href={getLocalizedPath("/terms", i18n.language)}>
-                <span className="text-muted-foreground hover:text-foreground text-sm transition-colors" data-testid="footer-link-terms">
-                  {t("terms")}
-                </span>
+              <Link
+                href={getLocalizedPath("/terms", i18n.language)}
+                className={`${footerLinkClasses} text-sm`}
+                data-testid="footer-link-terms"
+              >
+                {t("terms")}
               </Link>
-              <Link href={getLocalizedPath("/privacy", i18n.language)}>
-                <span className="text-muted-foreground hover:text-foreground text-sm transition-colors" data-testid="footer-link-privacy-bottom">
-                  {t("privacy")}
-                </span>
+              <Link
+                href={getLocalizedPath("/privacy", i18n.language)}
+                className={`${footerLinkClasses} text-sm`}
+                data-testid="footer-link-privacy-bottom"
+              >
+                {t("privacy")}
               </Link>
             </div>
           </div>

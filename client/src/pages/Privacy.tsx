@@ -30,7 +30,11 @@ export default function Privacy() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+      >
         <article className="space-y-10">
           <header className="space-y-3">
             <h1 className="text-3xl font-serif font-bold text-foreground" data-testid="privacy-title">

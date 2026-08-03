@@ -1,7 +1,8 @@
 {
-  "title": "Konzultáció foglalása",
+  "title": "Konzultáció kérése",
   "subtitle": "Küldje el időpontkérését; 24 órán belül válaszolok.",
   "form": {
+    "title": "Az időpontkérés adatai",
     "name": "Teljes név",
     "name_placeholder": "Adja meg a teljes nevét",
     "email": "E‑mail cím",
@@ -16,8 +17,9 @@
     "time_placeholder": "Válasszon időpontot",
     "message": "További információ",
     "message_placeholder": "Amit érdemes tudnom előre...",
-    "submit": "Konzultáció foglalása",
-    "booking": "Foglalás..."
+    "required": "kötelező",
+    "submit": "Időpontkérés küldése",
+    "booking": "Kérés küldése..."
   },
   "services": {
     "individual": "Integrál tanácsadás (55 perc)"
@@ -27,8 +29,9 @@
     "description": "Az időpontkérés sikeresen elküldve. 24 órán belül jelentkezem."
   },
   "error": {
-    "title": "Hiba történt",
-    "description": "Nem sikerült automatikusan elküldeni az időpontkérést. Kérem, küldje el közvetlenül erre a címre: {{email}}."
+    "title": "Az időpontkérés nem lett elküldve",
+    "description": "Nem sikerült elküldeni a kérést. A megadott adatok megmaradtak, így újra próbálhatja, vagy közvetlenül kapcsolatba léphet velem.",
+    "email_action": "E-mail küldése ide: {{email}}"
   },
   "validation": {
     "name_required": "A név megadása kötelező.",

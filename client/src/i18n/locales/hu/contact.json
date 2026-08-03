@@ -15,6 +15,7 @@
     "contact_method_placeholder": "Hogyan szeretné, hogy kapcsolatba lépjek?",
     "message": "Üzenet",
     "message_placeholder": "Ossza meg röviden a témát vagy kérdéseit...",
+    "required": "kötelező",
     "submit": "Üzenet küldése",
     "sending": "Küldés..."
   },
@@ -23,8 +24,9 @@
     "description": "Az üzenet sikeresen elküldve. Köszönöm a megkeresést — 24 órán belül válaszolok."
   },
   "error": {
-    "title": "Hiba történt",
-    "description": "Nem sikerült automatikusan elküldeni az üzenetet. Kérem, küldje el közvetlenül erre a címre: {{email}}."
+    "title": "Az üzenet nem lett elküldve",
+    "description": "Nem sikerült elküldeni az üzenetet. A megadott adatok megmaradtak, így újra próbálhatja, vagy közvetlenül kapcsolatba léphet velem.",
+    "email_action": "E-mail küldése ide: {{email}}"
   },
   "validation": {
     "name_required": "A név megadása kötelező.",

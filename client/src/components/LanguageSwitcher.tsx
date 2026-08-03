@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Globe } from "lucide-react";
+import { Check, Globe } from "lucide-react";
 import { getLocalizedPath } from "@/lib/routing";
 
 export default function LanguageSwitcher() {
@@ -19,7 +19,7 @@ export default function LanguageSwitcher() {
     setLocation(getLocalizedPath(location, lng));
   };
 
-  const currentLang = i18n.language || "hu";
+  const currentLang = (i18n.resolvedLanguage || i18n.language || "hu").split("-")[0];
   const languages = [
     { code: "hu", name: "Magyar" },
     { code: "en", name: "English" }
@@ -32,9 +32,12 @@ export default function LanguageSwitcher() {
           variant="ghost" 
           size="sm" 
           className="gap-2"
+          aria-label={t("change_language", {
+            language: languages.find((lang) => lang.code === currentLang)?.name,
+          })}
           data-testid="button-language-switcher"
         >
-          <Globe className="h-4 w-4" />
+          <Globe className="h-4 w-4" aria-hidden="true" />
           <span className="hidden sm:inline">{t("language")}</span>
           <span className="text-xs font-medium">
             {languages.find(lang => lang.code === currentLang)?.code.toUpperCase()}
@@ -46,10 +49,16 @@ export default function LanguageSwitcher() {
           <DropdownMenuItem
             key={lang.code}
             onClick={() => changeLanguage(lang.code)}
-            className={currentLang === lang.code ? "bg-accent" : ""}
+            className="flex min-h-11 items-center"
+            aria-current={currentLang === lang.code ? "true" : undefined}
             data-testid={`option-language-${lang.code}`}
           >
-            <span className="mr-2 font-mono text-xs">{lang.code.toUpperCase()}</span>
+            <span className="mr-2 inline-flex w-4" aria-hidden="true">
+              {currentLang === lang.code && <Check className="h-4 w-4" />}
+            </span>
+            <span className="mr-2 font-mono text-xs" aria-hidden="true">
+              {lang.code.toUpperCase()}
+            </span>
             {lang.name}
           </DropdownMenuItem>
         ))}

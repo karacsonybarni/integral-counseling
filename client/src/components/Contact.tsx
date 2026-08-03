@@ -5,22 +5,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import SubmissionSuccessMessage from "@/components/SubmissionSuccessMessage";
+import SubmissionErrorMessage from "@/components/SubmissionErrorMessage";
 import { Phone, Mail, MapPin, Calendar } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { createContactInquirySchema, type ContactInquiryInput } from "@/lib/forms";
-import { THERAPIST_EMAIL } from "@/lib/contactDetails";
+import { THERAPIST_EMAIL, THERAPIST_PHONE_HREF } from "@/lib/contactDetails";
 import { submitWebsiteForm } from "@/lib/formSubmission";
 
 export default function Contact() {
-  const { toast } = useToast();
   const { t, i18n } = useTranslation("contact");
   const startedAtRef = useRef(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
+  const [errorMessageVisible, setErrorMessageVisible] = useState(false);
   const validationSchema = useMemo(() => createContactInquirySchema(t), [t]);
 
   const form = useForm<ContactInquiryInput>({
@@ -36,6 +36,7 @@ export default function Contact() {
 
   const handleSubmit = async (data: ContactInquiryInput) => {
     setSuccessMessageVisible(false);
+    setErrorMessageVisible(false);
 
     try {
       await submitWebsiteForm({
@@ -61,11 +62,7 @@ export default function Contact() {
       setSuccessMessageVisible(true);
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast({
-        title: t("error.title"),
-        description: t("error.description", { email: THERAPIST_EMAIL }),
-        variant: "destructive"
-      });
+      setErrorMessageVisible(true);
     }
   };
 
@@ -90,9 +87,12 @@ export default function Contact() {
             <CardContent>
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(handleSubmit, () =>
-                  setSuccessMessageVisible(false)
-                )}
+                noValidate
+                aria-busy={form.formState.isSubmitting}
+                onSubmit={form.handleSubmit(handleSubmit, () => {
+                  setSuccessMessageVisible(false);
+                  setErrorMessageVisible(false);
+                })}
                 className="space-y-6"
               >
                 <input
@@ -109,10 +109,14 @@ export default function Contact() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('form.name')} *</FormLabel>
+                          <FormLabel>
+                            {t("form.name")} ({t("form.required")})
+                          </FormLabel>
                           <FormControl>
                             <Input
                               {...field}
+                              autoComplete="name"
+                              required
                               placeholder={t("form.name_placeholder")}
                               data-testid="input-name"
                             />
@@ -126,11 +130,15 @@ export default function Contact() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('form.email')} *</FormLabel>
+                          <FormLabel>
+                            {t("form.email")} ({t("form.required")})
+                          </FormLabel>
                           <FormControl>
                             <Input
                               type="email"
                               {...field}
+                              autoComplete="email"
+                              required
                               placeholder={t("form.email_placeholder")}
                               data-testid="input-email"
                             />
@@ -151,6 +159,7 @@ export default function Contact() {
                           <Input
                             type="tel"
                             {...field}
+                            autoComplete="tel"
                             placeholder={t("form.phone_placeholder")}
                             className="max-w-xs"
                             data-testid="input-phone"
@@ -189,10 +198,13 @@ export default function Contact() {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('form.message')} *</FormLabel>
+                        <FormLabel>
+                          {t("form.message")} ({t("form.required")})
+                        </FormLabel>
                         <FormControl>
                           <Textarea
                             {...field}
+                            required
                             placeholder={t('form.message_placeholder')}
                             rows={4}
                             data-testid="textarea-message"
@@ -218,6 +230,17 @@ export default function Contact() {
                       description={t("success.description")}
                     />
                   )}
+
+                  {errorMessageVisible && (
+                    <SubmissionErrorMessage
+                      title={t("error.title")}
+                      description={t("error.description")}
+                      email={THERAPIST_EMAIL}
+                      emailAction={t("error.email_action", {
+                        email: THERAPIST_EMAIL,
+                      })}
+                    />
+                  )}
                 </form>
               </Form>
             </CardContent>
@@ -231,21 +254,33 @@ export default function Contact() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-primary" />
+                  <Phone className="h-5 w-5 text-primary" aria-hidden="true" />
                   <div>
                     <p className="font-medium text-foreground">{t('contact_methods.phone')}</p>
-                    <p className="text-muted-foreground" data-testid="contact-phone">{t('info.phone')}</p>
+                    <a
+                      href={THERAPIST_PHONE_HREF}
+                      className="inline-flex min-h-11 items-center rounded-sm text-muted-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      data-testid="contact-phone"
+                    >
+                      {t("info.phone")}
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-primary" />
+                  <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
                   <div>
                     <p className="font-medium text-foreground">{t('contact_methods.email')}</p>
-                    <p className="text-muted-foreground" data-testid="contact-email">{t('info.email')}</p>
+                    <a
+                      href={`mailto:${THERAPIST_EMAIL}`}
+                      className="inline-flex min-h-11 items-center rounded-sm text-muted-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      data-testid="contact-email"
+                    >
+                      {t("info.email")}
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-primary" />
+                  <MapPin className="h-5 w-5 text-primary" aria-hidden="true" />
                   <div>
                     <p className="font-medium text-foreground">{t('info.address')}</p>
                     <p className="text-muted-foreground" data-testid="contact-address">
@@ -255,7 +290,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Calendar className="h-5 w-5 text-primary" />
+                  <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
                   <div>
                     <p className="font-medium text-foreground">{t('info.hours')}</p>
                     <p className="text-muted-foreground" data-testid="contact-hours">

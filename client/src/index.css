@@ -48,7 +48,7 @@
 
   --popover-border: 210 15% 89%;
 
-  --primary: 165 40% 36%;
+  --primary: 165 42% 34%;
 
   --primary-foreground: 0 0% 98%;
 
@@ -58,7 +58,7 @@
 
   --muted: 210 15% 94%;
 
-  --muted-foreground: 195 15% 45%;
+  --muted-foreground: 195 18% 39%;
 
   --accent: 220 30% 64%;
 
@@ -213,6 +213,16 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 

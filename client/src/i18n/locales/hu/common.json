@@ -21,6 +21,25 @@
   "message": "Üzenet",
   "date": "Dátum",
   "time": "Időpont",
+  "skip_to_content": "Ugrás a fő tartalomhoz",
+  "meta": {
+    "home": {
+      "title": "Karácsony Barna — Integrál tanácsadó jelölt | Budapest",
+      "description": "Integrál tanácsadás Karácsony Barnával. Gyakorlatias, együttérző beszélgetések tisztánlátáshoz, rugalmassághoz és valódi változáshoz, magyarul és angolul."
+    },
+    "terms": {
+      "title": "Szolgáltatási feltételek | Karácsony Barna",
+      "description": "A Karácsony Barna által nyújtott integrál tanácsadás szolgáltatási feltételei."
+    },
+    "privacy": {
+      "title": "Adatvédelmi irányelvek | Karácsony Barna",
+      "description": "A Karácsony Barna integrál tanácsadói weboldal adatvédelmi tájékoztatója."
+    },
+    "not_found": {
+      "title": "Az oldal nem található | Karácsony Barna",
+      "description": "A keresett oldal nem található."
+    }
+  },
   "not_found": {
     "title": "404 – Az oldal nem található",
     "description": "A keresett oldal nem létezik vagy áthelyezték.",

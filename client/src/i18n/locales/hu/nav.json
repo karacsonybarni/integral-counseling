@@ -3,9 +3,11 @@
   "about": "Rólam",
   "services": "Szolgáltatások",
   "contact": "Kapcsolat",
-  "appointment": "Konzultáció foglalása",
+  "appointment": "Konzultáció kérése",
   "language": "Nyelv",
+  "change_language": "Nyelvváltás. Jelenlegi nyelv: {{language}}",
   "open_menu": "Navigációs menü megnyitása",
   "close_menu": "Navigációs menü bezárása",
+  "primary_navigation": "Elsődleges navigáció",
   "logo": "Karácsony Barna"
 }

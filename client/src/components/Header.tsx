@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { getLocalizedPath, scrollToSection, storePendingScrollTarget } from "@/lib/routing";
@@ -9,6 +9,7 @@ import { getLocalizedPath, scrollToSection, storePendingScrollTarget } from "@/l
 export default function Header() {
   const [location, navigate] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const { t, i18n } = useTranslation("nav");
 
   const homePath = getLocalizedPath("/", i18n.language);
@@ -31,11 +32,27 @@ export default function Header() {
   };
 
   const baseNavClasses = "inline-flex items-center text-sm font-medium leading-none transition-colors duration-200";
-  const focusRingClasses = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary/40";
+  const focusRingClasses = "rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring";
   const activeNavClasses = "text-primary";
   const inactiveNavClasses = "text-muted-foreground hover:text-foreground";
-  const linkNavClasses = `${baseNavClasses} ${focusRingClasses}`;
-  const buttonNavClasses = `${baseNavClasses} border-0 bg-transparent p-0 appearance-none ${focusRingClasses}`;
+  const linkNavClasses = `${baseNavClasses} min-h-11 px-2 ${focusRingClasses}`;
+  const buttonNavClasses = `${baseNavClasses} min-h-11 px-2 ${focusRingClasses}`;
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return;
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        mobileMenuButtonRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isMobileMenuOpen]);
 
   const handleScrollNavigation = (target: string, closeMenu?: boolean) => {
     const normalizedLocation = location.split("?")[0];
@@ -53,35 +70,45 @@ export default function Header() {
     navigate(homePath);
   };
 
+  const handleSectionLink = (
+    event: MouseEvent<HTMLAnchorElement>,
+    target: string,
+    closeMenu?: boolean,
+  ) => {
+    event.preventDefault();
+    handleScrollNavigation(target, closeMenu);
+  };
+
   return (
     <header className="bg-background border-b border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link href={homePath}>
-            <div className="flex items-center">
-              <h1 className="text-xl font-serif font-bold text-foreground" data-testid="logo-text">
-                {t("logo")}
-              </h1>
-            </div>
+          <Link
+            href={homePath}
+            className={`inline-flex min-h-11 items-center ${focusRingClasses}`}
+          >
+            <span className="text-xl font-serif font-bold text-foreground" data-testid="logo-text">
+              {t("logo")}
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center gap-2" aria-label={t("primary_navigation")}>
             {navigation.map((item) => {
               if (item.action === "scroll") {
                 return (
-                  <button
+                  <Link
                     key={item.name}
-                    type="button"
-                    onClick={() => handleScrollNavigation(item.target!)}
+                    href={item.href}
+                    onClick={(event) => handleSectionLink(event, item.target!)}
                     className={`${buttonNavClasses} ${
                       isActive(item.href) ? activeNavClasses : inactiveNavClasses
                     }`}
                     data-testid={`nav-${item.name.toLowerCase()}`}
                   >
                     {item.name}
-                  </button>
+                  </Link>
                 );
               }
               return (
@@ -91,6 +118,7 @@ export default function Header() {
                   className={`${linkNavClasses} ${
                     isActive(item.href) ? activeNavClasses : inactiveNavClasses
                   }`}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   data-testid={`nav-${item.name.toLowerCase()}`}
                 >
                   {item.name}
@@ -98,70 +126,85 @@ export default function Header() {
               );
             })}
             <LanguageSwitcher />
-            <Button
-              onClick={() => handleScrollNavigation("appointment-booking")}
-              data-testid="button-book-consultation"
-            >
-              {t("appointment")}
+            <Button asChild>
+              <Link
+                href={getLocalizedPath("/#appointment-booking", i18n.language)}
+                onClick={(event) =>
+                  handleSectionLink(event, "appointment-booking")
+                }
+                data-testid="button-book-consultation"
+              >
+                {t("appointment")}
+              </Link>
             </Button>
           </nav>
 
           {/* Mobile menu button */}
           <button
+            ref={mobileMenuButtonRef}
             type="button"
-            className="md:hidden p-2"
+            className={`lg:hidden inline-flex h-11 w-11 items-center justify-center ${focusRingClasses}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? t("close_menu") : t("open_menu")}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-navigation"
             data-testid="button-mobile-menu"
           >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" aria-hidden="true" />
+            ) : (
+              <Menu className="h-6 w-6" aria-hidden="true" />
+            )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div id="mobile-navigation" className="md:hidden py-4 border-t border-border">
-            <nav className="flex flex-col space-y-3">
+          <div id="mobile-navigation" className="lg:hidden py-4 border-t border-border">
+            <nav className="flex flex-col gap-1" aria-label={t("primary_navigation")}>
               {navigation.map((item) => {
                 if (item.action === "scroll") {
                   return (
-                    <button
+                    <Link
                       key={item.name}
-                      type="button"
-                      onClick={() => handleScrollNavigation(item.target!, true)}
-                      className={`block px-3 py-2 text-base font-medium text-left ${
+                      href={item.href}
+                      onClick={(event) => handleSectionLink(event, item.target!, true)}
+                      className={`flex min-h-11 items-center rounded-md px-3 py-2 text-base font-medium text-left ${
                         isActive(item.href) ? "text-primary" : "text-muted-foreground"
-                      }`}
+                      } ${focusRingClasses}`}
                       data-testid={`mobile-nav-${item.name.toLowerCase()}`}
                     >
                       {item.name}
-                    </button>
+                    </Link>
                   );
                 }
                 return (
-                  <Link key={item.name} href={item.href}>
-                    <span
-                      className={`block px-3 py-2 text-base font-medium ${
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`flex min-h-11 items-center rounded-md px-3 py-2 text-base font-medium ${
                         isActive(item.href) ? "text-primary" : "text-muted-foreground"
-                      }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      data-testid={`mobile-nav-${item.name.toLowerCase()}`}
-                    >
-                      {item.name}
-                    </span>
+                      } ${focusRingClasses}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    data-testid={`mobile-nav-${item.name.toLowerCase()}`}
+                  >
+                    {item.name}
                   </Link>
                 );
               })}
               <div className="px-3 pt-2 space-y-2">
                 <LanguageSwitcher />
-                <Button
-                  className="w-full"
-                  onClick={() => handleScrollNavigation("appointment-booking", true)}
-                  data-testid="mobile-button-book-consultation"
-                >
-                  {t("appointment")}
+                <Button asChild className="w-full">
+                  <Link
+                    href={getLocalizedPath("/#appointment-booking", i18n.language)}
+                    onClick={(event) =>
+                      handleSectionLink(event, "appointment-booking", true)
+                    }
+                    data-testid="mobile-button-book-consultation"
+                  >
+                    {t("appointment")}
+                  </Link>
                 </Button>
               </div>
             </nav>

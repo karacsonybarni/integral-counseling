@@ -1,7 +1,8 @@
 {
-  "title": "Book Consultation",
+  "title": "Request a Consultation",
   "subtitle": "Request an appointment; I’ll reply within 24 hours.",
   "form": {
+    "title": "Appointment Request Details",
     "name": "Full Name",
     "name_placeholder": "Enter your full name",
     "email": "Email Address",
@@ -16,8 +17,9 @@
     "time_placeholder": "Select a time",
     "message": "Additional Information",
     "message_placeholder": "Anything you’d like me to know beforehand...",
-    "submit": "Book Consultation",
-    "booking": "Booking..."
+    "required": "required",
+    "submit": "Send Appointment Request",
+    "booking": "Sending request..."
   },
   "services": {
     "individual": "Integral Counseling (55 min)"
@@ -27,8 +29,9 @@
     "description": "Your appointment request was sent successfully. I'll contact you within 24 hours."
   },
   "error": {
-    "title": "Error Occurred",
-    "description": "Couldn't send your appointment request automatically. Please email {{email}} directly."
+    "title": "Appointment request not sent",
+    "description": "We couldn't send your request. Your details are still here, so you can try again or contact me directly.",
+    "email_action": "Email me at {{email}}"
   },
   "validation": {
     "name_required": "Name is required.",

@@ -15,6 +15,7 @@
     "contact_method_placeholder": "How would you like to be contacted?",
     "message": "Message",
     "message_placeholder": "Share any context or questions you’d like to discuss...",
+    "required": "required",
     "submit": "Send Message",
     "sending": "Sending..."
   },
@@ -23,8 +24,9 @@
     "description": "Your message was sent successfully. Thank you for reaching out — I'll get back to you within 24 hours."
   },
   "error": {
-    "title": "Error Occurred",
-    "description": "Couldn't send your message automatically. Please email {{email}} directly."
+    "title": "Message not sent",
+    "description": "We couldn't send your message. Your details are still here, so you can try again or contact me directly.",
+    "email_action": "Email me at {{email}}"
   },
   "validation": {
     "name_required": "Name is required.",

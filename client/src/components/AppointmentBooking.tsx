@@ -5,8 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import SubmissionSuccessMessage from "@/components/SubmissionSuccessMessage";
+import SubmissionErrorMessage from "@/components/SubmissionErrorMessage";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useRef, useState } from "react";
@@ -16,11 +16,11 @@ import { THERAPIST_EMAIL } from "@/lib/contactDetails";
 import { submitWebsiteForm } from "@/lib/formSubmission";
 
 export default function AppointmentBooking() {
-  const { toast } = useToast();
   const { t, i18n } = useTranslation("appointment");
   const startedAtRef = useRef(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
+  const [errorMessageVisible, setErrorMessageVisible] = useState(false);
   const validationSchema = useMemo(() => createAppointmentSchema(t), [t]);
 
   const form = useForm<AppointmentInput>({
@@ -35,11 +35,11 @@ export default function AppointmentBooking() {
     }
   });
 
-  // Generate available time slots (9 AM to 6 PM, excluding lunch 12-1 PM)
+  // Available time slots use locale-neutral values and localized display labels.
   const timeSlots = [
-    "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
-    "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM",
-    "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM"
+    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
+    "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
+    "16:00", "16:30", "17:00", "17:30"
   ];
 
   // Generate available dates (next 30 weekdays)
@@ -63,6 +63,7 @@ export default function AppointmentBooking() {
 
   const handleSubmit = async (data: AppointmentInput) => {
     setSuccessMessageVisible(false);
+    setErrorMessageVisible(false);
 
     try {
       await submitWebsiteForm({
@@ -73,7 +74,7 @@ export default function AppointmentBooking() {
         phone: data.phone,
         preferredDate: data.preferredDate,
         preferredDateLabel: formatDateValue(data.preferredDate),
-        preferredTime: data.preferredTime,
+        preferredTime: formatTimeValue(data.preferredTime),
         message: data.message,
         startedAt: startedAtRef.current,
         website: honeypotRef.current?.value || "",
@@ -87,11 +88,7 @@ export default function AppointmentBooking() {
       setSuccessMessageVisible(true);
     } catch (error) {
       console.error("Error booking appointment:", error);
-      toast({
-        title: t("error.title"),
-        description: t("error.description", { email: THERAPIST_EMAIL }),
-        variant: "destructive"
-      });
+      setErrorMessageVisible(true);
     }
   };
 
@@ -117,6 +114,14 @@ export default function AppointmentBooking() {
     return formatDate(new Date(year, month - 1, day));
   };
 
+  const formatTimeValue = (value: string) => {
+    const [hour, minute] = value.split(":").map(Number);
+    return new Intl.DateTimeFormat(i18n.language === "hu" ? "hu-HU" : "en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+    }).format(new Date(2000, 0, 1, hour, minute));
+  };
+
   return (
     <section className="py-16 bg-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -132,16 +137,19 @@ export default function AppointmentBooking() {
         <Card className="max-w-2xl mx-auto">
           <CardHeader>
             <CardTitle className="flex items-center gap-2" data-testid="booking-form-title">
-              <Calendar className="h-5 w-5 text-primary" />
-{t('title')}
+              <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
+              {t("form.title")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(handleSubmit, () =>
-                  setSuccessMessageVisible(false)
-                )}
+                noValidate
+                aria-busy={form.formState.isSubmitting}
+                onSubmit={form.handleSubmit(handleSubmit, () => {
+                  setSuccessMessageVisible(false);
+                  setErrorMessageVisible(false);
+                })}
                 className="space-y-6"
               >
                 <input
@@ -159,10 +167,14 @@ export default function AppointmentBooking() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('form.name')} *</FormLabel>
+                        <FormLabel>
+                          {t("form.name")} ({t("form.required")})
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
+                            autoComplete="name"
+                            required
                             placeholder={t("form.name_placeholder")}
                             data-testid="input-booking-name"
                           />
@@ -176,11 +188,15 @@ export default function AppointmentBooking() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('form.email')} *</FormLabel>
+                        <FormLabel>
+                          {t("form.email")} ({t("form.required")})
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="email"
                             {...field}
+                            autoComplete="email"
+                            required
                             placeholder={t("form.email_placeholder")}
                             data-testid="input-booking-email"
                           />
@@ -201,6 +217,7 @@ export default function AppointmentBooking() {
                         <Input
                           type="tel"
                           {...field}
+                          autoComplete="tel"
                           placeholder={t("form.phone_placeholder")}
                           className="max-w-xs"
                           data-testid="input-booking-phone"
@@ -218,10 +235,15 @@ export default function AppointmentBooking() {
                     name="preferredDate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('form.date')} *</FormLabel>
+                        <FormLabel>
+                          {t("form.date")} ({t("form.required")})
+                        </FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
-                            <SelectTrigger data-testid="select-booking-date">
+                            <SelectTrigger
+                              aria-required="true"
+                              data-testid="select-booking-date"
+                            >
                               <SelectValue placeholder={t('form.date_placeholder')} />
                             </SelectTrigger>
                           </FormControl>
@@ -242,10 +264,15 @@ export default function AppointmentBooking() {
                     name="preferredTime"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('form.time')} *</FormLabel>
+                        <FormLabel>
+                          {t("form.time")} ({t("form.required")})
+                        </FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
-                            <SelectTrigger data-testid="select-booking-time">
+                            <SelectTrigger
+                              aria-required="true"
+                              data-testid="select-booking-time"
+                            >
                               <SelectValue placeholder={t('form.time_placeholder')} />
                             </SelectTrigger>
                           </FormControl>
@@ -253,8 +280,8 @@ export default function AppointmentBooking() {
                             {timeSlots.map((time) => (
                               <SelectItem key={time} value={time}>
                                 <div className="flex items-center gap-2">
-                                  <Clock className="h-4 w-4" />
-                                  {time}
+                                  <Clock className="h-4 w-4" aria-hidden="true" />
+                                  {formatTimeValue(time)}
                                 </div>
                               </SelectItem>
                             ))}
@@ -294,13 +321,24 @@ export default function AppointmentBooking() {
                   data-testid="button-book-appointment"
                 >
                   {form.formState.isSubmitting ? t("form.booking") : t("form.submit")}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 motion-safe:group-hover:translate-x-1 motion-safe:transition-transform" aria-hidden="true" />
                 </Button>
 
                 {successMessageVisible && (
                   <SubmissionSuccessMessage
                     title={t("success.title")}
                     description={t("success.description")}
+                  />
+                )}
+
+                {errorMessageVisible && (
+                  <SubmissionErrorMessage
+                    title={t("error.title")}
+                    description={t("error.description")}
+                    email={THERAPIST_EMAIL}
+                    emailAction={t("error.email_action", {
+                      email: THERAPIST_EMAIL,
+                    })}
                   />
                 )}
 

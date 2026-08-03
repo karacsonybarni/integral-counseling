@@ -1,6 +1,4 @@
 import { Switch, Route, useLocation, Router } from "wouter";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/Home";
 import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
@@ -11,7 +9,7 @@ import "./i18n";
 
 function LanguageRouter() {
   const [location] = useLocation();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation("common");
 
   useEffect(() => {
     const path = location.toLowerCase().split("?")[0];
@@ -29,6 +27,32 @@ function LanguageRouter() {
     }
   }, [location, i18n]);
 
+  useEffect(() => {
+    const path = location.toLowerCase().split("?")[0];
+    const page =
+      path.endsWith("/terms") || path === "/terms"
+        ? "terms"
+        : path.endsWith("/privacy") || path === "/privacy"
+          ? "privacy"
+          : path === "/" || path === "/en"
+            ? "home"
+            : "not_found";
+
+    const localizedTitle = t(`meta.${page}.title`);
+    const localizedDescription = t(`meta.${page}.description`);
+    document.title = localizedTitle;
+    const description = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]',
+    );
+    description?.setAttribute("content", localizedDescription);
+    document
+      .querySelector<HTMLMetaElement>('meta[property="og:title"]')
+      ?.setAttribute("content", localizedTitle);
+    document
+      .querySelector<HTMLMetaElement>('meta[property="og:description"]')
+      ?.setAttribute("content", localizedDescription);
+  }, [location, t, i18n.resolvedLanguage]);
+
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -45,14 +69,20 @@ function LanguageRouter() {
 
 function App() {
   const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const { t } = useTranslation("common");
 
   return (
-    <TooltipProvider>
-      <Toaster />
+    <>
+      <a
+        href="#main-content"
+        className="fixed left-4 top-4 z-[200] -translate-y-24 rounded-md bg-background px-4 py-3 font-medium text-foreground shadow-lg ring-2 ring-primary transition-transform focus:translate-y-0"
+      >
+        {t("skip_to_content")}
+      </a>
       <Router base={basePath === "" ? undefined : basePath}>
         <LanguageRouter />
       </Router>
-    </TooltipProvider>
+    </>
   );
 }
 
