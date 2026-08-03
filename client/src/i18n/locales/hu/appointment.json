@@ -1,20 +1,20 @@
 {
   "title": "Konzultáció kérése",
-  "subtitle": "Küldje el időpontkérését; 24 órán belül válaszolok.",
+  "subtitle": "Küldd el az időpontkérésedet; 24 órán belül válaszolok.",
   "form": {
     "title": "Az időpontkérés adatai",
     "name": "Teljes név",
-    "name_placeholder": "Adja meg a teljes nevét",
+    "name_placeholder": "Add meg a teljes neved",
     "email": "E‑mail cím",
     "email_placeholder": "nev@example.com",
     "phone": "Telefonszám",
     "phone_placeholder": "+36 30 123 4567",
     "service": "Szolgáltatás",
-    "service_placeholder": "Válasszon szolgáltatást",
+    "service_placeholder": "Válassz szolgáltatást",
     "date": "Előnyben részesített dátum",
-    "date_placeholder": "Válasszon dátumot",
+    "date_placeholder": "Válassz dátumot",
     "time": "Előnyben részesített időpont",
-    "time_placeholder": "Válasszon időpontot",
+    "time_placeholder": "Válassz időpontot",
     "message": "További információ",
     "message_placeholder": "Amit érdemes tudnom előre...",
     "required": "kötelező",
@@ -30,15 +30,15 @@
   },
   "error": {
     "title": "Az időpontkérés nem lett elküldve",
-    "description": "Nem sikerült elküldeni a kérést. A megadott adatok megmaradtak, így újra próbálhatja, vagy közvetlenül kapcsolatba léphet velem.",
+    "description": "Nem sikerült elküldeni a kérést. A megadott adatok megmaradtak, így újra próbálhatod, vagy közvetlenül kapcsolatba léphetsz velem.",
     "email_action": "E-mail küldése ide: {{email}}"
   },
   "validation": {
     "name_required": "A név megadása kötelező.",
     "name_too_long": "A név legfeljebb 100 karakter lehet.",
-    "email_invalid": "Adjon meg egy érvényes e-mail címet.",
-    "date_required": "Válasszon egy dátumot.",
-    "time_required": "Válasszon egy időpontot."
+    "email_invalid": "Adj meg egy érvényes e-mail címet.",
+    "date_required": "Válassz egy dátumot.",
+    "time_required": "Válassz egy időpontot."
   },
-  "disclaimer": "A szolgáltatás nem orvosi vagy pszichiátriai ellátás. Sürgős helyzetben hívja a 112‑t."
+  "disclaimer": "A szolgáltatás nem orvosi vagy pszichiátriai ellátás. Sürgős helyzetben hívd a 112‑t."
 }

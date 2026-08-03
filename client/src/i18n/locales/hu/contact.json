@@ -1,10 +1,10 @@
 {
   "title": "Kapcsolatfelvétel",
-  "subtitle": "Írjon üzenetet vagy kérjen konzultációt.",
+  "subtitle": "Írj üzenetet vagy kérj konzultációt.",
   "form": {
     "title": "Kapcsolatfelvételi űrlap",
     "name": "Teljes név",
-    "name_placeholder": "Adja meg a teljes nevét",
+    "name_placeholder": "Add meg a teljes neved",
     "email": "E‑mail cím",
     "email_placeholder": "nev@example.com",
     "phone": "Telefonszám",
@@ -12,9 +12,9 @@
     "subject": "Tárgy",
     "subject_placeholder": "Miben segíthetek?",
     "contact_method": "Előnyben részesített kapcsolatfelvételi mód",
-    "contact_method_placeholder": "Hogyan szeretné, hogy kapcsolatba lépjek?",
+    "contact_method_placeholder": "Hogyan szeretnéd, hogy kapcsolatba lépjek?",
     "message": "Üzenet",
-    "message_placeholder": "Ossza meg röviden a témát vagy kérdéseit...",
+    "message_placeholder": "Oszd meg röviden a témát vagy a kérdéseidet...",
     "required": "kötelező",
     "submit": "Üzenet küldése",
     "sending": "Küldés..."
@@ -25,13 +25,13 @@
   },
   "error": {
     "title": "Az üzenet nem lett elküldve",
-    "description": "Nem sikerült elküldeni az üzenetet. A megadott adatok megmaradtak, így újra próbálhatja, vagy közvetlenül kapcsolatba léphet velem.",
+    "description": "Nem sikerült elküldeni az üzenetet. A megadott adatok megmaradtak, így újra próbálhatod, vagy közvetlenül kapcsolatba léphetsz velem.",
     "email_action": "E-mail küldése ide: {{email}}"
   },
   "validation": {
     "name_required": "A név megadása kötelező.",
     "name_too_long": "A név legfeljebb 100 karakter lehet.",
-    "email_invalid": "Adjon meg egy érvényes e-mail címet.",
+    "email_invalid": "Adj meg egy érvényes e-mail címet.",
     "message_required": "Az üzenet megadása kötelező.",
     "message_too_long": "Az üzenet legfeljebb 2000 karakter lehet."
   },
@@ -55,10 +55,10 @@
     "response_time": "Válasz általában 24 órán belül"
   },
   "emergency": {
-    "title": "Sürgős segítségre van szüksége?",
+    "title": "Sürgős segítségre van szükséged?",
     "description": "Itt nem nyújtunk sürgősségi ellátást. Sürgős helyzetben:",
     "crisis_hotline": "Lelki elsősegély: 116‑123 (0–24)",
     "emergency_services": "Sürgősségi hívószám: 112",
-    "crisis_text": "Ha nem Magyarországon tartózkodik, hívja a helyi segélyhívót."
+    "crisis_text": "Ha nem Magyarországon tartózkodsz, hívd a helyi segélyhívót."
   }
 }
