@@ -42,9 +42,10 @@ app.use((req, res, next) => {
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
+    const clientMessage = status >= 500 ? "Internal Server Error" : message;
 
-    res.status(status).json({ message });
-    throw err;
+    log(`request failed with status ${status}`);
+    res.status(status).json({ message: clientMessage });
   });
 
   // importantly only setup vite in development and after

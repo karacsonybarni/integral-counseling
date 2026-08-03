@@ -1,5 +1,6 @@
 // Email service using SendGrid integration
-import { MailService } from '@sendgrid/mail';
+import { MailService } from "@sendgrid/mail";
+import type { Appointment, ContactInquiry } from "@shared/schema";
 
 const mailService = new MailService();
 
@@ -53,8 +54,9 @@ export async function sendEmail(params: EmailParams): Promise<boolean> {
 }
 
 // Helper function to create contact inquiry email
-export function createContactEmail(inquiry: any): EmailParams {
-  const subject = `New Contact Inquiry from ${inquiry.name}`;
+export function createContactEmail(inquiry: ContactInquiry): EmailParams {
+  const subject = `New Contact Inquiry from ${formatSubjectName(inquiry.name)}`;
+  const submittedAt = formatSubmittedAt(inquiry.createdAt);
   
   const text = `
 New Contact Inquiry Received:
@@ -62,14 +64,13 @@ New Contact Inquiry Received:
 Name: ${inquiry.name}
 Email: ${inquiry.email}
 Phone: ${inquiry.phone || 'Not provided'}
-Service Type: ${inquiry.serviceType || 'Not specified'}
 Preferred Contact: ${inquiry.preferredContact || 'Not specified'}
 
 Message:
 ${inquiry.message}
 
 ---
-Submitted on: ${new Date().toLocaleString('hu-HU', { timeZone: 'Europe/Budapest' })}
+Submitted on: ${submittedAt}
 Inquiry ID: ${inquiry.id}
   `;
 
@@ -78,33 +79,29 @@ Inquiry ID: ${inquiry.id}
     <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Name:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;">${inquiry.name}</td>
+        <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(inquiry.name)}</td>
       </tr>
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Email:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;"><a href="mailto:${inquiry.email}">${inquiry.email}</a></td>
+        <td style="padding: 8px; border: 1px solid #ddd;"><a href="mailto:${escapeHtml(inquiry.email)}">${escapeHtml(inquiry.email)}</a></td>
       </tr>
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Phone:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;">${inquiry.phone || 'Not provided'}</td>
-      </tr>
-      <tr>
-        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Service Type:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;">${inquiry.serviceType || 'Not specified'}</td>
+        <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(inquiry.phone || 'Not provided')}</td>
       </tr>
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Preferred Contact:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;">${inquiry.preferredContact || 'Not specified'}</td>
+        <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(inquiry.preferredContact || 'Not specified')}</td>
       </tr>
     </table>
     
     <h3>Message:</h3>
-    <div style="padding: 12px; border: 1px solid #ddd; background-color: #f9f9f9; white-space: pre-wrap;">${inquiry.message}</div>
+    <div style="padding: 12px; border: 1px solid #ddd; background-color: #f9f9f9; white-space: pre-wrap;">${escapeHtml(inquiry.message)}</div>
     
     <hr style="margin: 20px 0;">
     <p style="color: #666; font-size: 12px;">
-      Submitted on: ${new Date().toLocaleString('hu-HU', { timeZone: 'Europe/Budapest' })}<br>
-      Inquiry ID: ${inquiry.id}
+      Submitted on: ${escapeHtml(submittedAt)}<br>
+      Inquiry ID: ${escapeHtml(inquiry.id)}
     </p>
   `;
 
@@ -118,8 +115,9 @@ Inquiry ID: ${inquiry.id}
 }
 
 // Helper function to create appointment booking email
-export function createAppointmentEmail(appointment: any): EmailParams {
-  const subject = `New Appointment Request from ${appointment.name}`;
+export function createAppointmentEmail(appointment: Appointment): EmailParams {
+  const subject = `New Appointment Request from ${formatSubjectName(appointment.name)}`;
+  const submittedAt = formatSubmittedAt(appointment.createdAt);
   
   const text = `
 New Appointment Request Received:
@@ -127,16 +125,14 @@ New Appointment Request Received:
 Name: ${appointment.name}
 Email: ${appointment.email}
 Phone: ${appointment.phone || 'Not provided'}
-Service Type: ${appointment.serviceType}
 Preferred Date: ${appointment.preferredDate}
 Preferred Time: ${appointment.preferredTime}
-Preferred Contact: ${appointment.preferredContact || 'Not specified'}
 
 Notes:
-${appointment.notes || 'No notes provided'}
+${appointment.message || 'No notes provided'}
 
 ---
-Submitted on: ${new Date().toLocaleString('hu-HU', { timeZone: 'Europe/Budapest' })}
+Submitted on: ${submittedAt}
 Appointment ID: ${appointment.id}
   `;
 
@@ -145,41 +141,33 @@ Appointment ID: ${appointment.id}
     <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Name:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;">${appointment.name}</td>
+        <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(appointment.name)}</td>
       </tr>
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Email:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;"><a href="mailto:${appointment.email}">${appointment.email}</a></td>
+        <td style="padding: 8px; border: 1px solid #ddd;"><a href="mailto:${escapeHtml(appointment.email)}">${escapeHtml(appointment.email)}</a></td>
       </tr>
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Phone:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;">${appointment.phone || 'Not provided'}</td>
-      </tr>
-      <tr>
-        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Service Type:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;">${appointment.serviceType}</td>
+        <td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(appointment.phone || 'Not provided')}</td>
       </tr>
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Preferred Date:</td>
-        <td style="padding: 8px; border: 1px solid #ddd; color: #d97706; font-weight: bold;">${appointment.preferredDate}</td>
+        <td style="padding: 8px; border: 1px solid #ddd; color: #d97706; font-weight: bold;">${escapeHtml(appointment.preferredDate)}</td>
       </tr>
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Preferred Time:</td>
-        <td style="padding: 8px; border: 1px solid #ddd; color: #d97706; font-weight: bold;">${appointment.preferredTime}</td>
-      </tr>
-      <tr>
-        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Preferred Contact:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;">${appointment.preferredContact || 'Not specified'}</td>
+        <td style="padding: 8px; border: 1px solid #ddd; color: #d97706; font-weight: bold;">${escapeHtml(appointment.preferredTime)}</td>
       </tr>
     </table>
     
     <h3>Notes:</h3>
-    <div style="padding: 12px; border: 1px solid #ddd; background-color: #f9f9f9; white-space: pre-wrap;">${appointment.notes || 'No notes provided'}</div>
+    <div style="padding: 12px; border: 1px solid #ddd; background-color: #f9f9f9; white-space: pre-wrap;">${escapeHtml(appointment.message || 'No notes provided')}</div>
     
     <hr style="margin: 20px 0;">
     <p style="color: #666; font-size: 12px;">
-      Submitted on: ${new Date().toLocaleString('hu-HU', { timeZone: 'Europe/Budapest' })}<br>
-      Appointment ID: ${appointment.id}
+      Submitted on: ${escapeHtml(submittedAt)}<br>
+      Appointment ID: ${escapeHtml(appointment.id)}
     </p>
   `;
 
@@ -192,3 +180,19 @@ Appointment ID: ${appointment.id}
   };
 }
 
+function formatSubmittedAt(date: Date) {
+  return date.toLocaleString("hu-HU", { timeZone: "Europe/Budapest" });
+}
+
+function formatSubjectName(name: string) {
+  return name.replace(/[\r\n]+/g, " ");
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}

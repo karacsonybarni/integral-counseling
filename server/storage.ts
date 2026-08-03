@@ -63,7 +63,6 @@ export class MemStorage implements IStorage {
       ...insertInquiry, 
       id,
       phone: insertInquiry.phone || null,
-      serviceType: insertInquiry.serviceType || null,
       preferredContact: insertInquiry.preferredContact || null,
       createdAt: new Date()
     };

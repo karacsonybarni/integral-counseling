@@ -15,13 +15,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Send email notification to therapist
       const emailParams = createContactEmail(inquiry);
       const emailSent = await sendEmail(emailParams);
+
+      if (!emailSent) {
+        res.status(502).json({
+          success: false,
+          message: "Your message could not be delivered. Please try again later.",
+        });
+        return;
+      }
       
       console.log("New contact inquiry received:", {
         id: inquiry.id,
-        name: inquiry.name,
-        email: inquiry.email,
-        serviceType: inquiry.serviceType,
-        emailSent: emailSent
+        emailSent,
       });
       
       res.json({ 
@@ -55,15 +60,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Send email notification to therapist
       const emailParams = createAppointmentEmail(appointment);
       const emailSent = await sendEmail(emailParams);
+
+      if (!emailSent) {
+        res.status(502).json({
+          success: false,
+          message: "Your appointment request could not be delivered. Please try again later.",
+        });
+        return;
+      }
       
       console.log("New appointment booking:", {
         id: appointment.id,
-        name: appointment.name,
-        email: appointment.email,
-        serviceType: appointment.serviceType,
-        preferredDate: appointment.preferredDate,
-        preferredTime: appointment.preferredTime,
-        emailSent: emailSent
+        emailSent,
       });
       
       res.json({ 
