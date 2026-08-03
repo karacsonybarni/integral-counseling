@@ -19,16 +19,12 @@
     "sending": "Sending..."
   },
   "success": {
-    "title": "Message Sent",
-    "description": "Thank you for reaching out. I'll get back to you within 24 hours."
+    "title": "Message sent",
+    "description": "Your message was sent successfully. Thank you for reaching out — I'll get back to you within 24 hours."
   },
   "error": {
     "title": "Error Occurred",
     "description": "Couldn't send your message automatically. Please email {{email}} directly."
-  },
-  "fallback": {
-    "title": "Email Draft Ready",
-    "description": "Automatic sending is unavailable right now, so your email app should open with a prepared message. If it does not, email {{email}} directly."
   },
   "validation": {
     "name_required": "Name is required.",
@@ -36,10 +32,6 @@
     "email_invalid": "Enter a valid email address.",
     "message_required": "Message is required.",
     "message_too_long": "Message must be 2000 characters or fewer."
-  },
-  "emailDraft": {
-    "subject": "Website contact request from {{name}}",
-    "intro": "A visitor submitted the website contact form with the details below."
   },
   "contact_methods": {
     "phone": "Phone",

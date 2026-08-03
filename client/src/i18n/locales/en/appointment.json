@@ -23,16 +23,12 @@
     "individual": "Integral Counseling (55 min)"
   },
   "success": {
-    "title": "Appointment Requested",
-    "description": "Your request has been sent. I'll contact you within 24 hours."
+    "title": "Appointment request sent",
+    "description": "Your appointment request was sent successfully. I'll contact you within 24 hours."
   },
   "error": {
     "title": "Error Occurred",
     "description": "Couldn't send your appointment request automatically. Please email {{email}} directly."
-  },
-  "fallback": {
-    "title": "Appointment Draft Ready",
-    "description": "Automatic sending is unavailable right now, so your email app should open with a prepared appointment request. If it does not, email {{email}} directly."
   },
   "validation": {
     "name_required": "Name is required.",
@@ -40,10 +36,6 @@
     "email_invalid": "Enter a valid email address.",
     "date_required": "Choose a preferred date.",
     "time_required": "Choose a preferred time."
-  },
-  "emailDraft": {
-    "subject": "Website appointment request from {{name}}",
-    "intro": "A visitor requested an appointment through the website with the details below."
   },
   "disclaimer": "This is not medical or psychiatric care. If you need urgent help, call 112."
 }

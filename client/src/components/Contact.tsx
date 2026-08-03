@@ -4,14 +4,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import SubmissionSuccessMessage from "@/components/SubmissionSuccessMessage";
 import { Phone, Mail, MapPin, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { createContactInquirySchema, type ContactInquiryInput } from "@/lib/forms";
-import { THERAPIST_EMAIL } from "@/lib/mailto";
+import { THERAPIST_EMAIL } from "@/lib/contactDetails";
 import { submitWebsiteForm } from "@/lib/formSubmission";
 
 export default function Contact() {
@@ -19,6 +20,7 @@ export default function Contact() {
   const { t, i18n } = useTranslation("contact");
   const startedAtRef = useRef(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
+  const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const validationSchema = useMemo(() => createContactInquirySchema(t), [t]);
 
   const form = useForm<ContactInquiryInput>({
@@ -33,55 +35,30 @@ export default function Contact() {
   });
 
   const handleSubmit = async (data: ContactInquiryInput) => {
-    try {
-      const result = await submitWebsiteForm(
-        {
-          formType: "contact",
-          language: i18n.language,
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          preferredContact: data.preferredContact,
-          preferredContactLabel: data.preferredContact
-            ? t(`contact_methods.${data.preferredContact}`)
-            : undefined,
-          message: data.message,
-          startedAt: startedAtRef.current,
-          website: honeypotRef.current?.value || "",
-        },
-        {
-          subject: t("emailDraft.subject", { name: data.name }),
-          bodyLines: [
-            t("emailDraft.intro"),
-            "",
-            `${t("form.name")}: ${data.name}`,
-            `${t("form.email")}: ${data.email}`,
-            data.phone ? `${t("form.phone")}: ${data.phone}` : undefined,
-            data.preferredContact
-              ? `${t("form.contact_method")}: ${t(`contact_methods.${data.preferredContact}`)}`
-              : undefined,
-            "",
-            `${t("form.message")}:`,
-            data.message,
-          ],
-        },
-      );
+    setSuccessMessageVisible(false);
 
-      toast({
-        title:
-          result.deliveryMethod === "appsScript"
-            ? t("success.title")
-            : t("fallback.title"),
-        description:
-          result.deliveryMethod === "appsScript"
-            ? t("success.description")
-            : t("fallback.description", { email: THERAPIST_EMAIL }),
+    try {
+      await submitWebsiteForm({
+        formType: "contact",
+        language: i18n.language,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        preferredContact: data.preferredContact,
+        preferredContactLabel: data.preferredContact
+          ? t(`contact_methods.${data.preferredContact}`)
+          : undefined,
+        message: data.message,
+        startedAt: startedAtRef.current,
+        website: honeypotRef.current?.value || "",
       });
+
       form.reset();
       if (honeypotRef.current) {
         honeypotRef.current.value = "";
       }
       startedAtRef.current = Date.now();
+      setSuccessMessageVisible(true);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
@@ -112,7 +89,12 @@ export default function Contact() {
             </CardHeader>
             <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+              <form
+                onSubmit={form.handleSubmit(handleSubmit, () =>
+                  setSuccessMessageVisible(false)
+                )}
+                className="space-y-6"
+              >
                 <input
                   ref={honeypotRef}
                   type="text"
@@ -229,6 +211,13 @@ export default function Contact() {
                   >
                     {form.formState.isSubmitting ? t("form.sending") : t("form.submit")}
                   </Button>
+
+                  {successMessageVisible && (
+                    <SubmissionSuccessMessage
+                      title={t("success.title")}
+                      description={t("success.description")}
+                    />
+                  )}
                 </form>
               </Form>
             </CardContent>

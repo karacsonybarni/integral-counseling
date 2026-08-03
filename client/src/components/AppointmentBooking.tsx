@@ -4,14 +4,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import SubmissionSuccessMessage from "@/components/SubmissionSuccessMessage";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { createAppointmentSchema, type AppointmentInput } from "@/lib/forms";
-import { THERAPIST_EMAIL } from "@/lib/mailto";
+import { THERAPIST_EMAIL } from "@/lib/contactDetails";
 import { submitWebsiteForm } from "@/lib/formSubmission";
 
 export default function AppointmentBooking() {
@@ -19,6 +20,7 @@ export default function AppointmentBooking() {
   const { t, i18n } = useTranslation("appointment");
   const startedAtRef = useRef(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
+  const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const validationSchema = useMemo(() => createAppointmentSchema(t), [t]);
 
   const form = useForm<AppointmentInput>({
@@ -60,53 +62,29 @@ export default function AppointmentBooking() {
   const availableDates = getAvailableDates();
 
   const handleSubmit = async (data: AppointmentInput) => {
-    try {
-      const result = await submitWebsiteForm(
-        {
-          formType: "appointment",
-          language: i18n.language,
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          preferredDate: data.preferredDate,
-          preferredDateLabel: formatDateValue(data.preferredDate),
-          preferredTime: data.preferredTime,
-          message: data.message,
-          startedAt: startedAtRef.current,
-          website: honeypotRef.current?.value || "",
-        },
-        {
-          subject: t("emailDraft.subject", { name: data.name }),
-          bodyLines: [
-            t("emailDraft.intro"),
-            "",
-            `${t("form.name")}: ${data.name}`,
-            `${t("form.email")}: ${data.email}`,
-            data.phone ? `${t("form.phone")}: ${data.phone}` : undefined,
-            `${t("form.date")}: ${formatDateValue(data.preferredDate)}`,
-            `${t("form.time")}: ${data.preferredTime}`,
-            data.message ? "" : undefined,
-            data.message ? `${t("form.message")}:` : undefined,
-            data.message,
-          ],
-        },
-      );
+    setSuccessMessageVisible(false);
 
-      toast({
-        title:
-          result.deliveryMethod === "appsScript"
-            ? t("success.title")
-            : t("fallback.title"),
-        description:
-          result.deliveryMethod === "appsScript"
-            ? t("success.description")
-            : t("fallback.description", { email: THERAPIST_EMAIL }),
+    try {
+      await submitWebsiteForm({
+        formType: "appointment",
+        language: i18n.language,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        preferredDate: data.preferredDate,
+        preferredDateLabel: formatDateValue(data.preferredDate),
+        preferredTime: data.preferredTime,
+        message: data.message,
+        startedAt: startedAtRef.current,
+        website: honeypotRef.current?.value || "",
       });
+
       form.reset();
       if (honeypotRef.current) {
         honeypotRef.current.value = "";
       }
       startedAtRef.current = Date.now();
+      setSuccessMessageVisible(true);
     } catch (error) {
       console.error("Error booking appointment:", error);
       toast({
@@ -160,7 +138,12 @@ export default function AppointmentBooking() {
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+              <form
+                onSubmit={form.handleSubmit(handleSubmit, () =>
+                  setSuccessMessageVisible(false)
+                )}
+                className="space-y-6"
+              >
                 <input
                   ref={honeypotRef}
                   type="text"
@@ -313,6 +296,13 @@ export default function AppointmentBooking() {
                   {form.formState.isSubmitting ? t("form.booking") : t("form.submit")}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
+
+                {successMessageVisible && (
+                  <SubmissionSuccessMessage
+                    title={t("success.title")}
+                    description={t("success.description")}
+                  />
+                )}
 
                 {/* Disclaimer */}
                 <div className="text-sm text-muted-foreground text-center bg-muted/20 p-4 rounded-md">

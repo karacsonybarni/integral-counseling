@@ -20,15 +20,11 @@
   },
   "success": {
     "title": "Üzenet elküldve",
-    "description": "Köszönöm a megkeresést. 24 órán belül válaszolok."
+    "description": "Az üzenet sikeresen elküldve. Köszönöm a megkeresést — 24 órán belül válaszolok."
   },
   "error": {
     "title": "Hiba történt",
     "description": "Nem sikerült automatikusan elküldeni az üzenetet. Kérem, küldje el közvetlenül erre a címre: {{email}}."
-  },
-  "fallback": {
-    "title": "E-mail piszkozat előkészítve",
-    "description": "Az automatikus küldés most nem érhető el, ezért az e-mail alkalmazásnak egy előkészített üzenettel kell megnyílnia. Ha mégsem, küldje el közvetlenül erre a címre: {{email}}."
   },
   "validation": {
     "name_required": "A név megadása kötelező.",
@@ -36,10 +32,6 @@
     "email_invalid": "Adjon meg egy érvényes e-mail címet.",
     "message_required": "Az üzenet megadása kötelező.",
     "message_too_long": "Az üzenet legfeljebb 2000 karakter lehet."
-  },
-  "emailDraft": {
-    "subject": "Kapcsolatfelvétel a weboldalról: {{name}}",
-    "intro": "Egy látogató a weboldal kapcsolatfelvételi űrlapját töltötte ki az alábbi adatokkal."
   },
   "contact_methods": {
     "phone": "Telefon",

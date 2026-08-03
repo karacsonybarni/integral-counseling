@@ -1,5 +1,3 @@
-import { openEmailDraft } from "@/lib/mailto";
-
 const DEFAULT_APPS_SCRIPT_WEB_APP_URL =
   "https://script.google.com/macros/s/AKfycbztbd9BZ55jNSTu4TIGgwk4mvIHteoyPhiB_qbzvRl4MM7T5XYq1axQNxhbudFutvht/exec";
 const APPS_SCRIPT_WEB_APP_URL =
@@ -9,11 +7,6 @@ const APPS_SCRIPT_MESSAGE_SOURCE = "integral-counseling-apps-script";
 const APPS_SCRIPT_TIMEOUT_MS = 15000;
 
 type FormType = "appointment" | "contact";
-
-interface MailtoFallback {
-  subject: string;
-  bodyLines: Array<string | undefined>;
-}
 
 interface WebsiteFormPayload {
   formType: FormType;
@@ -39,29 +32,8 @@ interface AppsScriptMessage {
   requestId?: string;
 }
 
-export interface FormSubmissionResult {
-  deliveryMethod: "appsScript" | "mailto";
-}
-
-export function hasAppsScriptEndpoint() {
-  return APPS_SCRIPT_WEB_APP_URL !== "";
-}
-
-export async function submitWebsiteForm(
-  payload: WebsiteFormPayload,
-  fallback: MailtoFallback,
-): Promise<FormSubmissionResult> {
-  if (hasAppsScriptEndpoint()) {
-    try {
-      await submitToAppsScript(payload);
-      return { deliveryMethod: "appsScript" };
-    } catch (error) {
-      console.error("Apps Script submission failed, falling back to mailto.", error);
-    }
-  }
-
-  openEmailDraft(fallback);
-  return { deliveryMethod: "mailto" };
+export async function submitWebsiteForm(payload: WebsiteFormPayload) {
+  await submitToAppsScript(payload);
 }
 
 async function submitToAppsScript(payload: WebsiteFormPayload) {
