@@ -4,7 +4,7 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig(async ({ command }) => ({
-  base: command === "build" ? "/integral-counseling/" : "/",
+  base: command === "build" ? "./" : "/",
   plugins: [
     react(),
     runtimeErrorOverlay(),
