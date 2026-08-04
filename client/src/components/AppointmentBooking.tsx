@@ -151,7 +151,7 @@ export default function AppointmentBooking() {
           </ul>
         </div>
 
-        <Card className="rounded-3xl border-border/80 bg-background shadow-[0_24px_70px_-48px_hsl(var(--foreground)/0.45)]">
+        <Card className="min-w-0 rounded-3xl border-border/80 bg-background shadow-[0_24px_70px_-48px_hsl(var(--foreground)/0.45)]">
           <CardHeader className="border-b border-border p-6 sm:p-8">
             <CardTitle className="flex items-center gap-3 font-serif text-2xl font-medium" data-testid="booking-form-title">
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">

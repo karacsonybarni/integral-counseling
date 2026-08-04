@@ -30,7 +30,7 @@ export default function Services() {
               className={`group py-8 md:p-10 ${index % 2 === 0 ? "md:border-r md:border-border" : ""} ${index < 2 ? "border-b border-border" : ""}`}
             >
               <div className="flex items-start gap-5">
-                <span className="mt-1 font-mono text-xs font-semibold tracking-[0.15em] text-accent">
+                <span className="mt-1 font-mono text-xs font-semibold tracking-[0.15em] text-primary">
                   0{index + 1}
                 </span>
                 <div>
@@ -107,7 +107,7 @@ export default function Services() {
             <ol className="grid gap-8 sm:grid-cols-3">
               {["contact", "first", "continue"].map((step, index) => (
                 <li key={step} className="border-t border-border pt-5">
-                  <span className="font-mono text-xs font-semibold text-accent">0{index + 1}</span>
+                  <span className="font-mono text-xs font-semibold text-primary">0{index + 1}</span>
                   <h4 className="mt-4 text-lg font-semibold text-foreground">{t(`process.steps.${step}.title`)}</h4>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {t(`process.steps.${step}.description`)}
