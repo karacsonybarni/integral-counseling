@@ -398,6 +398,12 @@ function getBookingCalendar_() {
 
 function hasOverlappingEvent_(events, slotStart, slotEnd) {
   return events.some(function (event) {
+    if (
+      event.getTransparency() === CalendarApp.EventTransparency.TRANSPARENT
+    ) {
+      return false;
+    }
+
     return (
       event.getStartTime().getTime() < slotEnd.getTime() &&
       event.getEndTime().getTime() > slotStart.getTime()

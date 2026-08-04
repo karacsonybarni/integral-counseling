@@ -74,12 +74,12 @@ After the variable is set:
 
 ## Manual checks
 
-1. Confirm an existing Google Calendar event removes every overlapping 55-minute slot from the website.
-2. Book a free time using a test email address.
-3. Confirm the event appears in the configured Google Calendar and the test address receives an invitation.
-4. Open the site in a second browser and confirm the booked time is no longer available.
-5. Confirm a notification email arrives at the configured recipient.
-6. Submit the contact form and verify its email behavior.
+1. Confirm an existing Google Calendar event marked as busy removes every overlapping 55-minute slot from the website.
+2. Confirm an event marked as available does not remove overlapping slots.
+3. Book a free time using a test email address.
+4. Confirm the event appears in the configured Google Calendar and the test address receives an invitation.
+5. Open the site in a second browser and confirm the booked time is no longer available.
+6. Confirm a notification email arrives at the configured recipient.
 
 ## Important limitations
 
