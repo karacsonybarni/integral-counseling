@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import SubmissionSuccessMessage from "@/components/SubmissionSuccessMessage";
 import SubmissionErrorMessage from "@/components/SubmissionErrorMessage";
-import { Phone, Mail, MapPin, Calendar } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useRef, useState } from "react";
@@ -17,6 +17,7 @@ import { submitWebsiteForm } from "@/lib/formSubmission";
 
 export default function Contact() {
   const { t, i18n } = useTranslation("contact");
+  const { t: tHome } = useTranslation("home");
   const startedAtRef = useRef(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
@@ -67,24 +68,25 @@ export default function Contact() {
   };
 
   return (
-    <section className="py-16 bg-muted/20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4" data-testid="contact-title">
-            {t('title')}
+    <section className="bg-background py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 max-w-3xl">
+          <p className="section-kicker">{tHome("contact_section.eyebrow")}</p>
+          <h2 className="mt-4 text-balance font-serif text-4xl font-medium leading-tight tracking-[-0.025em] text-foreground sm:text-5xl" data-testid="contact-title">
+            {tHome("contact_section.title")}
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="contact-subtitle">
-            {t('subtitle')}
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground" data-testid="contact-subtitle">
+            {tHome("contact_section.subtitle")}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.08fr_0.92fr]">
           {/* Contact Form */}
-          <Card>
-            <CardHeader>
-              <CardTitle data-testid="form-title">{t('form.title')}</CardTitle>
+          <Card className="rounded-3xl border-border/80 shadow-[0_24px_70px_-52px_hsl(var(--foreground)/0.4)]">
+            <CardHeader className="border-b border-border p-6 sm:p-8">
+              <CardTitle className="font-serif text-2xl font-medium" data-testid="form-title">{tHome("contact_section.form_title")}</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6 sm:p-8">
             <Form {...form}>
               <form
                 noValidate
@@ -215,9 +217,9 @@ export default function Contact() {
                     )}
                   />
 
-                  <Button 
+                  <Button
                     type="submit" 
-                    className="w-full" 
+                    className="min-h-12 w-full rounded-full text-base"
                     disabled={form.formState.isSubmitting}
                     data-testid="button-submit-form"
                   >
@@ -248,18 +250,18 @@ export default function Contact() {
 
           {/* Contact Information */}
           <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle data-testid="contact-info-title">{t('info.title')}</CardTitle>
+            <Card className="rounded-3xl border-0 bg-foreground text-background">
+              <CardHeader className="p-6 pb-2 sm:p-8 sm:pb-3">
+                <CardTitle className="font-serif text-2xl font-medium text-background" data-testid="contact-info-title">{t('info.title')}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-5 p-6 pt-3 sm:p-8 sm:pt-3">
                 <div className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <Phone className="h-5 w-5 text-accent" aria-hidden="true" />
                   <div>
-                    <p className="font-medium text-foreground">{t('contact_methods.phone')}</p>
+                    <p className="font-medium text-background">{t('contact_methods.phone')}</p>
                     <a
                       href={THERAPIST_PHONE_HREF}
-                      className="inline-flex min-h-11 items-center rounded-sm text-muted-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="inline-flex min-h-11 items-center rounded-sm text-background/70 underline-offset-4 hover:text-background hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background"
                       data-testid="contact-phone"
                     >
                       {t("info.phone")}
@@ -267,12 +269,12 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <Mail className="h-5 w-5 text-accent" aria-hidden="true" />
                   <div>
-                    <p className="font-medium text-foreground">{t('contact_methods.email')}</p>
+                    <p className="font-medium text-background">{t('contact_methods.email')}</p>
                     <a
                       href={`mailto:${THERAPIST_EMAIL}`}
-                      className="inline-flex min-h-11 items-center rounded-sm text-muted-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="inline-flex min-h-11 items-center rounded-sm text-background/70 underline-offset-4 hover:text-background hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background"
                       data-testid="contact-email"
                     >
                       {t("info.email")}
@@ -280,28 +282,19 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <MapPin className="h-5 w-5 text-accent" aria-hidden="true" />
                   <div>
-                    <p className="font-medium text-foreground">{t('info.address')}</p>
-                    <p className="text-muted-foreground" data-testid="contact-address">
+                    <p className="font-medium text-background">{t('info.address')}</p>
+                    <p className="text-background/70" data-testid="contact-address">
                       {t('info.address_line1')}<br />
                       {t('info.address_line2')}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
-                  <div>
-                    <p className="font-medium text-foreground">{t('info.hours')}</p>
-                    <p className="text-muted-foreground" data-testid="contact-hours">
-                      {t('info.hours_by_appointment')}
                     </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-primary/5">
+            <Card className="rounded-3xl border-border/80 bg-card">
               <CardContent className="p-6">
                 <h3 className="font-semibold text-foreground mb-2" data-testid="emergency-title">
                   {t('emergency.title')}

@@ -1,13 +1,14 @@
 {
   "home": "Home",
   "about": "About",
-  "services": "Services",
+  "services": "What I help with",
   "contact": "Contact",
-  "appointment": "Request a Consultation",
+  "appointment": "First conversation",
   "language": "Language",
   "change_language": "Change language. Current language: {{language}}",
   "open_menu": "Open navigation menu",
   "close_menu": "Close navigation menu",
   "primary_navigation": "Primary navigation",
-  "logo": "Barna Karácsony"
+  "logo": "Barna Karácsony",
+  "tagline": "Integral Counselor Candidate"
 }

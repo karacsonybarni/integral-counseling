@@ -1,34 +1,61 @@
 {
-  "title": "Integrál tanácsadás",
-  "subtitle": "Elmélyült beszélgetések a test‑lélek‑kapcsolatok egységét figyelembe véve — együttérző, gyakorlatias, szükség esetén cselekvésorientált.",
-  "services": {
-    "individual": {
-      "title": "Integrál tanácsadói ülés",
-      "description": "Személyre szabott beszélgetések a te témáidhoz és élethelyzetedhez igazítva.",
-      "duration": "55 perc",
-      "approach": "Integrál modell, tudatosság, én-részekkel végzett munka, szomatikus tudatosság, értéktisztázás"
+  "eyebrow": "Amivel érkezhetsz",
+  "title": "Nem kell kész történettel vagy pontos kérdéssel jönnöd.",
+  "subtitle": "Elég, ha érzed, hogy valami figyelmet kér. Innen együtt keressük meg, mi az, ami most igazán fontos.",
+  "themes": {
+    "direction": {
+      "title": "Túl sok irány húz egyszerre",
+      "description": "Döntés, változás vagy új életszakasz előtt állsz, és szeretnéd szétválasztani a saját hangodat a külső elvárásoktól."
+    },
+    "patterns": {
+      "title": "Visszatérő mintákat veszel észre",
+      "description": "Kapcsolatokban, kommunikációban vagy önmagaddal szemben újra ugyanoda érkezel, és szeretnéd megérteni, mi tartja fenn ezt."
+    },
+    "overload": {
+      "title": "Sokat bírsz, de mostanra túl sok lett",
+      "description": "Kívülről működnek a dolgok, belül mégis egyre több a feszültség, a zaj vagy a távolság attól, ahogyan élni szeretnél."
+    },
+    "values": {
+      "title": "Közelebb kerülnél ahhoz, ami fontos",
+      "description": "Nem feltétlenül van krízis, de szeretnéd jobban érteni önmagad, az értékeidet és azt, merre érdemes továbbindulnod."
     }
   },
-  "session_length": "Ülés hossza:",
-  "approach_label": "Módszer:",
-  "learn_more": "Foglalj konzultációt",
   "approach": {
-    "title": "Hogyan dolgozom",
-    "description": "A különböző nézőpontokat értelmes egésszé rendezzük, az életritmusodhoz igazodva; a tisztán látást, a cselekvőképességet és a gyakorlást támogatom.",
+    "eyebrow": "Hogyan dolgozom",
+    "title": "Nem megjavítani szeretnélek, hanem veled együtt pontosabban látni.",
+    "description": "Az integrál szemléletben nem csak azt nézzük, mit gondolsz egy helyzetről. Figyelünk arra is, mit érzel, mit jelez a tested, milyen kapcsolati és környezeti hatások vesznek körül, és mi vihető át mindebből a hétköznapokba.",
+    "cta": "Első beszélgetést kérek",
     "principles": {
-      "collaborative": {
-        "title": "Együttműködés",
-        "description": "Közösen alakítjuk ki a neked illeszkedő irányt."
+      "notice": {
+        "title": "Észrevenni",
+        "description": "Lassítunk annyira, hogy láthatóvá váljon az is, ami a mindennapi lendületben könnyen rejtve marad."
       },
-      "strength": {
-        "title": "Erőforrás‑fókusz",
-        "description": "Meglévő erősségeidre és erőforrásaidra építünk."
+      "understand": {
+        "title": "Összefüggéseiben érteni",
+        "description": "Nem egyetlen okot keresünk: együtt nézzük a belső élményt, a mintákat, a kapcsolatokat és a környezetet."
       },
-      "cultural": {
-        "title": "Tisztelet",
-        "description": "Hátteredet, értékeidet és tapasztalataidat tiszteletben tartom."
+      "move": {
+        "title": "Kipróbálható lépést találni",
+        "description": "A felismeréseket olyan következő lépésekhez kapcsoljuk, amelyek valóban beleférnek az életedbe."
+      }
+    }
+  },
+  "process": {
+    "eyebrow": "Mire számíthatsz",
+    "title": "Egyszerűen kezdünk",
+    "steps": {
+      "contact": {
+        "title": "Jelzed, hogy beszélnél",
+        "description": "Az űrlapon röviden megírhatod, mi hoz, és melyik időpont lenne megfelelő."
+      },
+      "first": {
+        "title": "Első, 55 perces ülés",
+        "description": "Megismerjük egymást, körbejárjuk a helyzetedet, és megnézzük, milyen irány lenne hasznos."
+      },
+      "continue": {
+        "title": "Közösen kialakított irány",
+        "description": "Ha mindketten jó alapnak érezzük a találkozást, a te céljaidhoz és ritmusodhoz igazodva folytatjuk."
       }
     }
   }
 }
-

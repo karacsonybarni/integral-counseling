@@ -1,66 +1,62 @@
-import { Card, CardContent } from "@/components/ui/card";
-import profileImage from "@/assets/barna-armchair.jpeg";
+import { ArrowDownRight, Braces, Compass, Mountain } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function About() {
-  const { t } = useTranslation('about');
-  
-  return (
-    <section className="py-16 bg-muted/20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4" data-testid="about-title">
-            {t('title')}
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="about-subtitle">
-            {t('subtitle')}
-          </p>
-        </div>
+  const { t } = useTranslation("about");
+  const facts = ["training", "background", "languages"] as const;
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Profile Image */}
-          <div className="order-2 lg:order-1">
-            <img 
-              src={profileImage} 
-              alt={t("profile_alt")}
-              width={902}
-              height={825}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[3/4] rounded-lg shadow-md w-full max-w-md mx-auto object-cover object-top"
-              data-testid="profile-image"
-            />
+  return (
+    <section className="bg-card py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+          <div>
+            <p className="section-kicker">{t("eyebrow")}</p>
+            <h2
+              className="mt-4 text-balance font-serif text-4xl font-medium leading-tight tracking-[-0.025em] text-foreground sm:text-5xl"
+              data-testid="about-title"
+            >
+              {t("title")}
+            </h2>
+            <ArrowDownRight className="mt-8 hidden h-10 w-10 text-accent lg:block" aria-hidden="true" />
           </div>
 
-          {/* About Content */}
-          <div className="order-1 lg:order-2">
-            <Card>
-              <CardContent className="p-8">
-                <h3 className="text-xl font-semibold text-foreground mb-4" data-testid="credentials-title">
-                  {t('credentials.title')}
-                </h3>
-                <ul className="space-y-2 text-muted-foreground mb-6">
-                  <li data-testid="credential-1">{t('credentials.license')}</li>
-                  <li data-testid="credential-2">{t('credentials.phd')}</li>
-                  <li data-testid="credential-3">{t('credentials.masters')}</li>
-                  <li data-testid="credential-4">{t('credentials.membership')}</li>
-                </ul>
+          <div>
+            <p className="max-w-3xl font-serif text-2xl leading-relaxed text-foreground sm:text-3xl" data-testid="about-subtitle">
+              {t("lead")}
+            </p>
+            <div className="mt-8 grid gap-6 text-base leading-relaxed text-muted-foreground sm:grid-cols-2">
+              <p>{t("story.systems")}</p>
+              <p>{t("story.integral")}</p>
+            </div>
+          </div>
+        </div>
 
-                <h3 className="text-xl font-semibold text-foreground mb-4" data-testid="specializations-title">
-                  {t('specializations.title')}
-                </h3>
-                <ul className="space-y-2 text-muted-foreground mb-6">
-                  <li data-testid="specialization-1">{t('specializations.anxiety')}</li>
-                  <li data-testid="specialization-2">{t('specializations.couples')}</li>
-                  <li data-testid="specialization-3">{t('specializations.trauma')}</li>
-                  <li data-testid="specialization-4">{t('specializations.stress')}</li>
-                </ul>
-
-                <p className="text-muted-foreground" data-testid="personal-note">
-                  {t('personal_note')}
+        <div className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-border bg-border md:grid-cols-3">
+          {facts.map((fact, index) => {
+            const Icon = [Compass, Braces, Mountain][index];
+            return (
+              <div key={fact} className="bg-background p-7 sm:p-8">
+                <Icon className="h-6 w-6 text-primary" strokeWidth={1.7} aria-hidden="true" />
+                <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  {t(`facts.${fact}.label`)}
                 </p>
-              </CardContent>
-            </Card>
+                <p className="mt-2 text-lg font-semibold leading-snug text-foreground" data-testid={`about-fact-${fact}`}>
+                  {t(`facts.${fact}.value`)}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-14 grid items-start gap-8 border-t border-border pt-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <h3 className="font-serif text-3xl text-foreground">{t("beyond.title")}</h3>
+          <div>
+            <p className="max-w-3xl text-lg leading-relaxed text-muted-foreground" data-testid="personal-note">
+              {t("beyond.description")}
+            </p>
+            <p className="mt-6 border-l-2 border-accent pl-5 text-sm leading-relaxed text-muted-foreground">
+              {t("boundary")}
+            </p>
           </div>
         </div>
       </div>
