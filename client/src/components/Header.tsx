@@ -132,9 +132,9 @@ export default function Header() {
             <LanguageSwitcher />
             <Button asChild className="rounded-full px-5">
               <Link
-                href={getLocalizedPath("/#appointment-booking", i18n.language)}
+                href={getLocalizedPath("/#contact", i18n.language)}
                 onClick={(event) =>
-                  handleSectionLink(event, "appointment-booking")
+                  handleSectionLink(event, "contact")
                 }
                 data-testid="button-book-consultation"
               >
@@ -201,9 +201,9 @@ export default function Header() {
                 <LanguageSwitcher />
                 <Button asChild className="w-full">
                   <Link
-                    href={getLocalizedPath("/#appointment-booking", i18n.language)}
+                    href={getLocalizedPath("/#contact", i18n.language)}
                     onClick={(event) =>
-                      handleSectionLink(event, "appointment-booking", true)
+                      handleSectionLink(event, "contact", true)
                     }
                     data-testid="mobile-button-book-consultation"
                   >

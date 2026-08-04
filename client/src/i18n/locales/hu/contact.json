@@ -14,17 +14,17 @@
     "contact_method": "Előnyben részesített kapcsolatfelvételi mód",
     "contact_method_placeholder": "Hogyan szeretnéd, hogy kapcsolatba lépjek?",
     "message": "Üzenet",
-    "message_placeholder": "Oszd meg röviden a témát vagy a kérdéseidet...",
+    "message_placeholder": "Írd meg röviden, mi hoz, és adj meg két-három számodra megfelelő időpontot...",
     "required": "kötelező",
-    "submit": "Üzenet küldése",
+    "submit": "Első beszélgetés kérése",
     "sending": "Küldés..."
   },
   "success": {
-    "title": "Üzenet elküldve",
-    "description": "Az üzenet sikeresen elküldve. Köszönöm a megkeresést — 24 órán belül válaszolok."
+    "title": "Megkeresés elküldve",
+    "description": "Az üzenet sikeresen elküldve. Köszönöm a megkeresést — általában egy munkanapon belül válaszolok."
   },
   "error": {
-    "title": "Az üzenet nem lett elküldve",
+    "title": "A megkeresés nem lett elküldve",
     "description": "Nem sikerült elküldeni az üzenetet. A megadott adatok megmaradtak, így újra próbálhatod, vagy közvetlenül kapcsolatba léphetsz velem.",
     "email_action": "E-mail küldése ide: {{email}}"
   },
@@ -52,7 +52,7 @@
     "address_line2": "Magyarország",
     "hours": "Elérhetőség",
     "hours_by_appointment": "Hétköznap és hétvégén: egyeztetés szerint",
-    "response_time": "Válasz általában 24 órán belül"
+    "response_time": "Válasz általában egy munkanapon belül"
   },
   "emergency": {
     "title": "Sürgős segítségre van szükséged?",

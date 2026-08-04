@@ -1,22 +1,21 @@
 {
   "terms": {
     "title": "Terms of Service",
-    "updated": "Last updated: September 27, 2025",
-    "intro": "These Terms of Service describe the conditions for receiving integral counselling sessions from Barna Karacsony. By booking or attending a session you confirm that you have read and accepted them.",
+    "updated": "Last updated: August 4, 2026",
+    "intro": "These Terms of Service describe the conditions for receiving integral counseling sessions from Barna Karácsony. By requesting or attending a session, you confirm that you have read and accepted them.",
     "sections": [
       {
         "title": "Scope of Services",
-        "body": "The practice offers integral counselling, which is a supportive, non-clinical method.",
+        "body": "I offer integral counseling, a supportive, non-clinical method.",
         "items": [
           "Sessions focus on personal development, self-awareness, and emotional support.",
           "The service does not replace psychotherapy, psychiatric treatment, or emergency care.",
-          "If a different level of care is required, you will be referred to an appropriate professional."
+          "If you need a different level of care, I will recommend that you contact an appropriate professional."
         ]
       },
       {
         "title": "Client Commitments",
         "items": [
-          "You must be at least 18 years old or provide written consent from a guardian.",
           "You agree to share information that is accurate to the best of your knowledge.",
           "You remain responsible for any decisions you make inside or outside the sessions."
         ]
@@ -33,76 +32,83 @@
         "title": "Confidentiality",
         "body": "All personal information shared in sessions is confidential and handled according to the Privacy Policy.",
         "items": [
-          "Confidentiality can be broken if there is a risk of serious harm to you or others.",
-          "Anonymous supervision may be used to improve professional quality."
+          "Confidentiality may be limited when required by law or when there is a serious and immediate risk of harm."
         ]
       },
       {
         "title": "Changes to These Terms",
         "items": [
-          "The practice may update these Terms when services or regulations change.",
+          "I may update these Terms when the service or applicable regulations change.",
           "Material changes will be communicated through the website or email."
         ]
       }
     ],
     "contact": {
       "title": "Questions or Concerns",
-      "body": "If you have any questions about these Terms, please contact Barna Karacsony at karacsony.barni@gmail.com or by phone at +36 70 572 8313."
+      "body": "If you have any questions about these Terms, please contact Barna Karácsony at karacsony.barni@gmail.com or by phone at +36 70 572 8313."
     }
   },
   "privacy": {
     "title": "Privacy Policy",
-    "updated": "Last updated: September 27, 2025",
-    "intro": "This Privacy Policy explains how Barna Karacsony collects, uses, and protects your personal data in connection with integral counselling services.",
+    "updated": "Last updated: August 4, 2026",
+    "intro": "This Privacy Policy explains how Barna Karácsony collects, uses, and protects your personal data when operating this website and providing integral counseling services.",
     "sections": [
       {
         "title": "Data Controller",
         "items": [
-          "Controller: Barna Karacsony, Budapest, Hungary.",
+          "Controller: Barna Karácsony, Budapest, Hungary.",
           "Contact: karacsony.barni@gmail.com, +36 70 572 8313."
         ]
       },
       {
         "title": "Personal Data We Collect",
         "items": [
-          "Contact details (name, email address, phone number).",
-          "Background information you share to tailor the sessions.",
-          "Scheduling information such as preferred times and session notes."
+          "The name, email address, optional phone number, and contact preference you enter in the form.",
+          "Information you voluntarily include in your message, such as the reason for contacting me and suitable meeting times.",
+          "Technical data and logs required by the hosting and form-delivery providers."
         ]
       },
       {
         "title": "Why We Process Your Data",
         "items": [
-          "To provide and customise counselling sessions.",
-          "To manage appointments, reminders, and follow-up communication.",
-          "To comply with legal obligations, including bookkeeping and safeguarding duties."
+          "To reply to your inquiry and arrange a meeting.",
+          "To provide counseling services if we begin working together.",
+          "To meet legal and administrative obligations related to the service."
         ]
       },
       {
         "title": "Legal Basis",
         "items": [
-          "Your consent given when you request or attend a session.",
-          "Our legitimate interest in delivering a safe and effective counselling service.",
-          "Compliance with legal requirements, where applicable."
+          "Taking steps at your request before a possible counseling engagement.",
+          "Your consent where it is required for information you voluntarily provide.",
+          "Compliance with legal obligations, where applicable."
+        ]
+      },
+      {
+        "title": "Technical Service Providers",
+        "items": [
+          "GitHub Pages hosts the website and GitHub may process technical data required to provide it.",
+          "Google Apps Script transfers form submissions, and Gmail delivers the details and message you provide.",
+          "These providers act according to their privacy terms and applicable data-protection safeguards."
         ]
       },
       {
         "title": "Data Retention",
         "items": [
-          "Session notes are stored securely and kept for a maximum of five years.",
-          "Administrative records required by law may be kept longer, then safely deleted."
+          "I keep inquiry data only as long as needed to arrange a meeting, support our work, or handle a related claim.",
+          "Administrative records that must be retained by law are kept for the required period and then deleted or securely destroyed."
         ]
       },
       {
         "title": "Your Rights",
         "items": [
           "You may request access to, correction of, or deletion of your personal data.",
-          "You may withdraw consent at any time, which may end the counselling relationship.",
+          "You may withdraw consent at any time where processing is based on consent.",
           "You may lodge a complaint with the Hungarian National Authority for Data Protection and Freedom of Information (NAIH)."
         ]
       }
     ],
-    "note": "The practice does not share your personal data with third parties unless required by law or with your explicit consent.",
+    "note": "Your personal data is handled only by the technical providers required to run the service, or disclosed when required by law or with your explicit consent.",
     "contact": {
       "title": "Privacy Questions",
       "body": "For privacy-related requests please email karacsony.barni@gmail.com. A response will be provided within 30 days."

@@ -1,11 +1,11 @@
 {
   "eyebrow": "A first step",
   "title": "Let’s begin with a conversation.",
-  "subtitle": "You do not need to explain everything in advance. Let me know when you could meet, and I’ll reply within 24 hours.",
+  "subtitle": "You do not need to explain everything in advance. Let me know when you could meet, and I’ll usually reply within one business day.",
   "details": {
     "duration": "One session is 55 minutes",
     "format": "In Budapest or online",
-    "reply": "A reply within 24 hours"
+    "reply": "A reply usually within one business day"
   },
   "form": {
     "title": "When could we meet?",
@@ -32,7 +32,7 @@
   },
   "success": {
     "title": "Appointment request sent",
-    "description": "Your appointment request was sent successfully. I'll contact you within 24 hours."
+    "description": "Your appointment request was sent successfully. I’ll usually contact you within one business day."
   },
   "error": {
     "title": "Appointment request not sent",

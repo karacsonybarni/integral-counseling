@@ -1,11 +1,11 @@
 {
   "eyebrow": "Első lépés",
   "title": "Kezdjünk egy beszélgetéssel.",
-  "subtitle": "Nem kell hosszan bemutatnod a helyzetedet. Írd meg, mikor lenne jó találkozni, és 24 órán belül válaszolok.",
+  "subtitle": "Nem kell hosszan bemutatnod a helyzetedet. Írd meg, mikor lenne jó találkozni, és általában egy munkanapon belül válaszolok.",
   "details": {
     "duration": "Egy ülés 55 perc",
     "format": "Budapesten vagy online",
-    "reply": "Válasz 24 órán belül"
+    "reply": "Válasz általában egy munkanapon belül"
   },
   "form": {
     "title": "Mikor lenne jó találkozni?",
@@ -32,7 +32,7 @@
   },
   "success": {
     "title": "Időpontkérés elküldve",
-    "description": "Az időpontkérés sikeresen elküldve. 24 órán belül jelentkezem."
+    "description": "Az időpontkérés sikeresen elküldve. Általában egy munkanapon belül jelentkezem."
   },
   "error": {
     "title": "Az időpontkérés nem lett elküldve",

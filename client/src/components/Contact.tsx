@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import SubmissionSuccessMessage from "@/components/SubmissionSuccessMessage";
 import SubmissionErrorMessage from "@/components/SubmissionErrorMessage";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Clock3, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useRef, useState } from "react";
@@ -23,6 +23,11 @@ export default function Contact() {
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
   const validationSchema = useMemo(() => createContactInquirySchema(t), [t]);
+  const practicalDetails = [
+    { key: "session", icon: Clock3 },
+    { key: "format", icon: MapPin },
+    { key: "reply", icon: MessageCircle },
+  ] as const;
 
   const form = useForm<ContactInquiryInput>({
     resolver: zodResolver(validationSchema),
@@ -78,6 +83,16 @@ export default function Contact() {
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground" data-testid="contact-subtitle">
             {tHome("contact_section.subtitle")}
           </p>
+          <ul className="mt-7 flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:gap-x-6">
+            {practicalDetails.map(({ key, icon: Icon }) => (
+              <li key={key} className="flex items-center gap-2">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <Icon className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
+                </span>
+                {tHome(`contact_section.details.${key}`)}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.08fr_0.92fr]">

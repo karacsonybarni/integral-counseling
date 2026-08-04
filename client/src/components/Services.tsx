@@ -83,10 +83,10 @@ export default function Services() {
               })}
 
               <a
-                href="#appointment-booking"
+                href="#contact"
                 onClick={(event) => {
                   event.preventDefault();
-                  scrollToSection("appointment-booking");
+                  scrollToSection("contact");
                 }}
                 className="group mt-5 inline-flex min-h-12 items-center rounded-full bg-accent px-6 py-3 font-semibold text-foreground transition hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
                 data-testid="button-learn-more-individual"

@@ -31,7 +31,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ 
         success: true, 
-        message: "Thank you for reaching out. I'll get back to you within 24 hours.",
+        message: "Thank you for reaching out. I usually reply within one business day.",
         inquiryId: inquiry.id
       });
     } catch (error) {
@@ -76,7 +76,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ 
         success: true, 
-        message: "Your appointment request has been received. I'll contact you within 24 hours to confirm.",
+        message: "Your appointment request has been received. I’ll usually contact you within one business day to confirm.",
         appointmentId: appointment.id
       });
     } catch (error) {

@@ -33,10 +33,10 @@ export default function Hero() {
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
-              href="#appointment-booking"
+              href="#contact"
               onClick={(event) => {
                 event.preventDefault();
-                scrollToSection("appointment-booking");
+                scrollToSection("contact");
               }}
               className="group inline-flex min-h-12 items-center justify-center rounded-full bg-primary px-7 py-3 font-semibold text-primary-foreground shadow-[0_12px_30px_-12px_hsl(var(--primary)/0.65)] transition hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transform-none"
               data-testid="button-schedule-consultation"
