@@ -4,7 +4,7 @@ export const APPS_SCRIPT_WEB_APP_URL =
   import.meta.env.VITE_APPS_SCRIPT_WEB_APP_URL?.trim() ||
   DEFAULT_APPS_SCRIPT_WEB_APP_URL;
 const APPS_SCRIPT_MESSAGE_SOURCE = "integral-counseling-apps-script";
-const APPS_SCRIPT_TIMEOUT_MS = 15000;
+const APPS_SCRIPT_TIMEOUT_MS = 60000;
 
 type FormType = "appointment" | "contact";
 
