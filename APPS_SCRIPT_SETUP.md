@@ -2,6 +2,11 @@
 
 This repository is configured to keep the website on GitHub Pages and send form submissions through a Google Apps Script web app.
 
+## Existing Apps Script URLs
+
+- Project editor: https://script.google.com/home/projects/1qHNojJ5rFOp0avlvqYrER06mX78zNrqIuQ4bKBFjz5dmnca5yc9L3Qnr/edit
+- Production web app: https://script.google.com/macros/s/AKfycbztbd9BZ55jNSTu4TIGgwk4mvIHteoyPhiB_qbzvRl4MM7T5XYq1axQNxhbudFutvht/exec
+
 ## What this does
 
 - The React site stays fully static on GitHub Pages.
