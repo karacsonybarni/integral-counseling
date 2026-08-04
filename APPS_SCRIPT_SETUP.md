@@ -32,6 +32,10 @@ This repository is configured to keep the website on GitHub Pages and send form 
 
 The added Calendar permission is required to read busy periods and create booked events. Existing deployments must be redeployed and authorized again after this change.
 
+For the existing web app, replace both files in the Apps Script editor, then open `Deploy -> Manage deployments`, edit the active web-app deployment, choose `New version`, and deploy it. Editing the existing deployment keeps its `/exec` URL. Authorize the new Calendar permission when prompted.
+
+Deploy the Apps Script update before merging the frontend PR; until the backend is updated, the new picker will show its safe calendar-unavailable state.
+
 ## Configure booking availability
 
 The defaults at the top of `apps-script/Code.gs` are:
