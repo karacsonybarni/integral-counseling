@@ -23,11 +23,11 @@ export default function About() {
             <img 
               src={profileImage} 
               alt={t("profile_alt")}
-              width={1086}
-              height={1448}
+              width={902}
+              height={825}
               loading="lazy"
               decoding="async"
-              className="rounded-lg shadow-md w-full max-w-md mx-auto"
+              className="aspect-[3/4] rounded-lg shadow-md w-full max-w-md mx-auto object-cover object-top"
               data-testid="profile-image"
             />
           </div>
