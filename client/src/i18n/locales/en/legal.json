@@ -64,14 +64,14 @@
         "title": "Personal Data We Collect",
         "items": [
           "The name, email address, optional phone number, and contact preference you enter in the form.",
-          "Information you voluntarily include in your message, such as the reason for contacting me and suitable meeting times.",
+          "Information you voluntarily include in your message and the appointment time you select.",
           "Technical data and logs required by the hosting and form-delivery providers."
         ]
       },
       {
         "title": "Why We Process Your Data",
         "items": [
-          "To reply to your inquiry and arrange a meeting.",
+          "To reply to your inquiry, book an appointment, and send a calendar invitation.",
           "To provide counseling services if we begin working together.",
           "To meet legal and administrative obligations related to the service."
         ]
@@ -88,7 +88,8 @@
         "title": "Technical Service Providers",
         "items": [
           "GitHub Pages hosts the website and GitHub may process technical data required to provide it.",
-          "Google Apps Script transfers form submissions, and Gmail delivers the details and message you provide.",
+          "Google Apps Script transfers form submissions, checks Google Calendar availability, creates the booked event, and sends a calendar invitation; the website receives only free time slots and no event details.",
+          "Gmail delivers the notification containing the details and message you provide.",
           "These providers act according to their privacy terms and applicable data-protection safeguards."
         ]
       },

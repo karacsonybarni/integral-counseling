@@ -1,14 +1,14 @@
 {
   "eyebrow": "Első lépés",
-  "title": "Kezdjünk egy beszélgetéssel.",
-  "subtitle": "Nem kell hosszan bemutatnod a helyzetedet. Írd meg, mikor lenne jó találkozni, és általában egy munkanapon belül válaszolok.",
+  "title": "Válassz egy valóban szabad időpontot.",
+  "subtitle": "A naptár a Google Naptáram aktuális foglaltsága alapján mutat időpontokat. A kiválasztott alkalom a foglaláskor rögtön bekerül a naptárba.",
   "details": {
     "duration": "Egy ülés 55 perc",
     "format": "Budapesten vagy online",
-    "reply": "Válasz általában egy munkanapon belül"
+    "calendar": "Élő Google Naptár-elérhetőség"
   },
   "form": {
-    "title": "Mikor lenne jó találkozni?",
+    "title": "Időpontfoglalás",
     "name": "Teljes név",
     "name_placeholder": "Add meg a teljes neved",
     "email": "E-mail cím",
@@ -17,26 +17,38 @@
     "phone_placeholder": "+36 30 123 4567",
     "service": "Szolgáltatás",
     "service_placeholder": "Válassz szolgáltatást",
-    "date": "Előnyben részesített dátum",
+    "date": "Szabad dátum",
     "date_placeholder": "Válassz dátumot",
-    "time": "Előnyben részesített időpont",
+    "time": "Szabad időpont",
     "time_placeholder": "Válassz időpontot",
     "message": "További információ",
     "message_placeholder": "Amit érdemes tudnom előre...",
     "required": "kötelező",
-    "submit": "Első beszélgetés kérése",
-    "booking": "Kérés küldése..."
+    "submit": "Időpont lefoglalása",
+    "booking": "Foglalás..."
   },
   "services": {
     "individual": "Integrál tanácsadás (55 perc)"
   },
   "success": {
-    "title": "Időpontkérés elküldve",
-    "description": "Az időpontkérés sikeresen elküldve. Általában egy munkanapon belül jelentkezem."
+    "title": "Az időpontot lefoglaltad",
+    "description": "Az alkalom bekerült a Google Naptárba, a meghívót e-mailben is megkapod."
+  },
+  "availability": {
+    "loading": "Szabad időpontok betöltése a Google Naptárból...",
+    "error": "A naptár elérhetősége most nem tölthető be. Próbáld újra, vagy írj közvetlenül e-mailt.",
+    "retry": "Újrapróbálom",
+    "empty_title": "Jelenleg nincs foglalható időpont",
+    "empty_description": "Kérlek, írj e-mailt, és keresünk másik lehetőséget.",
+    "privacy": "Csak a szabad idősávok láthatók; a naptárbejegyzések címe és részletei nem kerülnek a weboldalra."
+  },
+  "conflict": {
+    "title": "Ezt az időpontot közben lefoglalták",
+    "description": "Frissítettem a naptárt. Válassz egy másik szabad időpontot."
   },
   "error": {
     "title": "Az időpontkérés nem lett elküldve",
-    "description": "Nem sikerült elküldeni a kérést. A megadott adatok megmaradtak, így újra próbálhatod, vagy közvetlenül kapcsolatba léphetsz velem.",
+    "description": "Nem sikerült lefoglalni az időpontot. A megadott adatok megmaradtak, így újra próbálhatod, vagy közvetlenül kapcsolatba léphetsz velem.",
     "email_action": "E-mail küldése ide: {{email}}"
   },
   "validation": {

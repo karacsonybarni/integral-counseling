@@ -64,14 +64,14 @@
         "title": "Milyen adatokat gyűjtünk",
         "items": [
           "Az űrlapon megadott név, e-mail cím, opcionális telefonszám és kapcsolattartási preferencia.",
-          "Az üzenetben önként megosztott információk, például a megkeresés témája és a számodra megfelelő időpontok.",
+          "Az üzenetben önként megosztott információk, valamint az általad kiválasztott foglalási időpont.",
           "A tárhely- és űrlapszolgáltatók működéséhez szükséges technikai adatok és naplóbejegyzések."
         ]
       },
       {
         "title": "Az adatkezelés céljai",
         "items": [
-          "Válaszadás a megkeresésedre és időpont egyeztetése.",
+          "Válaszadás a megkeresésedre, időpont foglalása és naptármeghívó küldése.",
           "A tanácsadási szolgáltatás biztosítása, ha együttműködés indul.",
           "A szolgáltatáshoz kapcsolódó jogi és adminisztratív kötelezettségek teljesítése."
         ]
@@ -88,7 +88,8 @@
         "title": "Technikai szolgáltatók",
         "items": [
           "A weboldalt a GitHub Pages szolgálja ki; a működéshez szükséges technikai adatokat a GitHub kezelheti.",
-          "Az űrlapbeküldéseket a Google Apps Script továbbítja, majd a Gmail kézbesíti a megadott adatokat és az üzenetet.",
+          "A Google Apps Script továbbítja az űrlapbeküldéseket, lekérdezi a Google Naptár foglaltságát, létrehozza a lefoglalt eseményt és naptármeghívót küld; a weboldal csak szabad idősávokat kap, eseményrészleteket nem.",
+          "A Gmail kézbesíti a megadott adatokat és az üzenetet tartalmazó értesítést.",
           "Ezek a szolgáltatók a saját adatvédelmi feltételeik és az alkalmazandó adatvédelmi garanciák szerint járnak el."
         ]
       },

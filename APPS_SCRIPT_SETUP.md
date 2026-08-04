@@ -5,20 +5,23 @@ This repository is configured to keep the website on GitHub Pages and send form 
 ## What this does
 
 - The React site stays fully static on GitHub Pages.
-- The appointment and contact forms post to a Google Apps Script web app.
-- Apps Script sends an email from `karacsony.barni@gmail.com` to `karacsony.barni@gmail.com`.
+- The appointment picker reads free times from the Google Calendar connected to the Apps Script project.
+- Calendar event titles and details stay server-side; the website receives only available start times.
+- Apps Script rechecks the selected time under a script lock, creates the 55-minute event, and sends the visitor a Google Calendar invitation.
+- The contact form and appointment booking post to the same Google Apps Script web app.
+- Apps Script sends a notification email to the configured recipient.
 - The email `replyTo` is set to the visitor's email address.
 
 ## Files to use
 
-- Apps Script server code: [`apps-script/Code.gs`](/home/kbarna/VSCodeProjects/integral-counseling/apps-script/Code.gs)
-- Apps Script manifest: [`apps-script/appsscript.json`](/home/kbarna/VSCodeProjects/integral-counseling/apps-script/appsscript.json)
+- Apps Script server code: [`apps-script/Code.gs`](apps-script/Code.gs)
+- Apps Script manifest: [`apps-script/appsscript.json`](apps-script/appsscript.json)
 
 ## Deploy the Apps Script web app
 
-1. Create a new standalone Google Apps Script project while signed in as `karacsony.barni@gmail.com`.
-2. Replace the default script content with [`apps-script/Code.gs`](/home/kbarna/VSCodeProjects/integral-counseling/apps-script/Code.gs).
-3. Replace the manifest with [`apps-script/appsscript.json`](/home/kbarna/VSCodeProjects/integral-counseling/apps-script/appsscript.json).
+1. Create a new standalone Google Apps Script project while signed in as the calendar owner.
+2. Replace the default script content with [`apps-script/Code.gs`](apps-script/Code.gs).
+3. Replace the manifest with [`apps-script/appsscript.json`](apps-script/appsscript.json).
 4. Save the project.
 5. Open `Deploy -> New deployment`.
 6. Choose deployment type `Web app`.
@@ -26,6 +29,20 @@ This repository is configured to keep the website on GitHub Pages and send form 
 8. Set `Who has access` to `Anyone`.
 9. Authorize the script when prompted.
 10. Copy the deployed `/exec` URL.
+
+The added Calendar permission is required to read busy periods and create booked events. Existing deployments must be redeployed and authorized again after this change.
+
+## Configure booking availability
+
+The defaults at the top of `apps-script/Code.gs` are:
+
+- Primary Google Calendar (`BOOKING_CALENDAR_ID` is empty).
+- Monday to Friday, 09:00–12:00 and 13:00–18:00 in `Europe/Budapest`.
+- 55-minute sessions starting every 30 minutes.
+- At least 24 hours' notice.
+- The next 14 dates with free times, within a 60-day horizon.
+
+To use another calendar, set `BOOKING_CALENDAR_ID` to its calendar ID. Adjust `WORKING_WINDOWS` and the other booking constants before redeploying if the defaults do not match your schedule.
 
 ## Connect GitHub Pages to the web app
 
@@ -53,10 +70,12 @@ After the variable is set:
 
 ## Manual checks
 
-1. Submit an appointment request on the live site.
-2. Confirm an email arrives in `karacsony.barni@gmail.com`.
-3. Reply to that email and confirm the reply goes to the visitor's email address.
-4. Submit the contact form and verify the same behavior.
+1. Confirm an existing Google Calendar event removes every overlapping 55-minute slot from the website.
+2. Book a free time using a test email address.
+3. Confirm the event appears in the configured Google Calendar and the test address receives an invitation.
+4. Open the site in a second browser and confirm the booked time is no longer available.
+5. Confirm a notification email arrives at the configured recipient.
+6. Submit the contact form and verify its email behavior.
 
 ## Important limitations
 

@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
-import Contact from "@/components/Contact";
+import AppointmentBooking from "@/components/AppointmentBooking";
 import Footer from "@/components/Footer";
 import { consumePendingScrollTarget, scrollToSection } from "@/lib/routing";
 
@@ -31,7 +31,7 @@ export default function Home() {
           <Services />
         </div>
         <div id="contact">
-          <Contact />
+          <AppointmentBooking />
         </div>
       </main>
       <Footer />

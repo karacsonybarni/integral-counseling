@@ -1,6 +1,6 @@
 const DEFAULT_APPS_SCRIPT_WEB_APP_URL =
   "https://script.google.com/macros/s/AKfycbztbd9BZ55jNSTu4TIGgwk4mvIHteoyPhiB_qbzvRl4MM7T5XYq1axQNxhbudFutvht/exec";
-const APPS_SCRIPT_WEB_APP_URL =
+export const APPS_SCRIPT_WEB_APP_URL =
   import.meta.env.VITE_APPS_SCRIPT_WEB_APP_URL?.trim() ||
   DEFAULT_APPS_SCRIPT_WEB_APP_URL;
 const APPS_SCRIPT_MESSAGE_SOURCE = "integral-counseling-apps-script";
@@ -20,6 +20,7 @@ interface WebsiteFormPayload {
   preferredDate?: string;
   preferredDateLabel?: string;
   preferredTime?: string;
+  slotStart?: string;
   startedAt: number;
   website?: string;
 }
@@ -29,7 +30,18 @@ interface AppsScriptMessage {
   ok?: boolean;
   ignored?: boolean;
   error?: string;
+  errorCode?: string;
   requestId?: string;
+}
+
+export class WebsiteFormSubmissionError extends Error {
+  constructor(
+    message: string,
+    readonly code?: string,
+  ) {
+    super(message);
+    this.name = "WebsiteFormSubmissionError";
+  }
 }
 
 export async function submitWebsiteForm(payload: WebsiteFormPayload) {
@@ -124,10 +136,11 @@ async function submitToAppsScript(payload: WebsiteFormPayload) {
       }
 
       rejectOnce(
-        new Error(
+        new WebsiteFormSubmissionError(
           message.ignored
             ? "Apps Script ignored the submission as suspected spam."
             : message.error || "Apps Script rejected the submission.",
+          message.errorCode,
         ),
       );
     };
