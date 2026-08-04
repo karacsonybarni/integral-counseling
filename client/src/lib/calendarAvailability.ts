@@ -1,6 +1,5 @@
 import { APPS_SCRIPT_WEB_APP_URL } from "@/lib/formSubmission";
 
-const APPS_SCRIPT_MESSAGE_SOURCE = "integral-counseling-apps-script";
 const APPS_SCRIPT_TIMEOUT_MS = 15000;
 
 interface AvailabilityMessage {
@@ -23,24 +22,25 @@ export async function getCalendarAvailability(): Promise<CalendarAvailability> {
   }
 
   const requestId = `availability_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
-  const iframe = document.createElement("iframe");
+  const callbackName = `integralCalendarAvailability_${requestId}`;
+  const callbacks = window as unknown as Record<
+    string,
+    ((message: AvailabilityMessage) => void) | undefined
+  >;
+  const script = document.createElement("script");
   const url = new URL(APPS_SCRIPT_WEB_APP_URL);
 
   url.searchParams.set("action", "availability");
-  url.searchParams.set("origin", window.location.origin);
   url.searchParams.set("requestId", requestId);
-
-  iframe.src = url.toString();
-  iframe.style.display = "none";
-  iframe.title = "";
+  url.searchParams.set("callback", callbackName);
 
   return new Promise<CalendarAvailability>((resolve, reject) => {
     let settled = false;
 
     const cleanup = () => {
-      window.removeEventListener("message", handleMessage);
       window.clearTimeout(timeoutId);
-      iframe.remove();
+      script.remove();
+      delete callbacks[callbackName];
     };
 
     const finish = (callback: () => void) => {
@@ -52,15 +52,9 @@ export async function getCalendarAvailability(): Promise<CalendarAvailability> {
       callback();
     };
 
-    const handleMessage = (event: MessageEvent<AvailabilityMessage>) => {
-      if (!isTrustedAppsScriptOrigin(event.origin)) {
-        return;
-      }
-
-      const message = event.data;
+    callbacks[callbackName] = (message: AvailabilityMessage) => {
       if (
         !message ||
-        message.source !== APPS_SCRIPT_MESSAGE_SOURCE ||
         message.requestId !== requestId
       ) {
         return;
@@ -79,25 +73,16 @@ export async function getCalendarAvailability(): Promise<CalendarAvailability> {
       );
     };
 
+    script.onerror = () => {
+      finish(() => reject(new Error("Could not load calendar availability.")));
+    };
+
     const timeoutId = window.setTimeout(() => {
       finish(() => reject(new Error("Timed out while loading calendar availability.")));
     }, APPS_SCRIPT_TIMEOUT_MS);
 
-    window.addEventListener("message", handleMessage);
-    document.body.appendChild(iframe);
+    script.src = url.toString();
+    script.async = true;
+    document.head.appendChild(script);
   });
-}
-
-function isTrustedAppsScriptOrigin(origin: string) {
-  try {
-    const { protocol, host } = new URL(origin);
-    return (
-      protocol === "https:" &&
-      (host === "script.google.com" ||
-        host === "script.googleusercontent.com" ||
-        host.endsWith(".googleusercontent.com"))
-    );
-  } catch {
-    return false;
-  }
 }

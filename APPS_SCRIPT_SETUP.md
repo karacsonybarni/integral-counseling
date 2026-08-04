@@ -6,7 +6,7 @@ This repository is configured to keep the website on GitHub Pages and send form 
 
 - Project editor: https://script.google.com/home/projects/1qHNojJ5rFOp0avlvqYrER06mX78zNrqIuQ4bKBFjz5dmnca5yc9L3Qnr/edit
 - Production web app: https://script.google.com/macros/s/AKfycbztbd9BZ55jNSTu4TIGgwk4mvIHteoyPhiB_qbzvRl4MM7T5XYq1axQNxhbudFutvht/exec
-- Version 3 library: https://script.google.com/macros/library/d/1qHNojJ5rFOp0avlvqYrER06mX78zNrqIuQ4bKBFjz5dmnca5yc9L3Qnr/3
+- Version 4 library: https://script.google.com/macros/library/d/1qHNojJ5rFOp0avlvqYrER06mX78zNrqIuQ4bKBFjz5dmnca5yc9L3Qnr/4
 
 ## What this does
 
