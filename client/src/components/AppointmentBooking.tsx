@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import SubmissionSuccessMessage from "@/components/SubmissionSuccessMessage";
 import SubmissionErrorMessage from "@/components/SubmissionErrorMessage";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Calendar, Clock, ArrowRight, MapPin, MessageCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useRef, useState } from "react";
@@ -60,6 +60,11 @@ export default function AppointmentBooking() {
   };
 
   const availableDates = getAvailableDates();
+  const bookingDetails = [
+    { key: "duration", icon: Clock },
+    { key: "format", icon: MapPin },
+    { key: "reply", icon: MessageCircle },
+  ] as const;
 
   const handleSubmit = async (data: AppointmentInput) => {
     setSuccessMessageVisible(false);
@@ -123,25 +128,39 @@ export default function AppointmentBooking() {
   };
 
   return (
-    <section className="py-16 bg-background">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground mb-4" data-testid="booking-title">
-            {t('title')}
+    <section className="bg-card py-20 sm:py-28">
+      <div className="mx-auto grid max-w-7xl items-start gap-12 px-4 sm:px-6 lg:grid-cols-[0.68fr_1fr] lg:gap-20 lg:px-8">
+        <div className="lg:sticky lg:top-32">
+          <p className="section-kicker">{t("eyebrow")}</p>
+          <h2 className="mt-4 text-balance font-serif text-4xl font-medium leading-tight tracking-[-0.025em] text-foreground sm:text-5xl" data-testid="booking-title">
+            {t("title")}
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="booking-subtitle">
-            {t('subtitle')}
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground" data-testid="booking-subtitle">
+            {t("subtitle")}
           </p>
+
+          <ul className="mt-9 space-y-4">
+            {bookingDetails.map(({ key, icon: Icon }) => (
+              <li key={key} className="flex items-center gap-4 text-foreground">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <Icon className="h-5 w-5" strokeWidth={1.7} aria-hidden="true" />
+                </span>
+                <span className="font-medium">{t(`details.${key}`)}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <Card className="max-w-2xl mx-auto">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2" data-testid="booking-form-title">
-              <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
+        <Card className="rounded-3xl border-border/80 bg-background shadow-[0_24px_70px_-48px_hsl(var(--foreground)/0.45)]">
+          <CardHeader className="border-b border-border p-6 sm:p-8">
+            <CardTitle className="flex items-center gap-3 font-serif text-2xl font-medium" data-testid="booking-form-title">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                <Calendar className="h-5 w-5 text-primary" aria-hidden="true" />
+              </span>
               {t("form.title")}
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6 sm:p-8">
             <Form {...form}>
               <form
                 noValidate
@@ -314,9 +333,9 @@ export default function AppointmentBooking() {
                 />
 
                 {/* Submit Button */}
-                <Button 
+                <Button
                   type="submit" 
-                  className="w-full group" 
+                  className="group min-h-12 w-full rounded-full text-base"
                   disabled={form.formState.isSubmitting}
                   data-testid="button-book-appointment"
                 >
@@ -343,7 +362,7 @@ export default function AppointmentBooking() {
                 )}
 
                 {/* Disclaimer */}
-                <div className="text-sm text-muted-foreground text-center bg-muted/20 p-4 rounded-md">
+                <div className="rounded-2xl bg-muted/50 p-4 text-center text-sm leading-relaxed text-muted-foreground">
                   <p data-testid="booking-disclaimer">
                     {t('disclaimer')}
                   </p>

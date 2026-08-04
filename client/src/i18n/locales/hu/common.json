@@ -15,7 +15,7 @@
   "info": "Információ",
   "required": "Kötelező mező",
   "optional": "Opcionális",
-  "email": "E‑mail cím",
+  "email": "E-mail cím",
   "phone": "Telefonszám",
   "name": "Név",
   "message": "Üzenet",
@@ -24,8 +24,8 @@
   "skip_to_content": "Ugrás a fő tartalomhoz",
   "meta": {
     "home": {
-      "title": "Karácsony Barna — Integrál tanácsadó jelölt | Budapest",
-      "description": "Integrál tanácsadás Karácsony Barnával. Gyakorlatias, együttérző beszélgetések tisztánlátáshoz, rugalmassághoz és valódi változáshoz, magyarul és angolul."
+      "title": "Karácsony Barna — integrál tanácsadó jelölt | Budapest és online",
+      "description": "Figyelmes, gyakorlatias integrál tanácsadás önismerethez, döntésekhez és visszatérő minták megértéséhez, Budapesten vagy online."
     },
     "terms": {
       "title": "Szolgáltatási feltételek | Karácsony Barna",

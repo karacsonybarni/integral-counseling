@@ -1,51 +1,23 @@
 {
   "hero": {
-    "title": "Integrál tanácsadás",
-    "subtitle": "Integrál tanácsadó jelöltként gyakorlati, együttérző teret kínálok élethelyzeti kihívások és személyes fejlődés támogatására.",
-    "cta": "Módszerem",
-    "appointment": "Konzultáció kérése"
-  },
-  "benefits": {
-    "safe": {
-      "title": "Bizalmas, elfogadó tér",
-      "description": "Ítélkezésmentes közeg, ahol nyugodtan átgondolhatod gondolataidat, érzéseidet és következő lépéseidet."
-    },
-    "evidence": {
-      "title": "Integratív, gyakorlatias",
-      "description": "A modern pszichológia, a tudatosság és az integrál szemlélet ötvözete."
-    },
-    "personalized": {
-      "title": "Személyre szabott, közös irány",
-      "description": "Közösen jelöljük ki a célt, a te tempódban haladunk."
+    "eyebrow": "Karácsony Barna · Integrál tanácsadó jelölt",
+    "title": "Értsd meg, mi történik benned. Indulj el afelé, ami valóban a tiéd.",
+    "subtitle": "Ha elakadtál egy döntésben, visszatérő mintákban vagy egyszerűen szeretnéd tisztábban látni önmagad, figyelmes és gyakorlatias teret kínálok a közös munkához.",
+    "cta": "Így dolgozom",
+    "appointment": "Első beszélgetést kérek",
+    "profile_alt": "Karácsony Barna egy sárga fotelben ül",
+    "note": "Nem kész válaszokat adok. Abban segítek, hogy pontosabban lásd, mi történik — és mi lehet a következő valódi lépés.",
+    "note_label": "Közös figyelem, a te tempódban",
+    "details": {
+      "duration": "55 perces ülések",
+      "format": "Budapesten vagy online",
+      "languages": "Magyarul vagy angolul"
     }
   },
-  "about": {
-    "title": "Rólam",
-    "description": "Integrál tanácsadó jelölt vagyok, az Integrál Akadémián vagyok végzős hallgató Budapesten. A modern pszichológiát, a tudatosságot és az integrál szemléletet kapcsolom össze a tisztán látás és a megküzdőképesség támogatására.",
-    "qualifications": "Képzettség és háttér",
-    "experience": "Fókusz és tapasztalat",
-    "approach": "Módszerem"
-  },
-  "services": {
-    "title": "Szolgáltatások",
-    "individual": {
-      "title": "Integrál tanácsadás",
-      "description": "Támogató beszélgetések a tisztán látásért és a továbblépésért."
-    }
-  },
-  "process": {
-    "title": "Hogyan működik",
-    "step1": {
-      "title": "Kapcsolatfelvétel",
-      "description": "Írj az űrlapon vagy e‑mailben."
-    },
-    "step2": {
-      "title": "Ismerkedő beszélgetés",
-      "description": "Egy 55 perces ülés, hogy megismerjük egymást, és megtaláljuk a további ülések célját."
-    },
-    "step3": {
-      "title": "Ülések",
-      "description": "Rendszeres, személyes vagy online ülések, a te céljaidhoz igazítva."
-    }
+  "contact_section": {
+    "eyebrow": "Kapcsolat",
+    "title": "Még van kérdésed, mielőtt időpontot kérnél?",
+    "subtitle": "Írj néhány sort, vagy keress közvetlenül telefonon és e-mailben.",
+    "form_title": "Írj nekem"
   }
 }

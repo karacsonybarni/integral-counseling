@@ -14,7 +14,6 @@ export default function Header() {
 
   const homePath = getLocalizedPath("/", i18n.language);
   const navigation = [
-    { name: t("home"), href: homePath, action: "link" as const },
     { name: t("about"), href: getLocalizedPath("/#about", i18n.language), action: "scroll" as const, target: "about" },
     { name: t("services"), href: getLocalizedPath("/#services", i18n.language), action: "scroll" as const, target: "services" },
     { name: t("contact"), href: getLocalizedPath("/#contact", i18n.language), action: "scroll" as const, target: "contact" },
@@ -80,16 +79,21 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-background border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between py-3">
           {/* Logo */}
           <Link
             href={homePath}
             className={`inline-flex min-h-11 items-center ${focusRingClasses}`}
           >
-            <span className="text-xl font-serif font-bold text-foreground" data-testid="logo-text">
-              {t("logo")}
+            <span data-testid="logo-text">
+              <span className="block font-serif text-xl font-semibold leading-tight text-foreground">
+                {t("logo")}
+              </span>
+              <span className="mt-0.5 hidden text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground sm:block">
+                {t("tagline")}
+              </span>
             </span>
           </Link>
 
@@ -126,7 +130,7 @@ export default function Header() {
               );
             })}
             <LanguageSwitcher />
-            <Button asChild>
+            <Button asChild className="rounded-full px-5">
               <Link
                 href={getLocalizedPath("/#appointment-booking", i18n.language)}
                 onClick={(event) =>

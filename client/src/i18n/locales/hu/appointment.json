@@ -1,11 +1,17 @@
 {
-  "title": "Konzultáció kérése",
-  "subtitle": "Küldd el az időpontkérésedet; 24 órán belül válaszolok.",
+  "eyebrow": "Első lépés",
+  "title": "Kezdjünk egy beszélgetéssel.",
+  "subtitle": "Nem kell hosszan bemutatnod a helyzetedet. Írd meg, mikor lenne jó találkozni, és 24 órán belül válaszolok.",
+  "details": {
+    "duration": "Egy ülés 55 perc",
+    "format": "Budapesten vagy online",
+    "reply": "Válasz 24 órán belül"
+  },
   "form": {
-    "title": "Az időpontkérés adatai",
+    "title": "Mikor lenne jó találkozni?",
     "name": "Teljes név",
     "name_placeholder": "Add meg a teljes neved",
-    "email": "E‑mail cím",
+    "email": "E-mail cím",
     "email_placeholder": "nev@example.com",
     "phone": "Telefonszám",
     "phone_placeholder": "+36 30 123 4567",
@@ -18,7 +24,7 @@
     "message": "További információ",
     "message_placeholder": "Amit érdemes tudnom előre...",
     "required": "kötelező",
-    "submit": "Időpontkérés küldése",
+    "submit": "Első beszélgetés kérése",
     "booking": "Kérés küldése..."
   },
   "services": {

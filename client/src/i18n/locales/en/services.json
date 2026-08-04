@@ -1,34 +1,61 @@
 {
-  "title": "Integral Counseling",
-  "subtitle": "Conversations that integrate mind, body, and context—grounded, compassionate, and action‑oriented when helpful.",
-  "services": {
-    "individual": {
-      "title": "Integral Counseling Session",
-      "description": "One‑on‑one sessions tailored to your needs and context.",
-      "duration": "55 minutes",
-      "approach": "Integral model, mindfulness, parts work, somatic awareness, values clarification"
+  "eyebrow": "What you can bring",
+  "title": "You do not need a finished story or a perfectly worded question.",
+  "subtitle": "It is enough to sense that something needs attention. From there, we can find together what matters most right now.",
+  "themes": {
+    "direction": {
+      "title": "Too many directions are pulling at once",
+      "description": "You are facing a decision, transition, or new chapter and want to separate your own voice from outside expectations."
+    },
+    "patterns": {
+      "title": "You notice recurring patterns",
+      "description": "In relationships, communication, or the way you treat yourself, you keep arriving at the same place and want to understand what sustains it."
+    },
+    "overload": {
+      "title": "You can carry a lot, but it has become too much",
+      "description": "Things may work on the outside, while inside there is growing tension, noise, or distance from how you want to live."
+    },
+    "values": {
+      "title": "You want to move closer to what matters",
+      "description": "There may be no crisis; you simply want to understand yourself and your values more clearly and choose your direction with intention."
     }
   },
-  "session_length": "Session length:",
-  "approach_label": "Approach:",
-  "learn_more": "Book a consultation",
   "approach": {
-    "title": "How I Work",
-    "description": "We integrate perspectives meaningfully and work at a pace that fits your life, focusing on clarity, agency, and practice.",
+    "eyebrow": "How I work",
+    "title": "I do not want to fix you. I want to help us see more clearly together.",
+    "description": "An integral perspective looks beyond what you think about a situation. We also pay attention to what you feel, what your body signals, the relational and environmental forces around you, and what can be carried into everyday life.",
+    "cta": "Request a first conversation",
     "principles": {
-      "collaborative": {
-        "title": "Collaborative",
-        "description": "We co‑create a direction that fits your life."
+      "notice": {
+        "title": "Notice",
+        "description": "We slow down enough for what gets hidden in everyday momentum to become visible."
       },
-      "strength": {
-        "title": "Strength‑based",
-        "description": "We build on your strengths and resources."
+      "understand": {
+        "title": "Understand in context",
+        "description": "We do not look for one single cause; we consider inner experience, patterns, relationships, and environment together."
       },
-      "cultural": {
-        "title": "Respectful",
-        "description": "Your background, beliefs, and context are respected."
+      "move": {
+        "title": "Find a step you can try",
+        "description": "We connect insight to a next step that genuinely fits into your life."
+      }
+    }
+  },
+  "process": {
+    "eyebrow": "What to expect",
+    "title": "We start simply",
+    "steps": {
+      "contact": {
+        "title": "Let me know you would like to talk",
+        "description": "Use the form to briefly share what brings you here and which time would work for you."
+      },
+      "first": {
+        "title": "A first 55-minute session",
+        "description": "We get to know each other, explore your situation, and consider what direction could be useful."
+      },
+      "continue": {
+        "title": "A direction we shape together",
+        "description": "If the meeting feels like a good foundation to both of us, we continue around your goals and at a pace that fits you."
       }
     }
   }
 }
-

@@ -1,24 +1,28 @@
 {
-  "title": "About Me",
-  "profile_alt": "Barna Karácsony sitting in a yellow armchair",
-  "subtitle": "Integral Counselor Candidate trained at the Integral Academy in Budapest, offering attentive presence and practical tools for self‑knowledge, resilience, and meaningful change.",
-  "credentials": {
-    "title": "Training & Background",
-    "license": "Integral Counselor Candidate, Integral Academy (Budapest)",
-    "phd": "Sessions available in Hungarian and English",
-    "masters": "Ongoing development: mindfulness, trauma‑sensitive practice, communication",
-    "membership": "Member of the Integral Academy community"
+  "eyebrow": "About me",
+  "title": "I feel at home in two worlds: systems and human stories.",
+  "lead": "As a software developer, I work with complex systems. As a final-year student at the Integral Academy, I bring the same curiosity to the inner world of people.",
+  "story": {
+    "systems": "My technology background taught me to ask precise questions, look for connections, and find the next possible step in complex situations. In counseling, I combine that clarity with attentive, human presence.",
+    "integral": "The integral perspective resonates with me because it does not reduce a person to a single explanation. It makes room for thoughts, emotions, the body, relationships, and the wider context in which we live."
   },
-  "specializations": {
-    "title": "Areas of Focus",
-    "anxiety": "Life transitions and decision support",
-    "couples": "Relationships and communication",
-    "trauma": "Stress, overwhelm, and burnout",
-    "stress": "Self‑knowledge and values clarification"
+  "facts": {
+    "training": {
+      "label": "Training",
+      "value": "Final-year student in the Integral Counselor program at the Integral Academy"
+    },
+    "background": {
+      "label": "Perspective",
+      "value": "Analytical thinking, curiosity, and person-centered attention"
+    },
+    "languages": {
+      "label": "Sessions",
+      "value": "In Hungarian and English, in Budapest or online"
+    }
   },
-  "personal_note": "Alongside psychology, I am interested in technology, communities, and the possibilities of personal growth. Climbing, beach volleyball, hiking, and improvisational theater help me stay connected with my body, curiosity, and other people in everyday life. As a counselor, I offer an attentive, non‑judgmental presence and practical tools. This is not medical or psychiatric treatment.",
-  "office": {
-    "title": "In‑Person and Online",
-    "description": "Sessions available in Budapest or online. A calm, supportive setting to reflect and move forward."
-  }
+  "beyond": {
+    "title": "Beyond the counseling chair",
+    "description": "Alongside psychology, I am interested in technology, communities, and the possibilities of personal growth. Climbing, beach volleyball, hiking, and improvisational theater help me stay connected with my body, my curiosity, and other people."
+  },
+  "boundary": "Integral counseling is not medical or psychiatric care and does not replace psychotherapy."
 }

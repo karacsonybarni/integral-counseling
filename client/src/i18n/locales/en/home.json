@@ -1,51 +1,23 @@
 {
   "hero": {
-    "title": "Integral Counseling",
-    "subtitle": "I’m an Integral Counselor Candidate trained at the Integral Academy, offering a practical, compassionate space to explore life’s challenges and personal growth.",
-    "cta": "Learn About My Approach",
-    "appointment": "Request a Consultation"
-  },
-  "benefits": {
-    "safe": {
-      "title": "Confidential, Respectful Space",
-      "description": "A non-judgmental setting to explore thoughts, emotions, and next steps."
-    },
-    "evidence": {
-      "title": "Evidence‑informed & Practical",
-      "description": "Integrates modern psychology with mindfulness and integral frameworks."
-    },
-    "personalized": {
-      "title": "Personal & Collaborative",
-      "description": "We set goals together and work at your pace."
+    "eyebrow": "Barna Karácsony · Integral Counselor Candidate",
+    "title": "Understand what is happening within you. Move toward what is truly yours.",
+    "subtitle": "If you feel stuck in a decision, caught in a recurring pattern, or simply want to see yourself more clearly, I offer an attentive and practical space for our work together.",
+    "cta": "How I work",
+    "appointment": "Request a first conversation",
+    "profile_alt": "Barna Karácsony sitting in a yellow armchair",
+    "note": "I do not offer ready-made answers. I help you see more clearly what is happening—and what the next real step might be.",
+    "note_label": "Shared attention, at your pace",
+    "details": {
+      "duration": "55-minute sessions",
+      "format": "In Budapest or online",
+      "languages": "In Hungarian or English"
     }
   },
-  "about": {
-    "title": "About Me",
-    "description": "I’m an Integral Counselor Candidate, trained at the Integral Academy in Budapest. I blend modern psychology with mindfulness and integral perspectives to support clarity, resilience, and meaning.",
-    "qualifications": "Training & Background",
-    "experience": "Focus & Experience",
-    "approach": "My Approach"
-  },
-  "services": {
-    "title": "Services",
-    "individual": {
-      "title": "Integral Counseling",
-      "description": "Focused conversations to clarify what matters and move forward with confidence."
-    }
-  },
-  "process": {
-    "title": "How It Works",
-    "step1": {
-      "title": "Contact",
-      "description": "Reach out via the contact form or email."
-    },
-    "step2": {
-      "title": "Intro session",
-      "description": "A 55 minutes session to get to know each other find the goal of the next sessions."
-    },
-    "step3": {
-      "title": "Sessions",
-      "description": "Regular sessions in-person or online, tailored to your goals."
-    }
+  "contact_section": {
+    "eyebrow": "Contact",
+    "title": "Still have a question before requesting a session?",
+    "subtitle": "Send me a short message, or reach me directly by phone or email.",
+    "form_title": "Write to me"
   }
 }

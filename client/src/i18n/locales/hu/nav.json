@@ -1,13 +1,14 @@
 {
   "home": "Főoldal",
   "about": "Rólam",
-  "services": "Szolgáltatások",
+  "services": "Miben segíthetek",
   "contact": "Kapcsolat",
-  "appointment": "Konzultáció kérése",
+  "appointment": "Első beszélgetés",
   "language": "Nyelv",
   "change_language": "Nyelvváltás. Jelenlegi nyelv: {{language}}",
   "open_menu": "Navigációs menü megnyitása",
   "close_menu": "Navigációs menü bezárása",
   "primary_navigation": "Elsődleges navigáció",
-  "logo": "Karácsony Barna"
+  "logo": "Karácsony Barna",
+  "tagline": "Integrál tanácsadó jelölt"
 }

@@ -14,17 +14,17 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 0 0% 100%;
+  --background: 42 38% 97%;
 
-  --foreground: 195 25% 23%;
+  --foreground: 164 30% 16%;
 
-  --border: 210 15% 89%;
+  --border: 38 20% 84%;
 
-  --card: 210 15% 98%;
+  --card: 40 38% 99%;
 
-  --card-foreground: 195 25% 23%;
+  --card-foreground: 164 30% 16%;
 
-  --card-border: 210 15% 92%;
+  --card-border: 38 20% 86%;
 
   --sidebar: 210 15% 96%;
 
@@ -48,38 +48,38 @@
 
   --popover-border: 210 15% 89%;
 
-  --primary: 165 42% 34%;
+  --primary: 158 36% 29%;
 
-  --primary-foreground: 0 0% 98%;
+  --primary-foreground: 42 40% 98%;
 
-  --secondary: 210 15% 92%;
+  --secondary: 38 24% 91%;
 
-  --secondary-foreground: 195 25% 23%;
+  --secondary-foreground: 164 30% 16%;
 
-  --muted: 210 15% 94%;
+  --muted: 38 22% 92%;
 
-  --muted-foreground: 195 18% 39%;
+  --muted-foreground: 160 11% 38%;
 
-  --accent: 220 30% 64%;
+  --accent: 22 68% 66%;
 
-  --accent-foreground: 195 25% 23%;
+  --accent-foreground: 164 30% 16%;
 
   --destructive: 0 65% 48%;
 
   --destructive-foreground: 0 0% 98%;
 
-  --input: 210 15% 82%;
-  --ring: 165 40% 36%;
+  --input: 38 18% 72%;
+  --ring: 158 36% 29%;
   --chart-1: 165 40% 36%;
   --chart-2: 220 30% 64%;
   --chart-3: 195 25% 23%;
   --chart-4: 180 20% 65%;
   --chart-5: 210 15% 55%;
 
-  --font-sans: Source Sans Pro, sans-serif;
-  --font-serif: Merriweather, serif;
+  --font-sans: Manrope, sans-serif;
+  --font-serif: Lora, serif;
   --font-mono: Menlo, monospace;
-  --radius: .5rem; /* 8px */
+  --radius: 1rem;
   --shadow-2xs: 0px 1px 2px 0px hsl(210 15% 82% / 0.05);
   --shadow-xs: 0px 1px 3px 0px hsl(210 15% 82% / 0.10);
   --shadow-sm: 0px 1px 3px 0px hsl(210 15% 82% / 0.10), 0px 1px 2px -1px hsl(210 15% 82% / 0.10);
@@ -213,10 +213,25 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 5% 8%, hsl(var(--accent) / 0.08), transparent 24rem),
+      radial-gradient(circle at 92% 22%, hsl(var(--primary) / 0.05), transparent 30rem);
   }
 
   html {
     scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.45);
+    color: hsl(var(--foreground));
+  }
+
+  #about,
+  #services,
+  #appointment-booking,
+  #contact {
+    scroll-margin-top: 5.5rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -224,6 +239,54 @@
       scroll-behavior: auto;
     }
   }
+}
+
+@layer components {
+  .section-kicker {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.hero-orbit {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid hsl(var(--primary) / 0.1);
+  border-radius: 9999px;
+}
+
+.hero-orbit-one {
+  width: 46rem;
+  height: 46rem;
+  top: -24rem;
+  right: -15rem;
+}
+
+.hero-orbit-two {
+  width: 32rem;
+  height: 32rem;
+  right: -2rem;
+  bottom: -24rem;
+}
+
+.approach-ring {
+  position: absolute;
+  width: 28rem;
+  height: 28rem;
+  right: -15rem;
+  bottom: -18rem;
+  border: 1px solid hsl(var(--background) / 0.15);
+  border-radius: 9999px;
+  box-shadow:
+    0 0 0 3rem hsl(var(--foreground)),
+    0 0 0 calc(3rem + 1px) hsl(var(--background) / 0.1),
+    0 0 0 7rem hsl(var(--foreground)),
+    0 0 0 calc(7rem + 1px) hsl(var(--background) / 0.08);
 }
 
 /**

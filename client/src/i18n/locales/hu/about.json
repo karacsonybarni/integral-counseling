@@ -1,24 +1,28 @@
 {
-  "title": "Rólam",
-  "profile_alt": "Karácsony Barna egy sárga fotelben ül",
-  "subtitle": "Integrál tanácsadó jelölt (Integrál Akadémia, Budapest) — figyelmes jelenlét és gyakorlati eszközök önismerethez, rugalmassághoz és valódi változáshoz.",
-  "credentials": {
-    "title": "Képzettség és háttér",
-    "license": "Integrál tanácsadó jelölt, Integrál Akadémia (Budapest)",
-    "phd": "Ülések magyarul és angolul",
-    "masters": "Folyamatos szakmai fejlődés: tudatosság, trauma‑érzékeny gyakorlat, kommunikáció",
-    "membership": "Integrál Akadémia közösség tagja"
+  "eyebrow": "Rólam",
+  "title": "Két világban érzem otthon magam: a rendszerek és az emberi történetek világában.",
+  "lead": "Szoftverfejlesztőként összetett rendszerekkel dolgozom. Az Integrál Akadémia végzős hallgatójaként ugyanilyen kíváncsisággal fordulok az ember belső világa felé.",
+  "story": {
+    "systems": "A technológiai háttér megtanított pontosan kérdezni, összefüggéseket keresni és bonyolult helyzetekben is megtalálni a következő megtehető lépést. A tanácsadásban ezt a tisztaságot figyelmes, emberi jelenléttel kapcsolom össze.",
+    "integral": "Az integrál szemlélet azért áll közel hozzám, mert nem egyetlen magyarázatba próbálja bezárni az embert. Egyszerre figyel a gondolatokra, érzésekre, testre, kapcsolatokra és arra a tágabb közegre, amelyben élünk."
   },
-  "specializations": {
-    "title": "Fókuszterületek",
-    "anxiety": "Élethelyzeti döntések és változások",
-    "couples": "Kapcsolatok és kommunikáció",
-    "trauma": "Stressz, túlterheltség, kiégés",
-    "stress": "Önismeret és értékek tisztázása"
+  "facts": {
+    "training": {
+      "label": "Képzés",
+      "value": "Végzős hallgató az Integrál Akadémia integrál tanácsadó képzésén"
+    },
+    "background": {
+      "label": "Szemlélet",
+      "value": "Analitikus gondolkodás, kíváncsiság és emberközpontú figyelem"
+    },
+    "languages": {
+      "label": "Ülések",
+      "value": "Magyarul és angolul, Budapesten vagy online"
+    }
   },
-  "personal_note": "A pszichológia mellett a technológia, a közösségek és a személyes fejlődés lehetőségei foglalkoztatnak. A hétköznapokban a falmászás, a strandröplabda, a túrázás és az improvizációs színház segít abban, hogy én is kapcsolatban maradjak a testemmel, a kíváncsiságommal és másokkal. Tanácsadóként figyelmes, ítélkezésmentes jelenlétet és gyakorlatias eszközöket kínálok. Nem nyújtok orvosi vagy pszichiátriai ellátást.",
-  "office": {
-    "title": "Személyesen és online",
-    "description": "Ülések Budapesten vagy online. Nyugodt, támogató közeg a reflektáláshoz és továbblépéshez."
-  }
+  "beyond": {
+    "title": "A tanácsadói széken túl",
+    "description": "A pszichológia mellett a technológia, a közösségek és a személyes fejlődés lehetőségei foglalkoztatnak. A falmászás, a strandröplabda, a túrázás és az improvizációs színház segít abban, hogy kapcsolatban maradjak a testemmel, a kíváncsiságommal és másokkal."
+  },
+  "boundary": "Az integrál tanácsadás nem orvosi vagy pszichiátriai ellátás, és nem helyettesíti a pszichoterápiát."
 }
