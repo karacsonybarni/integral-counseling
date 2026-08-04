@@ -20,6 +20,8 @@ No automated runner ships yet, so document manual checks (contact form, appointm
 ## Commit & Pull Request Guidelines
 History favors concise imperative subjects (for example "Improve email sending functionality with detailed error logging"); follow that pattern and isolate logical changes per commit. PRs should include a short summary, screenshots or logs for user-facing work, notes on environment variables, and the tests you ran. Seek review before merge and keep future CI checks green.
 
+After merging a pull request, automatically delete its source branch from the remote and remove the corresponding local branch and worktree after confirming they contain no uncommitted changes. Do not delete protected branches such as `main`.
+
 ## Environment & Configuration
 Provide a `.env` with `DATABASE_URL`, `SENDGRID_API_KEY`, and optionally `PORT`. `drizzle.config.ts` requires `DATABASE_URL` even during builds; run `npm run db:push` after editing `shared/schema.ts`. Outbound email currently uses `karacsony.barni@gmail.com`; change `server/email.ts` if ownership shifts. Avoid logging secrets by using the logger in `server/vite.ts`.
 
