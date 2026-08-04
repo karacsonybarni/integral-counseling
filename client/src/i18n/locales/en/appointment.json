@@ -1,11 +1,11 @@
 {
   "eyebrow": "A first step",
-  "title": "Choose a time that is actually available.",
-  "subtitle": "The calendar shows appointments based on my current Google Calendar availability. Your selected session is added to the calendar immediately when you book.",
+  "title": "Choose a time that works for you.",
+  "subtitle": "Book easily from the available appointment times.",
   "details": {
     "duration": "One session is 55 minutes",
     "format": "In Budapest or online",
-    "calendar": "Live Google Calendar availability"
+    "calendar": "Instant confirmation"
   },
   "form": {
     "title": "Book an appointment",
@@ -32,19 +32,18 @@
   },
   "success": {
     "title": "Your appointment is booked",
-    "description": "The session was added to Google Calendar, and you will also receive an invitation by email."
+    "description": "You will also receive the invitation by email."
   },
   "availability": {
-    "loading": "Loading available times from Google Calendar...",
-    "error": "Calendar availability cannot be loaded right now. Please retry or email me directly.",
+    "loading": "Loading available times...",
+    "error": "Available times cannot be loaded right now. Please retry or email me directly.",
     "retry": "Try again",
     "empty_title": "No appointments are currently available",
-    "empty_description": "Please email me and we can look for another option.",
-    "privacy": "Only free time slots are shown; calendar event titles and details are never sent to the website."
+    "empty_description": "Please email me and we can look for another option."
   },
   "conflict": {
     "title": "Someone just booked this time",
-    "description": "I refreshed the calendar. Please choose another available appointment."
+    "description": "I refreshed the available times. Please choose another one."
   },
   "error": {
     "title": "Appointment request not sent",

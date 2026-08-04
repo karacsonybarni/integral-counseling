@@ -1,11 +1,11 @@
 {
   "eyebrow": "Első lépés",
-  "title": "Válassz egy valóban szabad időpontot.",
-  "subtitle": "A naptár a Google Naptáram aktuális foglaltsága alapján mutat időpontokat. A kiválasztott alkalom a foglaláskor rögtön bekerül a naptárba.",
+  "title": "Válassz egy számodra megfelelő időpontot.",
+  "subtitle": "Foglalj kényelmesen az elérhető időpontok közül.",
   "details": {
     "duration": "Egy ülés 55 perc",
     "format": "Budapesten vagy online",
-    "calendar": "Élő Google Naptár-elérhetőség"
+    "calendar": "Azonnali visszaigazolás"
   },
   "form": {
     "title": "Időpontfoglalás",
@@ -32,19 +32,18 @@
   },
   "success": {
     "title": "Az időpontot lefoglaltad",
-    "description": "Az alkalom bekerült a Google Naptárba, a meghívót e-mailben is megkapod."
+    "description": "A meghívót e-mailben is megkapod."
   },
   "availability": {
-    "loading": "Szabad időpontok betöltése a Google Naptárból...",
-    "error": "A naptár elérhetősége most nem tölthető be. Próbáld újra, vagy írj közvetlenül e-mailt.",
+    "loading": "Szabad időpontok betöltése...",
+    "error": "A szabad időpontok most nem tölthetők be. Próbáld újra, vagy írj közvetlenül e-mailt.",
     "retry": "Újrapróbálom",
     "empty_title": "Jelenleg nincs foglalható időpont",
-    "empty_description": "Kérlek, írj e-mailt, és keresünk másik lehetőséget.",
-    "privacy": "Csak a szabad idősávok láthatók; a naptárbejegyzések címe és részletei nem kerülnek a weboldalra."
+    "empty_description": "Kérlek, írj e-mailt, és keresünk másik lehetőséget."
   },
   "conflict": {
     "title": "Ezt az időpontot közben lefoglalták",
-    "description": "Frissítettem a naptárt. Válassz egy másik szabad időpontot."
+    "description": "Frissítettem a szabad időpontokat. Válassz egy másikat."
   },
   "error": {
     "title": "Az időpontkérés nem lett elküldve",

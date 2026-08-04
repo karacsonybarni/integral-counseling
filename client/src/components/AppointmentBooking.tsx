@@ -366,9 +366,6 @@ export default function AppointmentBooking() {
                         )}
                       />
 
-                      <p className="text-xs leading-relaxed text-muted-foreground">
-                        {t("availability.privacy")}
-                      </p>
                     </div>
                   )}
                 </div>
