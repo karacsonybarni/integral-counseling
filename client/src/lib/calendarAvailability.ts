@@ -1,6 +1,6 @@
 import { APPS_SCRIPT_WEB_APP_URL } from "@/lib/formSubmission";
 
-const APPS_SCRIPT_TIMEOUT_MS = 15000;
+const APPS_SCRIPT_TIMEOUT_MS = 60000;
 
 interface AvailabilityMessage {
   source?: string;
