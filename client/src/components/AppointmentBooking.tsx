@@ -2,18 +2,27 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import SubmissionSuccessMessage from "@/components/SubmissionSuccessMessage";
 import SubmissionErrorMessage from "@/components/SubmissionErrorMessage";
-import { Calendar, Clock, ArrowRight, MapPin, MessageCircle } from "lucide-react";
+import { AlertCircle, ArrowRight, Calendar, Clock, LoaderCircle, MapPin, MessageCircle, RefreshCw } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { createAppointmentSchema, type AppointmentInput } from "@/lib/forms";
 import { THERAPIST_EMAIL } from "@/lib/contactDetails";
-import { submitWebsiteForm } from "@/lib/formSubmission";
+import {
+  submitWebsiteForm,
+  WebsiteFormSubmissionError,
+} from "@/lib/formSubmission";
+import {
+  getCalendarAvailability,
+  type CalendarAvailability,
+} from "@/lib/calendarAvailability";
+import { cn } from "@/lib/utils";
+
+const DEFAULT_TIME_ZONE = "Europe/Budapest";
 
 export default function AppointmentBooking() {
   const { t, i18n } = useTranslation("appointment");
@@ -21,6 +30,13 @@ export default function AppointmentBooking() {
   const honeypotRef = useRef<HTMLInputElement>(null);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
+  const [slotConflict, setSlotConflict] = useState(false);
+  const [availability, setAvailability] = useState<CalendarAvailability>({
+    slots: [],
+    timeZone: DEFAULT_TIME_ZONE,
+  });
+  const [availabilityLoading, setAvailabilityLoading] = useState(true);
+  const [availabilityError, setAvailabilityError] = useState(false);
   const validationSchema = useMemo(() => createAppointmentSchema(t), [t]);
 
   const form = useForm<AppointmentInput>({
@@ -31,44 +47,74 @@ export default function AppointmentBooking() {
       phone: "",
       preferredDate: "",
       preferredTime: "",
-      message: ""
-    }
+      message: "",
+    },
   });
 
-  // Available time slots use locale-neutral values and localized display labels.
-  const timeSlots = [
-    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-    "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
-    "16:00", "16:30", "17:00", "17:30"
-  ];
+  const locale = i18n.language === "hu" ? "hu-HU" : "en-US";
+  const selectedDate = form.watch("preferredDate");
+  const selectedSlot = form.watch("preferredTime");
 
-  // Generate available dates (next 30 weekdays)
-  const getAvailableDates = () => {
-    const dates: Date[] = [];
-    const today = new Date();
-    let currentDate = new Date(today);
-    currentDate.setDate(currentDate.getDate() + 1); // Start from tomorrow
+  const slotsByDate = useMemo(() => {
+    const groups = new Map<string, string[]>();
 
-    while (dates.length < 30) {
-      // Skip weekends (Saturday = 6, Sunday = 0)
-      if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-        dates.push(new Date(currentDate));
-      }
-      currentDate.setDate(currentDate.getDate() + 1);
+    for (const slot of availability.slots) {
+      const dateKey = getDateKey(slot, availability.timeZone);
+      const dateSlots = groups.get(dateKey) || [];
+      dateSlots.push(slot);
+      groups.set(dateKey, dateSlots);
     }
-    return dates;
-  };
 
-  const availableDates = getAvailableDates();
+    return groups;
+  }, [availability]);
+
+  const availableDates = Array.from(slotsByDate.keys());
+  const selectedDateSlots = slotsByDate.get(selectedDate) || [];
+
+  const loadAvailability = useCallback(async () => {
+    setAvailabilityLoading(true);
+    setAvailabilityError(false);
+
+    try {
+      const nextAvailability = await getCalendarAvailability();
+      setAvailability(nextAvailability);
+
+      const currentDate = form.getValues("preferredDate");
+      const nextDates = nextAvailability.slots.map((slot) =>
+        getDateKey(slot, nextAvailability.timeZone),
+      );
+      if (!currentDate || !nextDates.includes(currentDate)) {
+        form.setValue("preferredDate", nextDates[0] || "");
+        form.setValue("preferredTime", "");
+      }
+    } catch (error) {
+      console.error("Error loading calendar availability:", error);
+      setAvailabilityError(true);
+    } finally {
+      setAvailabilityLoading(false);
+    }
+  }, [form]);
+
+  useEffect(() => {
+    void loadAvailability();
+  }, [loadAvailability]);
+
   const bookingDetails = [
     { key: "duration", icon: Clock },
     { key: "format", icon: MapPin },
-    { key: "reply", icon: MessageCircle },
+    { key: "calendar", icon: MessageCircle },
   ] as const;
+
+  const clearSubmissionMessages = () => {
+    setSuccessMessageVisible(false);
+    setErrorMessageVisible(false);
+    setSlotConflict(false);
+  };
 
   const handleSubmit = async (data: AppointmentInput) => {
     setSuccessMessageVisible(false);
     setErrorMessageVisible(false);
+    setSlotConflict(false);
 
     try {
       await submitWebsiteForm({
@@ -78,8 +124,9 @@ export default function AppointmentBooking() {
         email: data.email,
         phone: data.phone,
         preferredDate: data.preferredDate,
-        preferredDateLabel: formatDateValue(data.preferredDate),
-        preferredTime: formatTimeValue(data.preferredTime),
+        preferredDateLabel: formatSlotDate(data.preferredTime),
+        preferredTime: formatSlotTime(data.preferredTime),
+        slotStart: data.preferredTime,
         message: data.message,
         startedAt: startedAtRef.current,
         website: honeypotRef.current?.value || "",
@@ -91,41 +138,45 @@ export default function AppointmentBooking() {
       }
       startedAtRef.current = Date.now();
       setSuccessMessageVisible(true);
+      await loadAvailability();
     } catch (error) {
       console.error("Error booking appointment:", error);
+      const conflict =
+        error instanceof WebsiteFormSubmissionError &&
+        error.code === "SLOT_UNAVAILABLE";
+      setSlotConflict(conflict);
       setErrorMessageVisible(true);
+
+      if (conflict) {
+        form.setValue("preferredTime", "");
+        await loadAvailability();
+      }
     }
   };
 
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat(i18n.language === "hu" ? "hu-HU" : "en-US", {
+  const formatSlotDate = (slot: string) =>
+    new Intl.DateTimeFormat(locale, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      timeZone: availability.timeZone,
+    }).format(new Date(slot));
+
+  const formatDateButton = (slot: string) =>
+    new Intl.DateTimeFormat(locale, {
       weekday: "short",
       month: "short",
       day: "numeric",
-      year: "numeric"
-    }).format(date);
-  };
+      timeZone: availability.timeZone,
+    }).format(new Date(slot));
 
-  const getDateValue = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-  };
-
-  const formatDateValue = (value: string) => {
-    const [year, month, day] = value.split("-").map(Number);
-    return formatDate(new Date(year, month - 1, day));
-  };
-
-  const formatTimeValue = (value: string) => {
-    const [hour, minute] = value.split(":").map(Number);
-    return new Intl.DateTimeFormat(i18n.language === "hu" ? "hu-HU" : "en-US", {
+  const formatSlotTime = (slot: string) =>
+    new Intl.DateTimeFormat(locale, {
       hour: "numeric",
       minute: "2-digit",
-    }).format(new Date(2000, 0, 1, hour, minute));
-  };
+      timeZone: availability.timeZone,
+    }).format(new Date(slot));
 
   return (
     <section className="bg-card py-20 sm:py-28">
@@ -179,24 +230,16 @@ export default function AppointmentBooking() {
                   className="hidden"
                   aria-hidden="true"
                 />
-                {/* Personal Information */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t("form.name")} ({t("form.required")})
-                        </FormLabel>
+                        <FormLabel>{t("form.name")} ({t("form.required")})</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            autoComplete="name"
-                            required
-                            placeholder={t("form.name_placeholder")}
-                            data-testid="input-booking-name"
-                          />
+                          <Input {...field} autoComplete="name" required placeholder={t("form.name_placeholder")} data-testid="input-booking-name" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -207,18 +250,9 @@ export default function AppointmentBooking() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t("form.email")} ({t("form.required")})
-                        </FormLabel>
+                        <FormLabel>{t("form.email")} ({t("form.required")})</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            {...field}
-                            autoComplete="email"
-                            required
-                            placeholder={t("form.email_placeholder")}
-                            data-testid="input-booking-email"
-                          />
+                          <Input type="email" {...field} autoComplete="email" required placeholder={t("form.email_placeholder")} data-testid="input-booking-email" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -231,112 +265,129 @@ export default function AppointmentBooking() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('form.phone')}</FormLabel>
+                      <FormLabel>{t("form.phone")}</FormLabel>
                       <FormControl>
-                        <Input
-                          type="tel"
-                          {...field}
-                          autoComplete="tel"
-                          placeholder={t("form.phone_placeholder")}
-                          className="max-w-xs"
-                          data-testid="input-booking-phone"
-                        />
+                        <Input type="tel" {...field} autoComplete="tel" placeholder={t("form.phone_placeholder")} className="max-w-xs" data-testid="input-booking-phone" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                {/* Date and Time Selection */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="preferredDate"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          {t("form.date")} ({t("form.required")})
-                        </FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
-                          <FormControl>
-                            <SelectTrigger
-                              aria-required="true"
-                              data-testid="select-booking-date"
-                            >
-                              <SelectValue placeholder={t('form.date_placeholder')} />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {availableDates.map((date) => (
-                              <SelectItem key={getDateValue(date)} value={getDateValue(date)}>
-                                {formatDate(date)}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="preferredTime"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          {t("form.time")} ({t("form.required")})
-                        </FormLabel>
-                        <Select onValueChange={field.onChange} value={field.value}>
-                          <FormControl>
-                            <SelectTrigger
-                              aria-required="true"
-                              data-testid="select-booking-time"
-                            >
-                              <SelectValue placeholder={t('form.time_placeholder')} />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {timeSlots.map((time) => (
-                              <SelectItem key={time} value={time}>
-                                <div className="flex items-center gap-2">
-                                  <Clock className="h-4 w-4" aria-hidden="true" />
-                                  {formatTimeValue(time)}
-                                </div>
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                <div className="rounded-2xl border border-border bg-muted/20 p-4 sm:p-5">
+                  {availabilityLoading ? (
+                    <div className="flex min-h-32 items-center justify-center gap-3 text-muted-foreground" role="status">
+                      <LoaderCircle className="h-5 w-5 animate-spin" aria-hidden="true" />
+                      <span>{t("availability.loading")}</span>
+                    </div>
+                  ) : availabilityError ? (
+                    <div className="flex min-h-32 flex-col items-center justify-center gap-3 text-center" role="alert">
+                      <AlertCircle className="h-6 w-6 text-destructive" aria-hidden="true" />
+                      <p className="text-sm text-muted-foreground">{t("availability.error")}</p>
+                      <Button type="button" variant="outline" size="sm" onClick={() => void loadAvailability()}>
+                        <RefreshCw className="mr-2 h-4 w-4" aria-hidden="true" />
+                        {t("availability.retry")}
+                      </Button>
+                    </div>
+                  ) : availableDates.length === 0 ? (
+                    <div className="flex min-h-32 flex-col items-center justify-center gap-2 text-center" role="status">
+                      <Calendar className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
+                      <p className="font-medium">{t("availability.empty_title")}</p>
+                      <p className="text-sm text-muted-foreground">{t("availability.empty_description")}</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-5">
+                      <FormField
+                        control={form.control}
+                        name="preferredDate"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t("form.date")} ({t("form.required")})</FormLabel>
+                            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3" role="group" aria-label={t("form.date")}>
+                              {availableDates.map((dateKey) => {
+                                const firstSlot = slotsByDate.get(dateKey)?.[0] || "";
+                                return (
+                                  <button
+                                    key={dateKey}
+                                    type="button"
+                                    aria-pressed={field.value === dateKey}
+                                    onClick={() => {
+                                      clearSubmissionMessages();
+                                      field.onChange(dateKey);
+                                      form.setValue("preferredTime", "", { shouldValidate: true });
+                                    }}
+                                    className={cn(
+                                      "min-h-12 rounded-xl border px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                                      field.value === dateKey
+                                        ? "border-primary bg-primary text-primary-foreground"
+                                        : "border-border bg-background hover:border-primary/50 hover:bg-primary/5",
+                                    )}
+                                  >
+                                    {formatDateButton(firstSlot)}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="preferredTime"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t("form.time")} ({t("form.required")})</FormLabel>
+                            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4" role="group" aria-label={t("form.time")}>
+                              {selectedDateSlots.map((slot) => (
+                                <button
+                                  key={slot}
+                                  type="button"
+                                  aria-pressed={field.value === slot}
+                                  onClick={() => {
+                                    clearSubmissionMessages();
+                                    field.onChange(slot);
+                                  }}
+                                  className={cn(
+                                    "flex min-h-11 items-center justify-center gap-1.5 rounded-xl border px-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                                    field.value === slot
+                                      ? "border-primary bg-primary text-primary-foreground"
+                                      : "border-border bg-background hover:border-primary/50 hover:bg-primary/5",
+                                  )}
+                                >
+                                  <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                                  {formatSlotTime(slot)}
+                                </button>
+                              ))}
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                    </div>
+                  )}
                 </div>
 
-                {/* Additional Message */}
                 <FormField
                   control={form.control}
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('form.message')}</FormLabel>
+                      <FormLabel>{t("form.message")}</FormLabel>
                       <FormControl>
-                        <Textarea
-                          {...field}
-                          placeholder={t('form.message_placeholder')}
-                          rows={3}
-                          data-testid="textarea-booking-message"
-                        />
+                        <Textarea {...field} placeholder={t("form.message_placeholder")} rows={3} data-testid="textarea-booking-message" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                {/* Submit Button */}
                 <Button
-                  type="submit" 
+                  type="submit"
                   className="group min-h-12 w-full rounded-full text-base"
-                  disabled={form.formState.isSubmitting}
+                  disabled={form.formState.isSubmitting || availabilityLoading || availabilityError || !selectedSlot}
                   data-testid="button-book-appointment"
                 >
                   {form.formState.isSubmitting ? t("form.booking") : t("form.submit")}
@@ -344,28 +395,20 @@ export default function AppointmentBooking() {
                 </Button>
 
                 {successMessageVisible && (
-                  <SubmissionSuccessMessage
-                    title={t("success.title")}
-                    description={t("success.description")}
-                  />
+                  <SubmissionSuccessMessage title={t("success.title")} description={t("success.description")} />
                 )}
 
                 {errorMessageVisible && (
                   <SubmissionErrorMessage
-                    title={t("error.title")}
-                    description={t("error.description")}
+                    title={slotConflict ? t("conflict.title") : t("error.title")}
+                    description={slotConflict ? t("conflict.description") : t("error.description")}
                     email={THERAPIST_EMAIL}
-                    emailAction={t("error.email_action", {
-                      email: THERAPIST_EMAIL,
-                    })}
+                    emailAction={t("error.email_action", { email: THERAPIST_EMAIL })}
                   />
                 )}
 
-                {/* Disclaimer */}
                 <div className="rounded-2xl bg-muted/50 p-4 text-center text-sm leading-relaxed text-muted-foreground">
-                  <p data-testid="booking-disclaimer">
-                    {t('disclaimer')}
-                  </p>
+                  <p data-testid="booking-disclaimer">{t("disclaimer")}</p>
                 </div>
               </form>
             </Form>
@@ -374,4 +417,15 @@ export default function AppointmentBooking() {
       </div>
     </section>
   );
+}
+
+function getDateKey(slot: string, timeZone: string) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    timeZone,
+  }).formatToParts(new Date(slot));
+  const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return `${values.year}-${values.month}-${values.day}`;
 }

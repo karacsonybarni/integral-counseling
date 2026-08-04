@@ -1,8 +1,42 @@
 const RESPONSE_SOURCE = "integral-counseling-apps-script";
 const RECIPIENT_EMAIL = "karacsony.barni@gmail.com";
 const MIN_SUBMISSION_DELAY_MS = 3000;
+const BOOKING_TIME_ZONE = "Europe/Budapest";
+const BOOKING_CALENDAR_ID = "";
+const BOOKING_DURATION_MINUTES = 55;
+const SLOT_STEP_MINUTES = 30;
+const BOOKING_HORIZON_DAYS = 60;
+const MAX_AVAILABLE_DATES = 14;
+const MIN_BOOKING_NOTICE_HOURS = 24;
+const WORKING_WINDOWS = [
+  { startHour: 9, startMinute: 0, endHour: 12, endMinute: 0 },
+  { startHour: 13, startMinute: 0, endHour: 18, endMinute: 0 },
+];
 
-function doGet() {
+function doGet(e) {
+  const params = (e && e.parameter) || {};
+
+  if (cleanString_(params.action) === "availability") {
+    const requestId = cleanString_(params.requestId);
+    const targetOrigin = normalizeOrigin_(cleanString_(params.origin));
+
+    try {
+      return createIframeResponse_({
+        ok: true,
+        requestId: requestId,
+        slots: getAvailableSlots_(),
+        timeZone: BOOKING_TIME_ZONE,
+      }, targetOrigin);
+    } catch (error) {
+      console.error("Failed to load calendar availability", error);
+      return createIframeResponse_({
+        ok: false,
+        requestId: requestId,
+        error: "Calendar availability could not be loaded.",
+      }, targetOrigin);
+    }
+  }
+
   return ContentService.createTextOutput(
     JSON.stringify({
       ok: true,
@@ -31,14 +65,25 @@ function doPost(e) {
 
     validatePayload_(payload);
 
-    MailApp.sendEmail({
-      to: RECIPIENT_EMAIL,
-      subject: buildSubject_(payload),
-      body: buildPlainTextBody_(payload),
-      htmlBody: buildHtmlBody_(payload),
-      replyTo: payload.email,
-      name: "Integral Counseling Website",
-    });
+    if (payload.formType === "appointment") {
+      bookAppointment_(payload);
+    }
+
+    try {
+      MailApp.sendEmail({
+        to: RECIPIENT_EMAIL,
+        subject: buildSubject_(payload),
+        body: buildPlainTextBody_(payload),
+        htmlBody: buildHtmlBody_(payload),
+        replyTo: payload.email,
+        name: "Integral Counseling Website",
+      });
+    } catch (emailError) {
+      if (payload.formType !== "appointment") {
+        throw emailError;
+      }
+      console.error("Appointment was booked, but notification email failed", emailError);
+    }
 
     return createIframeResponse_({
       ok: true,
@@ -51,6 +96,7 @@ function doPost(e) {
       ok: false,
       requestId: requestId,
       error: error && error.message ? error.message : String(error),
+      errorCode: error && error.errorCode ? error.errorCode : "",
     }, targetOrigin);
   }
 }
@@ -70,6 +116,7 @@ function normalizePayload_(e) {
     preferredDate: cleanString_(params.preferredDate),
     preferredDateLabel: cleanString_(params.preferredDateLabel),
     preferredTime: cleanString_(params.preferredTime),
+    slotStart: cleanString_(params.slotStart),
     startedAt: Number(params.startedAt || 0),
     website: cleanString_(params.website),
     receivedAt: new Date(),
@@ -102,12 +149,8 @@ function validatePayload_(payload) {
   }
 
   if (payload.formType === "appointment") {
-    if (!payload.preferredDate) {
-      throw new Error("Preferred date is required.");
-    }
-
-    if (!payload.preferredTime) {
-      throw new Error("Preferred time is required.");
+    if (!payload.slotStart || isNaN(new Date(payload.slotStart).getTime())) {
+      throw new Error("A valid calendar slot is required.");
     }
   }
 
@@ -118,7 +161,7 @@ function validatePayload_(payload) {
 
 function buildSubject_(payload) {
   if (payload.formType === "appointment") {
-    return "Website appointment request from " + payload.name;
+    return "Website appointment booked by " + payload.name;
   }
 
   return "Website contact request from " + payload.name;
@@ -228,7 +271,10 @@ function createIframeResponse_(payload, targetOrigin) {
       ok: Boolean(payload.ok),
       requestId: payload.requestId || "",
       error: payload.error || "",
+      errorCode: payload.errorCode || "",
       ignored: Boolean(payload.ignored),
+      slots: payload.slots || [],
+      timeZone: payload.timeZone || "",
     }) +
     ";window.top.postMessage(message," +
     JSON.stringify(targetOrigin) +
@@ -237,6 +283,156 @@ function createIframeResponse_(payload, targetOrigin) {
 
   return HtmlService.createHtmlOutput(html)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function getAvailableSlots_() {
+  const calendar = getBookingCalendar_();
+  const now = new Date();
+  const earliestStart = new Date(
+    now.getTime() + MIN_BOOKING_NOTICE_HOURS * 60 * 60 * 1000,
+  );
+  const horizonEnd = new Date(now);
+  horizonEnd.setDate(horizonEnd.getDate() + BOOKING_HORIZON_DAYS);
+  horizonEnd.setHours(23, 59, 59, 999);
+  const busyEvents = calendar.getEvents(earliestStart, horizonEnd);
+  const slots = [];
+  let availableDateCount = 0;
+  const day = new Date(now);
+  day.setHours(0, 0, 0, 0);
+  day.setDate(day.getDate() + 1);
+
+  for (let dayOffset = 0; dayOffset < BOOKING_HORIZON_DAYS; dayOffset += 1) {
+    const dayOfWeek = day.getDay();
+    let slotsAddedForDate = 0;
+
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+      WORKING_WINDOWS.forEach(function (window) {
+        const slotStart = new Date(day);
+        slotStart.setHours(window.startHour, window.startMinute, 0, 0);
+        const windowEnd = new Date(day);
+        windowEnd.setHours(window.endHour, window.endMinute, 0, 0);
+
+        while (true) {
+          const slotEnd = new Date(
+            slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
+          );
+
+          if (slotEnd.getTime() > windowEnd.getTime()) {
+            break;
+          }
+
+          if (
+            slotStart.getTime() >= earliestStart.getTime() &&
+            !hasOverlappingEvent_(busyEvents, slotStart, slotEnd)
+          ) {
+            slots.push(slotStart.toISOString());
+            slotsAddedForDate += 1;
+          }
+
+          slotStart.setMinutes(slotStart.getMinutes() + SLOT_STEP_MINUTES);
+        }
+      });
+    }
+
+    if (slotsAddedForDate > 0) {
+      availableDateCount += 1;
+      if (availableDateCount >= MAX_AVAILABLE_DATES) {
+        break;
+      }
+    }
+
+    day.setDate(day.getDate() + 1);
+  }
+
+  return slots;
+}
+
+function bookAppointment_(payload) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+
+  try {
+    const slotStart = new Date(payload.slotStart);
+    const availableSlots = getAvailableSlots_();
+    const requestedTimestamp = slotStart.getTime();
+    const isAvailable = availableSlots.some(function (slot) {
+      return new Date(slot).getTime() === requestedTimestamp;
+    });
+
+    if (!isAvailable) {
+      throw createCodedError_(
+        "SLOT_UNAVAILABLE",
+        "That appointment is no longer available.",
+      );
+    }
+
+    const slotEnd = new Date(
+      slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
+    );
+    const calendar = getBookingCalendar_();
+    const title =
+      (payload.language === "en" ? "First conversation – " : "Első beszélgetés – ") +
+      payload.name;
+
+    calendar.createEvent(title, slotStart, slotEnd, {
+      description: buildCalendarDescription_(payload),
+      guests: payload.email,
+      sendInvites: true,
+    });
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function getBookingCalendar_() {
+  const calendar = BOOKING_CALENDAR_ID
+    ? CalendarApp.getCalendarById(BOOKING_CALENDAR_ID)
+    : CalendarApp.getDefaultCalendar();
+
+  if (!calendar) {
+    throw new Error("Booking calendar is not available.");
+  }
+
+  return calendar;
+}
+
+function hasOverlappingEvent_(events, slotStart, slotEnd) {
+  return events.some(function (event) {
+    if (
+      event.getTransparency() === CalendarApp.EventTransparency.TRANSPARENT
+    ) {
+      return false;
+    }
+
+    return (
+      event.getStartTime().getTime() < slotEnd.getTime() &&
+      event.getEndTime().getTime() > slotStart.getTime()
+    );
+  });
+}
+
+function buildCalendarDescription_(payload) {
+  const lines = [
+    "Website appointment booking",
+    "Name: " + payload.name,
+    "Email: " + payload.email,
+  ];
+
+  if (payload.phone) {
+    lines.push("Phone: " + payload.phone);
+  }
+
+  if (payload.message) {
+    lines.push("", "Message:", payload.message);
+  }
+
+  return lines.join("\n");
+}
+
+function createCodedError_(code, message) {
+  const error = new Error(message);
+  error.errorCode = code;
+  return error;
 }
 
 function normalizeOrigin_(origin) {

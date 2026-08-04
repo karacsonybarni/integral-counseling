@@ -1,13 +1,13 @@
 {
   "hero": {
-    "eyebrow": "Barna Karácsony · Integral Counselor Candidate",
-    "title": "Understand what is happening within you. Move toward what is truly yours.",
-    "subtitle": "If you feel stuck in a decision, caught in a recurring pattern, or simply want to see yourself more clearly, I offer an attentive and practical space for our work together.",
+    "eyebrow": "Barna Karácsony · Integral counselor in training",
+    "title": "See more clearly when many things pull at once.",
+    "subtitle": "As an integral counselor in training, I combine analytical thinking with attentive, human presence. You can come with decisions, recurring patterns, or a sense of overload.",
     "cta": "How I work",
     "appointment": "Request a first conversation",
     "profile_alt": "Barna Karácsony sitting in a yellow armchair",
-    "note": "I do not offer ready-made answers. I help you see more clearly what is happening—and what the next real step might be.",
-    "note_label": "Shared attention, at your pace",
+    "note": "I like to ask precise questions, look for connections, and give time to what has not yet come together.",
+    "note_label": "Clarity and human attention",
     "details": {
       "duration": "55-minute sessions",
       "format": "In Budapest or online",
@@ -15,9 +15,14 @@
     }
   },
   "contact_section": {
-    "eyebrow": "Contact",
-    "title": "Still have a question before requesting a session?",
-    "subtitle": "Send me a short message, or reach me directly by phone or email.",
-    "form_title": "Write to me"
+    "eyebrow": "A first step",
+    "title": "Let’s begin with a conversation.",
+    "subtitle": "Choose from appointment times shown as genuinely available in Google Calendar.",
+    "form_title": "Request a first conversation",
+    "details": {
+      "session": "The first meeting is a full 55-minute session",
+      "format": "In Budapest or online",
+      "reply": "A reply usually within one business day"
+    }
   }
 }

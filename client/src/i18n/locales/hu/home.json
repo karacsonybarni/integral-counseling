@@ -1,13 +1,13 @@
 {
   "hero": {
     "eyebrow": "Karácsony Barna · Integrál tanácsadó jelölt",
-    "title": "Értsd meg, mi történik benned. Indulj el afelé, ami valóban a tiéd.",
-    "subtitle": "Ha elakadtál egy döntésben, visszatérő mintákban vagy egyszerűen szeretnéd tisztábban látni önmagad, figyelmes és gyakorlatias teret kínálok a közös munkához.",
+    "title": "Tisztábban látni, amikor sok minden húz egyszerre.",
+    "subtitle": "Integrál tanácsadó jelöltként az elemző gondolkodást figyelmes, emberi jelenléttel kapcsolom össze. Döntésekkel, visszatérő mintákkal vagy túlterheltséggel is érkezhetsz.",
     "cta": "Így dolgozom",
     "appointment": "Első beszélgetést kérek",
     "profile_alt": "Karácsony Barna egy sárga fotelben ül",
-    "note": "Nem kész válaszokat adok. Abban segítek, hogy pontosabban lásd, mi történik — és mi lehet a következő valódi lépés.",
-    "note_label": "Közös figyelem, a te tempódban",
+    "note": "Szeretek pontos kérdéseket feltenni, összefüggéseket keresni, és nem siettetni azt, ami még nem állt össze.",
+    "note_label": "Tisztaság és emberi figyelem",
     "details": {
       "duration": "55 perces ülések",
       "format": "Budapesten vagy online",
@@ -15,9 +15,14 @@
     }
   },
   "contact_section": {
-    "eyebrow": "Kapcsolat",
-    "title": "Még van kérdésed, mielőtt időpontot kérnél?",
-    "subtitle": "Írj néhány sort, vagy keress közvetlenül telefonon és e-mailben.",
-    "form_title": "Írj nekem"
+    "eyebrow": "Első lépés",
+    "title": "Kezdjünk egy beszélgetéssel.",
+    "subtitle": "Válassz a Google Naptár alapján megjelenített, valóban szabad időpontok közül.",
+    "form_title": "Első beszélgetést kérek",
+    "details": {
+      "session": "Az első alkalom is teljes, 55 perces ülés",
+      "format": "Budapesten vagy online",
+      "reply": "Válasz általában egy munkanapon belül"
+    }
   }
 }

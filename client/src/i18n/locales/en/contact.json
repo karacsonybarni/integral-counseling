@@ -14,17 +14,17 @@
     "contact_method": "Preferred Contact Method",
     "contact_method_placeholder": "How would you like to be contacted?",
     "message": "Message",
-    "message_placeholder": "Share any context or questions you’d like to discuss...",
+    "message_placeholder": "Briefly share what brings you here and suggest two or three times that could work...",
     "required": "required",
-    "submit": "Send Message",
+    "submit": "Request a first conversation",
     "sending": "Sending..."
   },
   "success": {
-    "title": "Message sent",
-    "description": "Your message was sent successfully. Thank you for reaching out — I'll get back to you within 24 hours."
+    "title": "Request sent",
+    "description": "Your message was sent successfully. Thank you for reaching out — I usually reply within one business day."
   },
   "error": {
-    "title": "Message not sent",
+    "title": "Request not sent",
     "description": "We couldn't send your message. Your details are still here, so you can try again or contact me directly.",
     "email_action": "Email me at {{email}}"
   },
@@ -52,7 +52,7 @@
     "address_line2": "Hungary",
     "hours": "Availability",
     "hours_by_appointment": "Weekdays and weekends by appointment",
-    "response_time": "Usual response time: 24 hours"
+    "response_time": "Usual response time: one business day"
   },
   "emergency": {
     "title": "Need urgent help?",
