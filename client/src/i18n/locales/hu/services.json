@@ -16,8 +16,8 @@
       "description": "Kívülről rendben vannak a dolgok, belül viszont nő a feszültség, a kimerültség vagy a távolság attól, ahogyan élni szeretnél."
     },
     "values": {
-      "title": "A korábbi céljaid már nem adnak elég irányt",
-      "description": "Nem feltétlenül van krízis. Változik, mi fontos számodra, és szeretnéd megérteni, mi formálódik a régi válaszok helyén."
+      "title": "A korábbi céljaid már nem mutatják, merre tovább",
+      "description": "Nem feltétlenül van krízis. Ami eddig motivált és irányt adott, már nem illeszkedik teljesen ahhoz, ami most fontos neked. Szeretnéd tisztábban látni, mi formálódik a helyén."
     }
   },
   "approach": {
@@ -45,16 +45,16 @@
     "title": "Egyszerűen kezdünk",
     "steps": {
       "contact": {
-        "title": "Kiválasztasz egy szabad időpontot",
-        "description": "A megjelenő időpontok közül választasz, megadod az elérhetőségedet, majd e-mailben megkapod a meghívót."
+        "title": "Lefoglalod az első alkalmat",
+        "description": "Választhatsz a megjelenő szabad időpontok közül. A foglalás után e-mailben megkapod a naptármeghívót."
       },
       "first": {
         "title": "Első, 55 perces ülés",
-        "description": "Megismerjük egymást, körbejárjuk a helyzetedet, és megnézzük, milyen irány lenne hasznos."
+        "description": "Megismerjük egymást, körbejárjuk, mi hozott, és közösen pontosítjuk, mit szeretnél jobban érteni vagy megváltoztatni, illetve mi legyen a közös munka fókusza."
       },
       "continue": {
-        "title": "Közösen kialakított irány",
-        "description": "Ha mindketten jó alapnak érezzük a találkozást, a te céljaidhoz és ritmusodhoz igazodva folytatjuk."
+        "title": "Kialakítjuk a közös munka kereteit",
+        "description": "Ha mindketten úgy látjuk, hogy érdemes folytatni, közösen megállapodunk a munka fókuszában, a találkozások rendszerességében (1 vagy 2 hét) és az együttműködés fontos kereteiben."
       }
     }
   }
