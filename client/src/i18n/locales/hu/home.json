@@ -9,7 +9,7 @@
     "note": "Pontosan kérdezek, összefüggéseket keresek, és teret hagyok annak is, ami még nem áll össze kész magyarázattá.",
     "note_label": "Tisztaság, mélység és mozgástér",
     "details": {
-      "duration": "55 perces ülések",
+      "duration": "55 perces ülések · 7 000 Ft",
       "format": "Budapesten vagy online",
       "languages": "Magyarul vagy angolul"
     }
@@ -24,8 +24,8 @@
         "value": "Egy alkalom 55 perc"
       },
       "firstSession": {
-        "label": "Első alkalom",
-        "value": "Teljes, fizetős ülés"
+        "label": "Díj",
+        "value": "7 000 Ft / 55 perc · az első alkalom is teljes ülés"
       },
       "format": {
         "label": "Találkozás módja",
@@ -57,7 +57,7 @@
     "subtitle": "Válassz a Google Naptár alapján megjelenített, valóban szabad időpontok közül.",
     "form_title": "Első alkalmat foglalok",
     "details": {
-      "session": "Az első alkalom is teljes, 55 perces ülés",
+      "session": "55 perc · 7 000 Ft; az első alkalom is teljes ülés",
       "format": "Budapesten vagy online",
       "reply": "Válasz általában egy munkanapon belül"
     }

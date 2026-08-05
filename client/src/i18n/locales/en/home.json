@@ -9,7 +9,7 @@
     "note": "I ask precise questions, look for connections, and leave room for what has not yet come together into a finished explanation.",
     "note_label": "Clarity, depth, and room to move",
     "details": {
-      "duration": "55-minute sessions",
+      "duration": "55-minute sessions · 7,000 Ft",
       "format": "In Budapest or online",
       "languages": "In Hungarian or English"
     }
@@ -24,8 +24,8 @@
         "value": "Each session is 55 minutes"
       },
       "firstSession": {
-        "label": "First session",
-        "value": "A full, paid session"
+        "label": "Fee",
+        "value": "7,000 Ft / 55 minutes · the first session is a full session"
       },
       "format": {
         "label": "Meeting format",
@@ -57,7 +57,7 @@
     "subtitle": "Choose from appointment times shown as genuinely available in Google Calendar.",
     "form_title": "Book a first session",
     "details": {
-      "session": "The first meeting is a full 55-minute session",
+      "session": "55 minutes · 7,000 Ft; the first session is a full session",
       "format": "In Budapest or online",
       "reply": "A reply usually within one business day"
     }

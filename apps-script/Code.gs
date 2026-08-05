@@ -8,9 +8,11 @@ const SLOT_STEP_MINUTES = 30;
 const BOOKING_HORIZON_DAYS = 60;
 const MAX_AVAILABLE_DATES = 14;
 const MIN_BOOKING_NOTICE_HOURS = 24;
-const WORKING_WINDOWS = [
-  { startHour: 9, startMinute: 0, endHour: 12, endMinute: 0 },
-  { startHour: 13, startMinute: 0, endHour: 18, endMinute: 0 },
+const AVAILABILITY_CACHE_TTL_SECONDS = 60 * 60;
+const AVAILABILITY_CACHE_KEY_PREFIX = "calendar-availability-v1-";
+const AVAILABILITY_CACHE_VERSION_PROPERTY = "availabilityCacheVersion";
+const BOOKING_WINDOWS = [
+  { startHour: 9, startMinute: 0, lastStartHour: 20, lastStartMinute: 0 },
 ];
 
 function doGet(e) {
@@ -18,22 +20,22 @@ function doGet(e) {
 
   if (cleanString_(params.action) === "availability") {
     const requestId = cleanString_(params.requestId);
-    const targetOrigin = normalizeOrigin_(cleanString_(params.origin));
+    const callback = normalizeJsonpCallback_(cleanString_(params.callback));
 
     try {
-      return createIframeResponse_({
+      return createJsonpResponse_({
         ok: true,
         requestId: requestId,
-        slots: getAvailableSlots_(),
+        slots: getCachedAvailableSlots_(),
         timeZone: BOOKING_TIME_ZONE,
-      }, targetOrigin);
+      }, callback);
     } catch (error) {
       console.error("Failed to load calendar availability", error);
-      return createIframeResponse_({
+      return createJsonpResponse_({
         ok: false,
         requestId: requestId,
         error: "Calendar availability could not be loaded.",
-      }, targetOrigin);
+      }, callback);
     }
   }
 
@@ -303,6 +305,81 @@ function createIframeResponse_(payload, targetOrigin) {
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
+function createJsonpResponse_(payload, callback) {
+  const message = {
+    source: RESPONSE_SOURCE,
+    ok: Boolean(payload.ok),
+    requestId: payload.requestId || "",
+    error: payload.error || "",
+    slots: payload.slots || [],
+    timeZone: payload.timeZone || "",
+  };
+
+  return ContentService.createTextOutput(
+    callback + "(" + JSON.stringify(message) + ");",
+  ).setMimeType(ContentService.MimeType.JAVASCRIPT);
+}
+
+function getCachedAvailableSlots_() {
+  const cache = CacheService.getScriptCache();
+
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const version = getAvailabilityCacheVersion_();
+    const cacheKey = AVAILABILITY_CACHE_KEY_PREFIX + version;
+    const cachedValue = cache.get(cacheKey);
+
+    if (cachedValue) {
+      try {
+        const cachedSlots = JSON.parse(cachedValue);
+        if (Array.isArray(cachedSlots)) {
+          return cachedSlots;
+        }
+      } catch (error) {
+        console.warn("Ignoring invalid cached calendar availability", error);
+      }
+
+      cache.remove(cacheKey);
+    }
+
+    const slots = getAvailableSlots_();
+
+    if (getAvailabilityCacheVersion_() !== version) {
+      continue;
+    }
+
+    cache.put(
+      cacheKey,
+      JSON.stringify(slots),
+      AVAILABILITY_CACHE_TTL_SECONDS,
+    );
+    return slots;
+  }
+
+  return getAvailableSlots_();
+}
+
+function getAvailabilityCacheVersion_() {
+  return (
+    PropertiesService.getScriptProperties().getProperty(
+      AVAILABILITY_CACHE_VERSION_PROPERTY,
+    ) || "0"
+  );
+}
+
+function invalidateAvailabilityCache_() {
+  const properties = PropertiesService.getScriptProperties();
+  const previousVersion =
+    properties.getProperty(AVAILABILITY_CACHE_VERSION_PROPERTY) || "0";
+
+  properties.setProperty(
+    AVAILABILITY_CACHE_VERSION_PROPERTY,
+    Utilities.getUuid(),
+  );
+  CacheService.getScriptCache().remove(
+    AVAILABILITY_CACHE_KEY_PREFIX + previousVersion,
+  );
+}
+
 function getAvailableSlots_() {
   const calendar = getBookingCalendar_();
   const now = new Date();
@@ -320,37 +397,35 @@ function getAvailableSlots_() {
   day.setDate(day.getDate() + 1);
 
   for (let dayOffset = 0; dayOffset < BOOKING_HORIZON_DAYS; dayOffset += 1) {
-    const dayOfWeek = day.getDay();
     let slotsAddedForDate = 0;
 
-    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-      WORKING_WINDOWS.forEach(function (window) {
-        const slotStart = new Date(day);
-        slotStart.setHours(window.startHour, window.startMinute, 0, 0);
-        const windowEnd = new Date(day);
-        windowEnd.setHours(window.endHour, window.endMinute, 0, 0);
+    BOOKING_WINDOWS.forEach(function (window) {
+      const slotStart = new Date(day);
+      slotStart.setHours(window.startHour, window.startMinute, 0, 0);
+      const lastSlotStart = new Date(day);
+      lastSlotStart.setHours(
+        window.lastStartHour,
+        window.lastStartMinute,
+        0,
+        0,
+      );
 
-        while (true) {
-          const slotEnd = new Date(
-            slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
-          );
+      while (slotStart.getTime() <= lastSlotStart.getTime()) {
+        const slotEnd = new Date(
+          slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
+        );
 
-          if (slotEnd.getTime() > windowEnd.getTime()) {
-            break;
-          }
-
-          if (
-            slotStart.getTime() >= earliestStart.getTime() &&
-            !hasOverlappingEvent_(busyEvents, slotStart, slotEnd)
-          ) {
-            slots.push(slotStart.toISOString());
-            slotsAddedForDate += 1;
-          }
-
-          slotStart.setMinutes(slotStart.getMinutes() + SLOT_STEP_MINUTES);
+        if (
+          slotStart.getTime() >= earliestStart.getTime() &&
+          !hasOverlappingEvent_(busyEvents, slotStart, slotEnd)
+        ) {
+          slots.push(slotStart.toISOString());
+          slotsAddedForDate += 1;
         }
-      });
-    }
+
+        slotStart.setMinutes(slotStart.getMinutes() + SLOT_STEP_MINUTES);
+      }
+    });
 
     if (slotsAddedForDate > 0) {
       availableDateCount += 1;
@@ -397,6 +472,7 @@ function bookAppointment_(payload) {
       guests: payload.email,
       sendInvites: true,
     });
+    invalidateAvailabilityCache_();
   } finally {
     lock.releaseLock();
   }
@@ -467,6 +543,14 @@ function normalizeOrigin_(origin) {
   }
 
   return "*";
+}
+
+function normalizeJsonpCallback_(callback) {
+  if (/^integralCalendarAvailability_[A-Za-z0-9_]+$/.test(callback)) {
+    return callback;
+  }
+
+  throw new Error("Invalid availability callback.");
 }
 
 function cleanString_(value) {
