@@ -4,7 +4,7 @@ export const APPS_SCRIPT_WEB_APP_URL =
   import.meta.env.VITE_APPS_SCRIPT_WEB_APP_URL?.trim() ||
   DEFAULT_APPS_SCRIPT_WEB_APP_URL;
 const APPS_SCRIPT_MESSAGE_SOURCE = "integral-counseling-apps-script";
-const APPS_SCRIPT_TIMEOUT_MS = 60000;
+const APPS_SCRIPT_TIMEOUT_MS = 90000;
 
 type FormType = "appointment" | "contact";
 
@@ -16,6 +16,7 @@ interface WebsiteFormPayload {
   phone?: string;
   meetingMode?: string;
   meetingModeLabel?: string;
+  bookingRequestId?: string;
   message?: string;
   preferredContact?: string;
   preferredContactLabel?: string;
@@ -48,6 +49,14 @@ export class WebsiteFormSubmissionError extends Error {
 
 export async function submitWebsiteForm(payload: WebsiteFormPayload) {
   await submitToAppsScript(payload);
+}
+
+export function createBookingRequestId() {
+  const randomPart = globalThis.crypto?.randomUUID
+    ? globalThis.crypto.randomUUID().replace(/-/g, "")
+    : Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+
+  return `booking_${Date.now()}_${randomPart}`;
 }
 
 async function submitToAppsScript(payload: WebsiteFormPayload) {

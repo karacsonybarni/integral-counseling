@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { createAppointmentSchema, type AppointmentInput } from "@/lib/forms";
 import { THERAPIST_EMAIL } from "@/lib/contactDetails";
 import {
+  createBookingRequestId,
   submitWebsiteForm,
   WebsiteFormSubmissionError,
 } from "@/lib/formSubmission";
@@ -30,6 +31,10 @@ export default function AppointmentBooking() {
   const { t, i18n } = useTranslation("appointment");
   const startedAtRef = useRef(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
+  const bookingAttemptRef = useRef<{
+    fingerprint: string;
+    requestId: string;
+  } | null>(null);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
   const [slotConflict, setSlotConflict] = useState(false);
@@ -119,6 +124,14 @@ export default function AppointmentBooking() {
     setErrorMessageVisible(false);
     setSlotConflict(false);
 
+    const fingerprint = JSON.stringify(data);
+    if (bookingAttemptRef.current?.fingerprint !== fingerprint) {
+      bookingAttemptRef.current = {
+        fingerprint,
+        requestId: createBookingRequestId(),
+      };
+    }
+
     try {
       await submitWebsiteForm({
         formType: "appointment",
@@ -128,6 +141,7 @@ export default function AppointmentBooking() {
         phone: data.phone,
         meetingMode: data.meetingMode,
         meetingModeLabel: t(`form.meeting_mode_options.${data.meetingMode}`),
+        bookingRequestId: bookingAttemptRef.current.requestId,
         preferredDate: data.preferredDate,
         preferredDateLabel: formatSlotDate(data.preferredTime),
         preferredTime: formatSlotTime(data.preferredTime),
@@ -142,6 +156,7 @@ export default function AppointmentBooking() {
         honeypotRef.current.value = "";
       }
       startedAtRef.current = Date.now();
+      bookingAttemptRef.current = null;
       setSuccessMessageVisible(true);
       await loadAvailability();
     } catch (error) {
@@ -153,6 +168,7 @@ export default function AppointmentBooking() {
       setErrorMessageVisible(true);
 
       if (conflict) {
+        bookingAttemptRef.current = null;
         form.setValue("preferredTime", "");
         await loadAvailability();
       }

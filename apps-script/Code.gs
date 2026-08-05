@@ -8,6 +8,8 @@ const SLOT_STEP_MINUTES = 30;
 const BOOKING_HORIZON_DAYS = 60;
 const MAX_AVAILABLE_DATES = 14;
 const MIN_BOOKING_NOTICE_HOURS = 24;
+const BOOKING_LOCK_WAIT_MS = 15000;
+const BOOKING_REQUEST_TAG = "websiteBookingRequestId";
 const AVAILABILITY_CACHE_TTL_SECONDS = 60 * 60;
 const AVAILABILITY_CACHE_KEY_PREFIX = "calendar-availability-v1-";
 const AVAILABILITY_CACHE_VERSION_PROPERTY = "availabilityCacheVersion";
@@ -67,19 +69,20 @@ function doPost(e) {
 
     validatePayload_(payload);
 
-    if (payload.formType === "appointment") {
-      bookAppointment_(payload);
-    }
+    const shouldSendNotification =
+      payload.formType !== "appointment" || bookAppointment_(payload);
 
     try {
-      MailApp.sendEmail({
-        to: RECIPIENT_EMAIL,
-        subject: buildSubject_(payload),
-        body: buildPlainTextBody_(payload),
-        htmlBody: buildHtmlBody_(payload),
-        replyTo: payload.email,
-        name: "Integral Counseling Website",
-      });
+      if (shouldSendNotification) {
+        MailApp.sendEmail({
+          to: RECIPIENT_EMAIL,
+          subject: buildSubject_(payload),
+          body: buildPlainTextBody_(payload),
+          htmlBody: buildHtmlBody_(payload),
+          replyTo: payload.email,
+          name: "Integral Counseling Website",
+        });
+      }
     } catch (emailError) {
       if (payload.formType !== "appointment") {
         throw emailError;
@@ -114,6 +117,7 @@ function normalizePayload_(e) {
     phone: cleanString_(params.phone),
     meetingMode: cleanString_(params.meetingMode),
     meetingModeLabel: cleanString_(params.meetingModeLabel),
+    bookingRequestId: cleanString_(params.bookingRequestId),
     message: cleanString_(params.message),
     preferredContact: cleanString_(params.preferredContact),
     preferredContactLabel: cleanString_(params.preferredContactLabel),
@@ -159,6 +163,13 @@ function validatePayload_(payload) {
 
     if (!payload.slotStart || isNaN(new Date(payload.slotStart).getTime())) {
       throw new Error("A valid calendar slot is required.");
+    }
+
+    if (
+      payload.bookingRequestId &&
+      !/^booking_[A-Za-z0-9_-]{16,100}$/.test(payload.bookingRequestId)
+    ) {
+      throw new Error("The booking request ID is invalid.");
     }
   }
 
@@ -442,17 +453,34 @@ function getAvailableSlots_() {
 
 function bookAppointment_(payload) {
   const lock = LockService.getScriptLock();
-  lock.waitLock(10000);
+  lock.waitLock(BOOKING_LOCK_WAIT_MS);
 
   try {
     const slotStart = new Date(payload.slotStart);
-    const availableSlots = getAvailableSlots_();
-    const requestedTimestamp = slotStart.getTime();
-    const isAvailable = availableSlots.some(function (slot) {
-      return new Date(slot).getTime() === requestedTimestamp;
-    });
+    const slotEnd = new Date(
+      slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
+    );
+    const calendar = getBookingCalendar_();
+    const overlappingEvents = calendar.getEvents(slotStart, slotEnd);
 
-    if (!isAvailable) {
+    const existingBooking =
+      payload.bookingRequestId &&
+      overlappingEvents.some(function (event) {
+        return (
+          event.getTag(BOOKING_REQUEST_TAG) === payload.bookingRequestId &&
+          event.getStartTime().getTime() === slotStart.getTime() &&
+          event.getEndTime().getTime() === slotEnd.getTime()
+        );
+      });
+
+    if (existingBooking) {
+      return false;
+    }
+
+    if (
+      !isRequestedSlotEligible_(slotStart, new Date()) ||
+      hasOverlappingEvent_(overlappingEvents, slotStart, slotEnd)
+    ) {
       invalidateAvailabilityCache_();
       throw createCodedError_(
         "SLOT_UNAVAILABLE",
@@ -460,23 +488,66 @@ function bookAppointment_(payload) {
       );
     }
 
-    const slotEnd = new Date(
-      slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
-    );
-    const calendar = getBookingCalendar_();
     const title =
       (payload.language === "en" ? "First session – " : "Első alkalom – ") +
       payload.name;
 
-    calendar.createEvent(title, slotStart, slotEnd, {
+    const event = calendar.createEvent(title, slotStart, slotEnd, {
       description: buildCalendarDescription_(payload),
       guests: payload.email,
       sendInvites: true,
     });
+    if (payload.bookingRequestId) {
+      event.setTag(BOOKING_REQUEST_TAG, payload.bookingRequestId);
+    }
     invalidateAvailabilityCache_();
+    return true;
   } finally {
     lock.releaseLock();
   }
+}
+
+function isRequestedSlotEligible_(slotStart, now) {
+  const earliestStart = new Date(
+    now.getTime() + MIN_BOOKING_NOTICE_HOURS * 60 * 60 * 1000,
+  );
+  if (slotStart.getTime() < earliestStart.getTime()) {
+    return false;
+  }
+
+  const firstBookingDay = new Date(now);
+  firstBookingDay.setHours(0, 0, 0, 0);
+  firstBookingDay.setDate(firstBookingDay.getDate() + 1);
+  const horizonEnd = new Date(now);
+  horizonEnd.setDate(horizonEnd.getDate() + BOOKING_HORIZON_DAYS);
+  horizonEnd.setHours(23, 59, 59, 999);
+
+  if (
+    slotStart.getTime() < firstBookingDay.getTime() ||
+    slotStart.getTime() > horizonEnd.getTime()
+  ) {
+    return false;
+  }
+
+  return BOOKING_WINDOWS.some(function (window) {
+    const firstStart = new Date(slotStart);
+    firstStart.setHours(window.startHour, window.startMinute, 0, 0);
+    const lastStart = new Date(slotStart);
+    lastStart.setHours(
+      window.lastStartHour,
+      window.lastStartMinute,
+      0,
+      0,
+    );
+    const offsetMinutes =
+      (slotStart.getTime() - firstStart.getTime()) / (60 * 1000);
+
+    return (
+      slotStart.getTime() >= firstStart.getTime() &&
+      slotStart.getTime() <= lastStart.getTime() &&
+      offsetMinutes % SLOT_STEP_MINUTES === 0
+    );
+  });
 }
 
 function getBookingCalendar_() {
