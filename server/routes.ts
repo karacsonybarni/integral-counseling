@@ -64,7 +64,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!emailSent) {
         res.status(502).json({
           success: false,
-          message: "Your appointment request could not be delivered. Please try again later.",
+          message: "Your appointment could not be booked. Please try again later.",
         });
         return;
       }
@@ -76,7 +76,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ 
         success: true, 
-        message: "Your appointment request has been received. I’ll usually contact you within one business day to confirm.",
+        message: "Your appointment is booked. You will receive the details by email.",
         appointmentId: appointment.id
       });
     } catch (error) {

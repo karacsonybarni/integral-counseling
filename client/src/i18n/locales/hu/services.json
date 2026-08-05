@@ -1,42 +1,42 @@
 {
   "eyebrow": "Amivel érkezhetsz",
-  "title": "Nem kell kész történettel vagy pontos kérdéssel jönnöd.",
-  "subtitle": "Elég, ha érzed, hogy valami figyelmet kér. Innen együtt keressük meg, mi az, ami most igazán fontos.",
+  "title": "Amikor a megszokott válaszaid már nem elegendők.",
+  "subtitle": "Érkezhetsz konkrét döntéssel, visszatérő mintával vagy nehezen megfogható belső feszültséggel. Együtt pontosítjuk a kérdést, feltárjuk az összefüggéseket, és az elemző megértés mellé bevonjuk az érzelmi, testi és kapcsolati tapasztalatot is.",
   "themes": {
     "direction": {
-      "title": "Túl sok irány húz egyszerre",
-      "description": "Döntés, változás vagy új életszakasz előtt állsz, és szeretnéd szétválasztani a saját hangodat a külső elvárásoktól."
+      "title": "Több fontos szempont húz más irányba",
+      "description": "Egy döntésben nem jó és rossz között választasz, hanem több érték, kapcsolat, lehetőség vagy jövőkép ütközik."
     },
     "patterns": {
-      "title": "Visszatérő mintákat veszel észre",
-      "description": "Kapcsolatokban, kommunikációban vagy önmagaddal szemben újra ugyanoda érkezel, és szeretnéd megérteni, mi tartja fenn ezt."
+      "title": "Fejben már érted, mégsem változik",
+      "description": "Pontosan látod a mintát, mégis újra ugyanoda érkezel. Megnézzük, mi tartja fenn a gondolkodáson túl."
     },
     "overload": {
-      "title": "Sokat bírsz, de mostanra túl sok lett",
-      "description": "Kívülről működnek a dolgok, belül mégis egyre több a feszültség, a zaj vagy a távolság attól, ahogyan élni szeretnél."
+      "title": "Jól működsz, de ennek egyre nagyobb az ára",
+      "description": "Kívülről rendben vannak a dolgok, belül viszont nő a feszültség, a kimerültség vagy a távolság attól, ahogyan élni szeretnél."
     },
     "values": {
-      "title": "Közelebb kerülnél ahhoz, ami fontos",
-      "description": "Nem feltétlenül van krízis, de szeretnéd jobban érteni önmagad, az értékeidet és azt, merre érdemes továbbindulnod."
+      "title": "A korábbi céljaid már nem adnak elég irányt",
+      "description": "Nem feltétlenül van krízis. Változik, mi fontos számodra, és szeretnéd megérteni, mi formálódik a régi válaszok helyén."
     }
   },
   "approach": {
     "eyebrow": "Hogyan dolgozom",
-    "title": "Veled együtt, több nézőpontból keresünk tisztább képet.",
-    "description": "Az integrál szemléletben nem csak azt nézzük, mit gondolsz egy helyzetről. Figyelünk arra is, mit érzel, mit jelez a tested, milyen kapcsolati és környezeti hatások vesznek körül, és mi vihető át mindebből a hétköznapokba.",
-    "cta": "Első beszélgetést kérek",
+    "title": "Tágabb képet tartunk, hogy szabadabban tudj választani.",
+    "description": "A gondolatok, érzések, testi jelzések, kapcsolati minták, értékek és környezeti feltételek együtt adnak tájékozódási pontokat. A cél nem egy végleges magyarázat, hanem nagyobb tudatosság és több valódi választási lehetőség.",
+    "cta": "Első alkalmat foglalok",
     "principles": {
       "notice": {
-        "title": "Észrevenni",
-        "description": "Lassítunk annyira, hogy láthatóvá váljon az is, ami a mindennapi lendületben könnyen rejtve marad."
+        "title": "Pontosítani",
+        "description": "Elkülönítjük a tényeket, értelmezéseket, érzéseket és testi jelzéseket, hogy láthatóbbá váljon, mi történik."
       },
       "understand": {
-        "title": "Összefüggéseiben érteni",
-        "description": "Együtt nézzük a belső élményt, a mintákat, a kapcsolatokat és a környezetet, hogy összeálljon a tágabb kép."
+        "title": "Összefüggéseiben látni",
+        "description": "Megnézzük, hogyan kapcsolódik a jelen helyzet a történetedhez, kapcsolataidhoz, értékeidhez és környezetedhez."
       },
       "move": {
-        "title": "Kipróbálható lépést találni",
-        "description": "A felismeréseket olyan következő lépésekhez kapcsoljuk, amelyek valóban beleférnek az életedbe."
+        "title": "Szabadabban választani",
+        "description": "A felismerést olyan következő lépéshez vagy új viszonyuláshoz kapcsoljuk, amelyet a hétköznapokban is kipróbálhatsz."
       }
     }
   },
@@ -45,8 +45,8 @@
     "title": "Egyszerűen kezdünk",
     "steps": {
       "contact": {
-        "title": "Jelzed, hogy beszélnél",
-        "description": "Az űrlapon röviden megírhatod, mi hoz, és javasolhatsz két-három megfelelő időpontot."
+        "title": "Kiválasztasz egy szabad időpontot",
+        "description": "A megjelenő időpontok közül választasz, megadod az elérhetőségedet, majd e-mailben megkapod a meghívót."
       },
       "first": {
         "title": "Első, 55 perces ülés",

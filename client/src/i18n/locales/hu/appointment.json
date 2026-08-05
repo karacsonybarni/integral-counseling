@@ -3,7 +3,7 @@
   "title": "Válassz egy számodra megfelelő időpontot.",
   "subtitle": "Foglalj kényelmesen az elérhető időpontok közül.",
   "details": {
-    "duration": "Egy ülés 55 perc",
+    "duration": "55 perc · 7 000 Ft",
     "format": "Budapesten vagy online",
     "calendar": "Azonnali visszaigazolás"
   },
@@ -15,14 +15,19 @@
     "email_placeholder": "nev@example.com",
     "phone": "Telefonszám",
     "phone_placeholder": "+36 30 123 4567",
+    "meeting_mode": "Találkozás módja",
+    "meeting_mode_options": {
+      "in_person": "Személyesen Budapesten",
+      "online": "Online"
+    },
     "service": "Szolgáltatás",
     "service_placeholder": "Válassz szolgáltatást",
     "date": "Szabad dátum",
     "date_placeholder": "Válassz dátumot",
     "time": "Szabad időpont",
     "time_placeholder": "Válassz időpontot",
-    "message": "További információ",
-    "message_placeholder": "Amit érdemes tudnom előre...",
+    "message": "Mi hoz most? (opcionális)",
+    "message_placeholder": "Egy-két mondat elég; részletesen az ülésen beszélünk róla.",
     "required": "kötelező",
     "submit": "Időpont lefoglalása",
     "booking": "Foglalás..."
@@ -46,7 +51,7 @@
     "description": "Frissítettem a szabad időpontokat. Válassz egy másikat."
   },
   "error": {
-    "title": "Az időpontkérés nem lett elküldve",
+    "title": "Az időpontot nem sikerült lefoglalni",
     "description": "Nem sikerült lefoglalni az időpontot. A megadott adatok megmaradtak, így újra próbálhatod, vagy közvetlenül kapcsolatba léphetsz velem.",
     "email_action": "E-mail küldése ide: {{email}}"
   },
@@ -54,6 +59,7 @@
     "name_required": "A név megadása kötelező.",
     "name_too_long": "A név legfeljebb 100 karakter lehet.",
     "email_invalid": "Adj meg egy érvényes e-mail címet.",
+    "meeting_mode_required": "Válaszd ki a találkozás módját.",
     "date_required": "Válassz egy dátumot.",
     "time_required": "Válassz egy időpontot."
   },

@@ -3,7 +3,7 @@
   "title": "Choose a time that works for you.",
   "subtitle": "Book easily from the available appointment times.",
   "details": {
-    "duration": "One session is 55 minutes",
+    "duration": "55 minutes · 7,000 Ft",
     "format": "In Budapest or online",
     "calendar": "Instant confirmation"
   },
@@ -15,14 +15,19 @@
     "email_placeholder": "name@example.com",
     "phone": "Phone Number",
     "phone_placeholder": "+36 30 123 4567",
+    "meeting_mode": "Meeting format",
+    "meeting_mode_options": {
+      "in_person": "In person in Budapest",
+      "online": "Online"
+    },
     "service": "Service",
     "service_placeholder": "Select a service",
     "date": "Available Date",
     "date_placeholder": "Choose a date",
     "time": "Available Time",
     "time_placeholder": "Select a time",
-    "message": "Additional Information",
-    "message_placeholder": "Anything you’d like me to know beforehand...",
+    "message": "What brings you here? (optional)",
+    "message_placeholder": "One or two sentences are enough; we can discuss the details in the session.",
     "required": "required",
     "submit": "Book this appointment",
     "booking": "Booking..."
@@ -46,7 +51,7 @@
     "description": "I refreshed the available times. Please choose another one."
   },
   "error": {
-    "title": "Appointment request not sent",
+    "title": "The appointment could not be booked",
     "description": "We couldn't book the appointment. Your details are still here, so you can try again or contact me directly.",
     "email_action": "Email me at {{email}}"
   },
@@ -54,6 +59,7 @@
     "name_required": "Name is required.",
     "name_too_long": "Name must be 100 characters or fewer.",
     "email_invalid": "Enter a valid email address.",
+    "meeting_mode_required": "Choose a meeting format.",
     "date_required": "Choose a preferred date.",
     "time_required": "Choose a preferred time."
   },

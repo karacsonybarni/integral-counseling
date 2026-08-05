@@ -1,9 +1,10 @@
 {
   "home": "Főoldal",
   "about": "Rólam",
-  "services": "Miben segíthetek",
-  "contact": "Kapcsolat",
-  "appointment": "Első beszélgetés",
+  "services": "Amivel érkezhetsz",
+  "practical": "Gyakorlati tudnivalók",
+  "contact": "Időpontfoglalás",
+  "appointment": "Első alkalmat foglalok",
   "language": "Nyelv",
   "change_language": "Nyelvváltás. Jelenlegi nyelv: {{language}}",
   "open_menu": "Navigációs menü megnyitása",

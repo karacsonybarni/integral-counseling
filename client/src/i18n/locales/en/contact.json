@@ -14,9 +14,9 @@
     "contact_method": "Preferred Contact Method",
     "contact_method_placeholder": "How would you like to be contacted?",
     "message": "Message",
-    "message_placeholder": "Briefly share what brings you here and suggest two or three times that could work...",
+    "message_placeholder": "Briefly share what kind of support you are looking for right now...",
     "required": "required",
-    "submit": "Request a first conversation",
+    "submit": "Send message",
     "sending": "Sending..."
   },
   "success": {

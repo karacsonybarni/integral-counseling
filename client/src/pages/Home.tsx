@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
+import PracticalInfo from "@/components/PracticalInfo";
 import AppointmentBooking from "@/components/AppointmentBooking";
 import Footer from "@/components/Footer";
 import { consumePendingScrollTarget, scrollToSection } from "@/lib/routing";
@@ -24,11 +25,14 @@ export default function Home() {
       <Header />
       <main id="main-content" tabIndex={-1}>
         <Hero />
+        <div id="services">
+          <Services />
+        </div>
         <div id="about">
           <About />
         </div>
-        <div id="services">
-          <Services />
+        <div id="practical">
+          <PracticalInfo />
         </div>
         <div id="contact">
           <AppointmentBooking />

@@ -2,25 +2,62 @@
   "hero": {
     "eyebrow": "Karácsony Barna · Integrál tanácsadó jelölt",
     "title": "Tisztábban látni, amikor sok minden húz egyszerre.",
-    "subtitle": "Integrál tanácsadó jelöltként az elemző gondolkodást figyelmes, emberi jelenléttel kapcsolom össze. Döntésekkel, visszatérő mintákkal vagy túlterheltséggel is érkezhetsz.",
+    "subtitle": "Ha egy helyzetet már sok oldalról végiggondoltál, mégsem találsz benne szabad mozgást, együtt nézhetünk rá a gondolatok, érzések, testi jelzések, kapcsolatok és értékek felől. A cél, hogy tágabb rálátásból tudj választani.",
     "cta": "Így dolgozom",
-    "appointment": "Első beszélgetést kérek",
+    "appointment": "Első alkalmat foglalok",
     "profile_alt": "Karácsony Barna egy sárga fotelben ül",
-    "note": "Szeretek pontos kérdéseket feltenni, összefüggéseket keresni, és nem siettetni azt, ami még nem állt össze.",
-    "note_label": "Tisztaság és emberi figyelem",
+    "note": "Pontosan kérdezek, összefüggéseket keresek, és teret hagyok annak is, ami még nem áll össze kész magyarázattá.",
+    "note_label": "Tisztaság, mélység és mozgástér",
     "details": {
-      "duration": "55 perces ülések",
+      "duration": "55 perces ülések · 7 000 Ft",
       "format": "Budapesten vagy online",
       "languages": "Magyarul vagy angolul"
+    }
+  },
+  "practical": {
+    "eyebrow": "Átlátható keretek",
+    "title": "Gyakorlati tudnivalók",
+    "subtitle": "Már az időpontfoglalás előtt tudd, milyen keretek között találkozunk.",
+    "details": {
+      "duration": {
+        "label": "Időtartam",
+        "value": "Egy alkalom 55 perc"
+      },
+      "firstSession": {
+        "label": "Díj",
+        "value": "7 000 Ft / 55 perc · az első alkalom is teljes ülés"
+      },
+      "format": {
+        "label": "Találkozás módja",
+        "value": "Személyesen Budapesten vagy online"
+      },
+      "cancellation": {
+        "label": "Lemondás és módosítás",
+        "value": "Legalább 24 órával az időpont előtt"
+      }
+    },
+    "faq": {
+      "eyebrow": "Gyakori kérdések",
+      "title": "Ami még fontos lehet",
+      "items": {
+        "existential": {
+          "question": "Van helye egzisztenciális vagy spirituális témáknak?",
+          "answer": "Ha ezek természetesen részei annak, amit átélsz, a közös munkában is lehet helyük. Nem szükséges hozzá semmilyen világnézetet elfogadnod."
+        },
+        "spiritualScope": {
+          "question": "Kell kapcsolódnom egy meghatározott szemlélethez?",
+          "answer": "Nem. Az integrál tanácsadás nem spirituális tanítás, és nem vár el tőled meghatározott hitrendszert."
+        }
+      }
     }
   },
   "contact_section": {
     "eyebrow": "Első lépés",
     "title": "Kezdjünk egy beszélgetéssel.",
     "subtitle": "Válassz a Google Naptár alapján megjelenített, valóban szabad időpontok közül.",
-    "form_title": "Első beszélgetést kérek",
+    "form_title": "Első alkalmat foglalok",
     "details": {
-      "session": "Az első alkalom is teljes, 55 perces ülés",
+      "session": "55 perc · 7 000 Ft; az első alkalom is teljes ülés",
       "format": "Budapesten vagy online",
       "reply": "Válasz általában egy munkanapon belül"
     }

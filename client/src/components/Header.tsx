@@ -14,8 +14,9 @@ export default function Header() {
 
   const homePath = getLocalizedPath("/", i18n.language);
   const navigation = [
-    { name: t("about"), href: getLocalizedPath("/#about", i18n.language), action: "scroll" as const, target: "about" },
     { name: t("services"), href: getLocalizedPath("/#services", i18n.language), action: "scroll" as const, target: "services" },
+    { name: t("about"), href: getLocalizedPath("/#about", i18n.language), action: "scroll" as const, target: "about" },
+    { name: t("practical"), href: getLocalizedPath("/#practical", i18n.language), action: "scroll" as const, target: "practical" },
     { name: t("contact"), href: getLocalizedPath("/#contact", i18n.language), action: "scroll" as const, target: "contact" },
   ];
 

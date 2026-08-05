@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import SubmissionSuccessMessage from "@/components/SubmissionSuccessMessage";
@@ -13,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { createAppointmentSchema, type AppointmentInput } from "@/lib/forms";
 import { THERAPIST_EMAIL } from "@/lib/contactDetails";
 import {
+  createBookingRequestId,
   submitWebsiteForm,
   WebsiteFormSubmissionError,
 } from "@/lib/formSubmission";
@@ -28,6 +31,10 @@ export default function AppointmentBooking() {
   const { t, i18n } = useTranslation("appointment");
   const startedAtRef = useRef(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
+  const bookingAttemptRef = useRef<{
+    fingerprint: string;
+    requestId: string;
+  } | null>(null);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
   const [slotConflict, setSlotConflict] = useState(false);
@@ -45,6 +52,7 @@ export default function AppointmentBooking() {
       name: "",
       email: "",
       phone: "",
+      meetingMode: undefined,
       preferredDate: "",
       preferredTime: "",
       message: "",
@@ -116,6 +124,14 @@ export default function AppointmentBooking() {
     setErrorMessageVisible(false);
     setSlotConflict(false);
 
+    const fingerprint = JSON.stringify(data);
+    if (bookingAttemptRef.current?.fingerprint !== fingerprint) {
+      bookingAttemptRef.current = {
+        fingerprint,
+        requestId: createBookingRequestId(),
+      };
+    }
+
     try {
       await submitWebsiteForm({
         formType: "appointment",
@@ -123,6 +139,9 @@ export default function AppointmentBooking() {
         name: data.name,
         email: data.email,
         phone: data.phone,
+        meetingMode: data.meetingMode,
+        meetingModeLabel: t(`form.meeting_mode_options.${data.meetingMode}`),
+        bookingRequestId: bookingAttemptRef.current.requestId,
         preferredDate: data.preferredDate,
         preferredDateLabel: formatSlotDate(data.preferredTime),
         preferredTime: formatSlotTime(data.preferredTime),
@@ -137,6 +156,7 @@ export default function AppointmentBooking() {
         honeypotRef.current.value = "";
       }
       startedAtRef.current = Date.now();
+      bookingAttemptRef.current = null;
       setSuccessMessageVisible(true);
       await loadAvailability();
     } catch (error) {
@@ -148,6 +168,7 @@ export default function AppointmentBooking() {
       setErrorMessageVisible(true);
 
       if (conflict) {
+        bookingAttemptRef.current = null;
         form.setValue("preferredTime", "");
         await loadAvailability();
       }
@@ -268,6 +289,45 @@ export default function AppointmentBooking() {
                       <FormLabel>{t("form.phone")}</FormLabel>
                       <FormControl>
                         <Input type="tel" {...field} autoComplete="tel" placeholder={t("form.phone_placeholder")} className="max-w-xs" data-testid="input-booking-phone" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="meetingMode"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("form.meeting_mode")} ({t("form.required")})</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          value={field.value}
+                          onValueChange={(value) => {
+                            clearSubmissionMessages();
+                            field.onChange(value);
+                          }}
+                          className="grid gap-3 sm:grid-cols-2"
+                          aria-required="true"
+                          data-testid="radio-group-meeting-mode"
+                        >
+                          {(["in_person", "online"] as const).map((mode) => (
+                            <Label
+                              key={mode}
+                              htmlFor={`meeting-mode-${mode}`}
+                              className={cn(
+                                "flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 font-medium transition-colors",
+                                field.value === mode
+                                  ? "border-primary bg-primary/5 text-foreground"
+                                  : "border-border bg-background text-muted-foreground hover:border-primary/50",
+                              )}
+                            >
+                              <RadioGroupItem id={`meeting-mode-${mode}`} value={mode} />
+                              {t(`form.meeting_mode_options.${mode}`)}
+                            </Label>
+                          ))}
+                        </RadioGroup>
                       </FormControl>
                       <FormMessage />
                     </FormItem>

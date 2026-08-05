@@ -14,9 +14,9 @@
     "contact_method": "Előnyben részesített kapcsolatfelvételi mód",
     "contact_method_placeholder": "Hogyan szeretnéd, hogy kapcsolatba lépjek?",
     "message": "Üzenet",
-    "message_placeholder": "Írd meg röviden, mi hoz, és adj meg két-három számodra megfelelő időpontot...",
+    "message_placeholder": "Írd meg röviden, miben keresel most támogatást...",
     "required": "kötelező",
-    "submit": "Első beszélgetés kérése",
+    "submit": "Üzenet küldése",
     "sending": "Küldés..."
   },
   "success": {

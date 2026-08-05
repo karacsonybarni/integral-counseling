@@ -2,25 +2,62 @@
   "hero": {
     "eyebrow": "Barna Karácsony · Integral counselor in training",
     "title": "See more clearly when many things pull at once.",
-    "subtitle": "As an integral counselor in training, I combine analytical thinking with attentive, human presence. You can come with decisions, recurring patterns, or a sense of overload.",
+    "subtitle": "If you have already considered a situation from many angles but still cannot find room to move, we can look at it through thoughts, emotions, bodily signals, relationships, and values. The aim is to choose from a wider perspective.",
     "cta": "How I work",
-    "appointment": "Request a first conversation",
+    "appointment": "Book a first session",
     "profile_alt": "Barna Karácsony sitting in a yellow armchair",
-    "note": "I like to ask precise questions, look for connections, and give time to what has not yet come together.",
-    "note_label": "Clarity and human attention",
+    "note": "I ask precise questions, look for connections, and leave room for what has not yet come together into a finished explanation.",
+    "note_label": "Clarity, depth, and room to move",
     "details": {
-      "duration": "55-minute sessions",
+      "duration": "55-minute sessions · 7,000 Ft",
       "format": "In Budapest or online",
       "languages": "In Hungarian or English"
+    }
+  },
+  "practical": {
+    "eyebrow": "Clear boundaries",
+    "title": "Practical details",
+    "subtitle": "Know the framework for our meeting before you book.",
+    "details": {
+      "duration": {
+        "label": "Duration",
+        "value": "Each session is 55 minutes"
+      },
+      "firstSession": {
+        "label": "Fee",
+        "value": "7,000 Ft / 55 minutes · the first session is a full session"
+      },
+      "format": {
+        "label": "Meeting format",
+        "value": "In person in Budapest or online"
+      },
+      "cancellation": {
+        "label": "Cancellation and changes",
+        "value": "At least 24 hours before the session"
+      }
+    },
+    "faq": {
+      "eyebrow": "Frequently asked questions",
+      "title": "What else may matter",
+      "items": {
+        "existential": {
+          "question": "Is there room for existential or spiritual topics?",
+          "answer": "If they are a natural part of what you are experiencing, there can be room for them in our work. You do not need to accept any particular worldview."
+        },
+        "spiritualScope": {
+          "question": "Do I need to relate to a particular perspective?",
+          "answer": "No. Integral counseling is not spiritual teaching, and it does not expect you to adopt any particular belief system."
+        }
+      }
     }
   },
   "contact_section": {
     "eyebrow": "A first step",
     "title": "Let’s begin with a conversation.",
     "subtitle": "Choose from appointment times shown as genuinely available in Google Calendar.",
-    "form_title": "Request a first conversation",
+    "form_title": "Book a first session",
     "details": {
-      "session": "The first meeting is a full 55-minute session",
+      "session": "55 minutes · 7,000 Ft; the first session is a full session",
       "format": "In Budapest or online",
       "reply": "A reply usually within one business day"
     }

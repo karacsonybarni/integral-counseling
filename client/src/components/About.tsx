@@ -26,7 +26,10 @@ export default function About() {
             </p>
             <div className="mt-8 grid gap-6 text-base leading-relaxed text-muted-foreground sm:grid-cols-2">
               <p>{t("story.systems")}</p>
-              <p>{t("story.integral")}</p>
+              <div>
+                <p>{t("story.integral")}</p>
+                <p className="mt-4">{t("story.integration")}</p>
+              </div>
             </div>
           </div>
         </div>

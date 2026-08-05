@@ -8,9 +8,13 @@ const SLOT_STEP_MINUTES = 30;
 const BOOKING_HORIZON_DAYS = 60;
 const MAX_AVAILABLE_DATES = 14;
 const MIN_BOOKING_NOTICE_HOURS = 24;
-const WORKING_WINDOWS = [
-  { startHour: 9, startMinute: 0, endHour: 12, endMinute: 0 },
-  { startHour: 13, startMinute: 0, endHour: 18, endMinute: 0 },
+const BOOKING_LOCK_WAIT_MS = 15000;
+const BOOKING_REQUEST_TAG = "websiteBookingRequestId";
+const AVAILABILITY_CACHE_TTL_SECONDS = 60 * 60;
+const AVAILABILITY_CACHE_KEY_PREFIX = "calendar-availability-v1-";
+const AVAILABILITY_CACHE_VERSION_PROPERTY = "availabilityCacheVersion";
+const BOOKING_WINDOWS = [
+  { startHour: 9, startMinute: 0, lastStartHour: 20, lastStartMinute: 0 },
 ];
 
 function doGet(e) {
@@ -18,22 +22,22 @@ function doGet(e) {
 
   if (cleanString_(params.action) === "availability") {
     const requestId = cleanString_(params.requestId);
-    const targetOrigin = normalizeOrigin_(cleanString_(params.origin));
+    const callback = normalizeJsonpCallback_(cleanString_(params.callback));
 
     try {
-      return createIframeResponse_({
+      return createJsonpResponse_({
         ok: true,
         requestId: requestId,
-        slots: getAvailableSlots_(),
+        slots: getCachedAvailableSlots_(),
         timeZone: BOOKING_TIME_ZONE,
-      }, targetOrigin);
+      }, callback);
     } catch (error) {
       console.error("Failed to load calendar availability", error);
-      return createIframeResponse_({
+      return createJsonpResponse_({
         ok: false,
         requestId: requestId,
         error: "Calendar availability could not be loaded.",
-      }, targetOrigin);
+      }, callback);
     }
   }
 
@@ -65,19 +69,20 @@ function doPost(e) {
 
     validatePayload_(payload);
 
-    if (payload.formType === "appointment") {
-      bookAppointment_(payload);
-    }
+    const shouldSendNotification =
+      payload.formType !== "appointment" || bookAppointment_(payload);
 
     try {
-      MailApp.sendEmail({
-        to: RECIPIENT_EMAIL,
-        subject: buildSubject_(payload),
-        body: buildPlainTextBody_(payload),
-        htmlBody: buildHtmlBody_(payload),
-        replyTo: payload.email,
-        name: "Integral Counseling Website",
-      });
+      if (shouldSendNotification) {
+        MailApp.sendEmail({
+          to: RECIPIENT_EMAIL,
+          subject: buildSubject_(payload),
+          body: buildPlainTextBody_(payload),
+          htmlBody: buildHtmlBody_(payload),
+          replyTo: payload.email,
+          name: "Integral Counseling Website",
+        });
+      }
     } catch (emailError) {
       if (payload.formType !== "appointment") {
         throw emailError;
@@ -110,6 +115,9 @@ function normalizePayload_(e) {
     name: cleanString_(params.name),
     email: cleanString_(params.email),
     phone: cleanString_(params.phone),
+    meetingMode: cleanString_(params.meetingMode),
+    meetingModeLabel: cleanString_(params.meetingModeLabel),
+    bookingRequestId: cleanString_(params.bookingRequestId),
     message: cleanString_(params.message),
     preferredContact: cleanString_(params.preferredContact),
     preferredContactLabel: cleanString_(params.preferredContactLabel),
@@ -149,8 +157,19 @@ function validatePayload_(payload) {
   }
 
   if (payload.formType === "appointment") {
+    if (payload.meetingMode !== "in_person" && payload.meetingMode !== "online") {
+      throw new Error("A valid meeting format is required.");
+    }
+
     if (!payload.slotStart || isNaN(new Date(payload.slotStart).getTime())) {
       throw new Error("A valid calendar slot is required.");
+    }
+
+    if (
+      payload.bookingRequestId &&
+      !/^booking_[A-Za-z0-9_-]{16,100}$/.test(payload.bookingRequestId)
+    ) {
+      throw new Error("The booking request ID is invalid.");
     }
   }
 
@@ -171,7 +190,7 @@ function buildPlainTextBody_(payload) {
   const lines = [
     "Website form submission",
     "",
-    "Type: " + (payload.formType === "appointment" ? "Appointment request" : "Contact message"),
+    "Type: " + (payload.formType === "appointment" ? "Appointment booking" : "Contact message"),
     "Language: " + payload.language,
     "Name: " + payload.name,
     "Email: " + payload.email,
@@ -179,6 +198,10 @@ function buildPlainTextBody_(payload) {
 
   if (payload.phone) {
     lines.push("Phone: " + payload.phone);
+  }
+
+  if (payload.meetingModeLabel) {
+    lines.push("Meeting format: " + payload.meetingModeLabel);
   }
 
   if (payload.preferredContactLabel) {
@@ -211,7 +234,7 @@ function buildHtmlBody_(payload) {
   const sections = [
     "<h2>Website form submission</h2>",
     "<table cellpadding=\"6\" cellspacing=\"0\" border=\"1\" style=\"border-collapse:collapse;border-color:#d1d5db;\">",
-    "<tr><th align=\"left\">Type</th><td>" + escapeHtml_(payload.formType === "appointment" ? "Appointment request" : "Contact message") + "</td></tr>",
+    "<tr><th align=\"left\">Type</th><td>" + escapeHtml_(payload.formType === "appointment" ? "Appointment booking" : "Contact message") + "</td></tr>",
     "<tr><th align=\"left\">Language</th><td>" + escapeHtml_(payload.language) + "</td></tr>",
     "<tr><th align=\"left\">Name</th><td>" + escapeHtml_(payload.name) + "</td></tr>",
     "<tr><th align=\"left\">Email</th><td>" + escapeHtml_(payload.email) + "</td></tr>",
@@ -219,6 +242,14 @@ function buildHtmlBody_(payload) {
 
   if (payload.phone) {
     sections.push("<tr><th align=\"left\">Phone</th><td>" + escapeHtml_(payload.phone) + "</td></tr>");
+  }
+
+  if (payload.meetingModeLabel) {
+    sections.push(
+      "<tr><th align=\"left\">Meeting format</th><td>" +
+        escapeHtml_(payload.meetingModeLabel) +
+        "</td></tr>",
+    );
   }
 
   if (payload.preferredContactLabel) {
@@ -285,6 +316,81 @@ function createIframeResponse_(payload, targetOrigin) {
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
+function createJsonpResponse_(payload, callback) {
+  const message = {
+    source: RESPONSE_SOURCE,
+    ok: Boolean(payload.ok),
+    requestId: payload.requestId || "",
+    error: payload.error || "",
+    slots: payload.slots || [],
+    timeZone: payload.timeZone || "",
+  };
+
+  return ContentService.createTextOutput(
+    callback + "(" + JSON.stringify(message) + ");",
+  ).setMimeType(ContentService.MimeType.JAVASCRIPT);
+}
+
+function getCachedAvailableSlots_() {
+  const cache = CacheService.getScriptCache();
+
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const version = getAvailabilityCacheVersion_();
+    const cacheKey = AVAILABILITY_CACHE_KEY_PREFIX + version;
+    const cachedValue = cache.get(cacheKey);
+
+    if (cachedValue) {
+      try {
+        const cachedSlots = JSON.parse(cachedValue);
+        if (Array.isArray(cachedSlots)) {
+          return cachedSlots;
+        }
+      } catch (error) {
+        console.warn("Ignoring invalid cached calendar availability", error);
+      }
+
+      cache.remove(cacheKey);
+    }
+
+    const slots = getAvailableSlots_();
+
+    if (getAvailabilityCacheVersion_() !== version) {
+      continue;
+    }
+
+    cache.put(
+      cacheKey,
+      JSON.stringify(slots),
+      AVAILABILITY_CACHE_TTL_SECONDS,
+    );
+    return slots;
+  }
+
+  return getAvailableSlots_();
+}
+
+function getAvailabilityCacheVersion_() {
+  return (
+    PropertiesService.getScriptProperties().getProperty(
+      AVAILABILITY_CACHE_VERSION_PROPERTY,
+    ) || "0"
+  );
+}
+
+function invalidateAvailabilityCache_() {
+  const properties = PropertiesService.getScriptProperties();
+  const previousVersion =
+    properties.getProperty(AVAILABILITY_CACHE_VERSION_PROPERTY) || "0";
+
+  properties.setProperty(
+    AVAILABILITY_CACHE_VERSION_PROPERTY,
+    Utilities.getUuid(),
+  );
+  CacheService.getScriptCache().remove(
+    AVAILABILITY_CACHE_KEY_PREFIX + previousVersion,
+  );
+}
+
 function getAvailableSlots_() {
   const calendar = getBookingCalendar_();
   const now = new Date();
@@ -302,37 +408,35 @@ function getAvailableSlots_() {
   day.setDate(day.getDate() + 1);
 
   for (let dayOffset = 0; dayOffset < BOOKING_HORIZON_DAYS; dayOffset += 1) {
-    const dayOfWeek = day.getDay();
     let slotsAddedForDate = 0;
 
-    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-      WORKING_WINDOWS.forEach(function (window) {
-        const slotStart = new Date(day);
-        slotStart.setHours(window.startHour, window.startMinute, 0, 0);
-        const windowEnd = new Date(day);
-        windowEnd.setHours(window.endHour, window.endMinute, 0, 0);
+    BOOKING_WINDOWS.forEach(function (window) {
+      const slotStart = new Date(day);
+      slotStart.setHours(window.startHour, window.startMinute, 0, 0);
+      const lastSlotStart = new Date(day);
+      lastSlotStart.setHours(
+        window.lastStartHour,
+        window.lastStartMinute,
+        0,
+        0,
+      );
 
-        while (true) {
-          const slotEnd = new Date(
-            slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
-          );
+      while (slotStart.getTime() <= lastSlotStart.getTime()) {
+        const slotEnd = new Date(
+          slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
+        );
 
-          if (slotEnd.getTime() > windowEnd.getTime()) {
-            break;
-          }
-
-          if (
-            slotStart.getTime() >= earliestStart.getTime() &&
-            !hasOverlappingEvent_(busyEvents, slotStart, slotEnd)
-          ) {
-            slots.push(slotStart.toISOString());
-            slotsAddedForDate += 1;
-          }
-
-          slotStart.setMinutes(slotStart.getMinutes() + SLOT_STEP_MINUTES);
+        if (
+          slotStart.getTime() >= earliestStart.getTime() &&
+          !hasOverlappingEvent_(busyEvents, slotStart, slotEnd)
+        ) {
+          slots.push(slotStart.toISOString());
+          slotsAddedForDate += 1;
         }
-      });
-    }
+
+        slotStart.setMinutes(slotStart.getMinutes() + SLOT_STEP_MINUTES);
+      }
+    });
 
     if (slotsAddedForDate > 0) {
       availableDateCount += 1;
@@ -349,39 +453,101 @@ function getAvailableSlots_() {
 
 function bookAppointment_(payload) {
   const lock = LockService.getScriptLock();
-  lock.waitLock(10000);
+  lock.waitLock(BOOKING_LOCK_WAIT_MS);
 
   try {
     const slotStart = new Date(payload.slotStart);
-    const availableSlots = getAvailableSlots_();
-    const requestedTimestamp = slotStart.getTime();
-    const isAvailable = availableSlots.some(function (slot) {
-      return new Date(slot).getTime() === requestedTimestamp;
-    });
+    const slotEnd = new Date(
+      slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
+    );
+    const calendar = getBookingCalendar_();
+    const overlappingEvents = calendar.getEvents(slotStart, slotEnd);
 
-    if (!isAvailable) {
+    const existingBooking =
+      payload.bookingRequestId &&
+      overlappingEvents.some(function (event) {
+        return (
+          event.getTag(BOOKING_REQUEST_TAG) === payload.bookingRequestId &&
+          event.getStartTime().getTime() === slotStart.getTime() &&
+          event.getEndTime().getTime() === slotEnd.getTime()
+        );
+      });
+
+    if (existingBooking) {
+      return false;
+    }
+
+    if (
+      !isRequestedSlotEligible_(slotStart, new Date()) ||
+      hasOverlappingEvent_(overlappingEvents, slotStart, slotEnd)
+    ) {
+      invalidateAvailabilityCache_();
       throw createCodedError_(
         "SLOT_UNAVAILABLE",
         "That appointment is no longer available.",
       );
     }
 
-    const slotEnd = new Date(
-      slotStart.getTime() + BOOKING_DURATION_MINUTES * 60 * 1000,
-    );
-    const calendar = getBookingCalendar_();
     const title =
-      (payload.language === "en" ? "First conversation – " : "Első beszélgetés – ") +
+      (payload.language === "en" ? "First session – " : "Első alkalom – ") +
       payload.name;
 
-    calendar.createEvent(title, slotStart, slotEnd, {
+    const event = calendar.createEvent(title, slotStart, slotEnd, {
       description: buildCalendarDescription_(payload),
       guests: payload.email,
       sendInvites: true,
     });
+    if (payload.bookingRequestId) {
+      event.setTag(BOOKING_REQUEST_TAG, payload.bookingRequestId);
+    }
+    invalidateAvailabilityCache_();
+    return true;
   } finally {
     lock.releaseLock();
   }
+}
+
+function isRequestedSlotEligible_(slotStart, now) {
+  const earliestStart = new Date(
+    now.getTime() + MIN_BOOKING_NOTICE_HOURS * 60 * 60 * 1000,
+  );
+  if (slotStart.getTime() < earliestStart.getTime()) {
+    return false;
+  }
+
+  const firstBookingDay = new Date(now);
+  firstBookingDay.setHours(0, 0, 0, 0);
+  firstBookingDay.setDate(firstBookingDay.getDate() + 1);
+  const horizonEnd = new Date(now);
+  horizonEnd.setDate(horizonEnd.getDate() + BOOKING_HORIZON_DAYS);
+  horizonEnd.setHours(23, 59, 59, 999);
+
+  if (
+    slotStart.getTime() < firstBookingDay.getTime() ||
+    slotStart.getTime() > horizonEnd.getTime()
+  ) {
+    return false;
+  }
+
+  return BOOKING_WINDOWS.some(function (window) {
+    const firstStart = new Date(slotStart);
+    firstStart.setHours(window.startHour, window.startMinute, 0, 0);
+    const lastStart = new Date(slotStart);
+    lastStart.setHours(
+      window.lastStartHour,
+      window.lastStartMinute,
+      0,
+      0,
+    );
+    const offsetMinutes =
+      (slotStart.getTime() - firstStart.getTime()) / (60 * 1000);
+
+    return (
+      slotStart.getTime() >= firstStart.getTime() &&
+      slotStart.getTime() <= lastStart.getTime() &&
+      offsetMinutes % SLOT_STEP_MINUTES === 0
+    );
+  });
 }
 
 function getBookingCalendar_() {
@@ -422,6 +588,10 @@ function buildCalendarDescription_(payload) {
     lines.push("Phone: " + payload.phone);
   }
 
+  if (payload.meetingModeLabel) {
+    lines.push("Meeting format: " + payload.meetingModeLabel);
+  }
+
   if (payload.message) {
     lines.push("", "Message:", payload.message);
   }
@@ -445,6 +615,14 @@ function normalizeOrigin_(origin) {
   }
 
   return "*";
+}
+
+function normalizeJsonpCallback_(callback) {
+  if (/^integralCalendarAvailability_[A-Za-z0-9_]+$/.test(callback)) {
+    return callback;
+  }
+
+  throw new Error("Invalid availability callback.");
 }
 
 function cleanString_(value) {

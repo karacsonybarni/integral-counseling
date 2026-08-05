@@ -1,8 +1,8 @@
 {
   "terms": {
     "title": "Szolgáltatási feltételek",
-    "updated": "Utolsó frissítés: 2026. augusztus 4.",
-    "intro": "A szolgáltatási feltételek Karácsony Barna integrál tanácsadási üléseire vonatkoznak. Időpontkéréssel vagy részvétellel elfogadod az itt leírtakat.",
+    "updated": "Utolsó frissítés: 2026. augusztus 5.",
+    "intro": "A szolgáltatási feltételek Karácsony Barna integrál tanácsadási üléseire vonatkoznak. Időpontfoglalással vagy részvétellel elfogadod az itt leírtakat.",
     "sections": [
       {
         "title": "Szolgáltatás jellege",
@@ -23,7 +23,7 @@
       {
         "title": "Ülések és lemondás",
         "items": [
-          "Egy ülés hossza 55 perc, hacsak másban nem állapodunk meg.",
+          "Egy ülés hossza 55 perc, díja 7 000 Ft; az első alkalom is teljes, fizetős ülés.",
           "Kérlek, legalább 24 órával előre mondd le vagy módosítsd az időpontot; késői lemondás esetén a találkozó megtartottnak minősülhet.",
           "Többszöri meg nem jelenés a jövőbeni foglalások felfüggesztését eredményezheti."
         ]
@@ -50,7 +50,7 @@
   },
   "privacy": {
     "title": "Adatkezelési tájékoztató",
-    "updated": "Utolsó frissítés: 2026. augusztus 4.",
+    "updated": "Utolsó frissítés: 2026. augusztus 5.",
     "intro": "Ez az adatkezelési tájékoztató ismerteti, hogyan gyűjti, használja és védi személyes adataidat Karácsony Barna a weboldal és az integrál tanácsadási szolgáltatás működtetése során.",
     "sections": [
       {
@@ -64,7 +64,7 @@
         "title": "Milyen adatokat gyűjtünk",
         "items": [
           "Az űrlapon megadott név, e-mail cím, opcionális telefonszám és kapcsolattartási preferencia.",
-          "Az üzenetben önként megosztott információk, valamint az általad kiválasztott foglalási időpont.",
+          "Az üzenetben önként megosztott információk, valamint az általad kiválasztott foglalási időpont és találkozási mód.",
           "A tárhely- és űrlapszolgáltatók működéséhez szükséges technikai adatok és naplóbejegyzések."
         ]
       },

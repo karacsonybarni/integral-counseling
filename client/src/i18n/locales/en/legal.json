@@ -1,8 +1,8 @@
 {
   "terms": {
     "title": "Terms of Service",
-    "updated": "Last updated: August 4, 2026",
-    "intro": "These Terms of Service describe the conditions for receiving integral counseling sessions from Barna Karácsony. By requesting or attending a session, you confirm that you have read and accepted them.",
+    "updated": "Last updated: August 5, 2026",
+    "intro": "These Terms of Service describe the conditions for receiving integral counseling sessions from Barna Karácsony. By booking or attending a session, you confirm that you have read and accepted them.",
     "sections": [
       {
         "title": "Scope of Services",
@@ -23,7 +23,7 @@
       {
         "title": "Sessions and Cancellations",
         "items": [
-          "Sessions last 55 minutes unless otherwise agreed.",
+          "Sessions last 55 minutes and cost 7,000 Ft; the first session is also a full, paid session.",
           "Please cancel or reschedule at least 24 hours in advance; late cancellations may count as a completed session.",
           "Repeated no-shows may result in the suspension of future bookings."
         ]
@@ -50,7 +50,7 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "updated": "Last updated: August 4, 2026",
+    "updated": "Last updated: August 5, 2026",
     "intro": "This Privacy Policy explains how Barna Karácsony collects, uses, and protects your personal data when operating this website and providing integral counseling services.",
     "sections": [
       {
@@ -64,7 +64,7 @@
         "title": "Personal Data We Collect",
         "items": [
           "The name, email address, optional phone number, and contact preference you enter in the form.",
-          "Information you voluntarily include in your message and the appointment time you select.",
+          "Information you voluntarily include in your message, along with the appointment time and meeting format you select.",
           "Technical data and logs required by the hosting and form-delivery providers."
         ]
       },

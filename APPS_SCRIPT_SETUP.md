@@ -12,8 +12,12 @@ This repository is configured to keep the website on GitHub Pages and send form 
 
 - The React site stays fully static on GitHub Pages.
 - The appointment picker reads free times from the Google Calendar connected to the Apps Script project.
+- Availability responses use the JSONP callback expected by the static frontend.
 - Calendar event titles and details stay server-side; the website receives only available start times.
-- Apps Script rechecks the selected time under a script lock, creates the 55-minute event, and sends the visitor a Google Calendar invitation.
+- Availability is cached for one hour and the cache is invalidated after every successful booking or rejected stale slot.
+- Apps Script rechecks only the selected 55-minute interval under a 15-second script lock, then creates the event and sends the visitor a Google Calendar invitation.
+- Updated clients reuse a booking request ID for appointment retries. If the first request creates the event but its browser response is delayed, a retry recognizes that event as the same booking and does not create another event or send another notification; older deployed clients remain compatible during rollout.
+- The selected in-person or online meeting format is included in the notification and calendar event description.
 - The contact form and appointment booking post to the same Google Apps Script web app.
 - Apps Script sends a notification email to the configured recipient.
 - The email `replyTo` is set to the visitor's email address.
@@ -47,12 +51,14 @@ Deploy the Apps Script update before merging the frontend PR; until the backend 
 The defaults at the top of `apps-script/Code.gs` are:
 
 - Primary Google Calendar (`BOOKING_CALENDAR_ID` is empty).
-- Monday to Friday, 09:00–12:00 and 13:00–18:00 in `Europe/Budapest`.
+- Every day, with appointment starts from 09:00 through 20:00 in `Europe/Budapest`.
 - 55-minute sessions starting every 30 minutes.
 - At least 24 hours' notice.
 - The next 14 dates with free times, within a 60-day horizon.
+- One-hour server-side availability cache, invalidated immediately after a booking or stale-slot conflict.
+- A 90-second browser response timeout, leaving time for lock acquisition and the Calendar and email calls without holding the lock during a full availability scan.
 
-To use another calendar, set `BOOKING_CALENDAR_ID` to its calendar ID. Adjust `WORKING_WINDOWS` and the other booking constants before redeploying if the defaults do not match your schedule.
+To use another calendar, set `BOOKING_CALENDAR_ID` to its calendar ID. Adjust `BOOKING_WINDOWS` and the other booking constants before redeploying if the defaults do not match your schedule.
 
 ## Connect GitHub Pages to the web app
 
@@ -86,6 +92,8 @@ After the variable is set:
 4. Confirm the event appears in the configured Google Calendar and the test address receives an invitation.
 5. Open the site in a second browser and confirm the booked time is no longer available.
 6. Confirm a notification email arrives at the configured recipient.
+7. Confirm the selected meeting format appears in the notification and calendar event description.
+8. Retry an unchanged booking after interrupting or delaying its first browser response and confirm that only one calendar event and one notification email exist.
 
 ## Important limitations
 

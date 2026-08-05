@@ -8,6 +8,7 @@
     "build": "vite build",
     "start": "vite preview --host 0.0.0.0 --port 5000",
     "check": "tsc",
+    "test:apps-script": "node apps-script/Code.test.cjs",
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
