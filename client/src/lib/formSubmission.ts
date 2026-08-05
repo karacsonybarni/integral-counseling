@@ -14,6 +14,8 @@ interface WebsiteFormPayload {
   name: string;
   email: string;
   phone?: string;
+  meetingMode?: string;
+  meetingModeLabel?: string;
   message?: string;
   preferredContact?: string;
   preferredContactLabel?: string;

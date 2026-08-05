@@ -11,6 +11,7 @@ type ValidationKey =
   | "validation.email_invalid"
   | "validation.message_required"
   | "validation.message_too_long"
+  | "validation.meeting_mode_required"
   | "validation.date_required"
   | "validation.time_required";
 
@@ -43,6 +44,12 @@ export function createAppointmentSchema(t: ValidationTranslator) {
       .trim(),
     email: z.string().email(t("validation.email_invalid")).trim(),
     phone: optionalTrimmedString,
+    meetingMode: z
+      .string()
+      .refine(
+        (value) => value === "in_person" || value === "online",
+        t("validation.meeting_mode_required"),
+      ),
     preferredDate: z.string().min(1, t("validation.date_required")),
     preferredTime: z.string().min(1, t("validation.time_required")),
     message: optionalTrimmedString,

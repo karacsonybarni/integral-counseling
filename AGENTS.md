@@ -19,3 +19,8 @@ Whenever you merge a pull request, automatically delete its remote source branch
 - Header navigation uses Wouter; scroll actions set a `pending-scroll-target` key in `sessionStorage` before navigating home, so reuse `handleScrollNavigation` when adding new in-page anchors.
 - Terms and Privacy pages live in the `legal` i18n namespace; new legal copy must update `client/src/i18n/locales/{lang}/legal.json` and register imports in `client/src/i18n/index.ts`.
 - Terms/Privacy mount effects call `window.scrollTo({ top: 0, behavior: "auto" })` to reset position; mirror this for future standalone routes.
+
+## Audience Positioning
+- The audience is independent, reflective adults who value precise concepts, transparent boundaries, and practical usefulness while remaining open to including emotions, the body, relationships, values, and existential experience in self-knowledge work.
+- Keep the communication rational without reducing people to thought alone. Write concretely and with nuance; avoid dogma, pathologizing, flattery, spiritual certainty, and claims that one model explains the whole person. Preserve the visitor's autonomy.
+- Never expose developmental levels, Wilber levels, or Spiral Dynamics categories in public-facing copy. Treat the integral model as a map rather than a finished explanation.

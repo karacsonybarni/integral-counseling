@@ -110,6 +110,8 @@ function normalizePayload_(e) {
     name: cleanString_(params.name),
     email: cleanString_(params.email),
     phone: cleanString_(params.phone),
+    meetingMode: cleanString_(params.meetingMode),
+    meetingModeLabel: cleanString_(params.meetingModeLabel),
     message: cleanString_(params.message),
     preferredContact: cleanString_(params.preferredContact),
     preferredContactLabel: cleanString_(params.preferredContactLabel),
@@ -149,6 +151,10 @@ function validatePayload_(payload) {
   }
 
   if (payload.formType === "appointment") {
+    if (payload.meetingMode !== "in_person" && payload.meetingMode !== "online") {
+      throw new Error("A valid meeting format is required.");
+    }
+
     if (!payload.slotStart || isNaN(new Date(payload.slotStart).getTime())) {
       throw new Error("A valid calendar slot is required.");
     }
@@ -171,7 +177,7 @@ function buildPlainTextBody_(payload) {
   const lines = [
     "Website form submission",
     "",
-    "Type: " + (payload.formType === "appointment" ? "Appointment request" : "Contact message"),
+    "Type: " + (payload.formType === "appointment" ? "Appointment booking" : "Contact message"),
     "Language: " + payload.language,
     "Name: " + payload.name,
     "Email: " + payload.email,
@@ -179,6 +185,10 @@ function buildPlainTextBody_(payload) {
 
   if (payload.phone) {
     lines.push("Phone: " + payload.phone);
+  }
+
+  if (payload.meetingModeLabel) {
+    lines.push("Meeting format: " + payload.meetingModeLabel);
   }
 
   if (payload.preferredContactLabel) {
@@ -211,7 +221,7 @@ function buildHtmlBody_(payload) {
   const sections = [
     "<h2>Website form submission</h2>",
     "<table cellpadding=\"6\" cellspacing=\"0\" border=\"1\" style=\"border-collapse:collapse;border-color:#d1d5db;\">",
-    "<tr><th align=\"left\">Type</th><td>" + escapeHtml_(payload.formType === "appointment" ? "Appointment request" : "Contact message") + "</td></tr>",
+    "<tr><th align=\"left\">Type</th><td>" + escapeHtml_(payload.formType === "appointment" ? "Appointment booking" : "Contact message") + "</td></tr>",
     "<tr><th align=\"left\">Language</th><td>" + escapeHtml_(payload.language) + "</td></tr>",
     "<tr><th align=\"left\">Name</th><td>" + escapeHtml_(payload.name) + "</td></tr>",
     "<tr><th align=\"left\">Email</th><td>" + escapeHtml_(payload.email) + "</td></tr>",
@@ -219,6 +229,14 @@ function buildHtmlBody_(payload) {
 
   if (payload.phone) {
     sections.push("<tr><th align=\"left\">Phone</th><td>" + escapeHtml_(payload.phone) + "</td></tr>");
+  }
+
+  if (payload.meetingModeLabel) {
+    sections.push(
+      "<tr><th align=\"left\">Meeting format</th><td>" +
+        escapeHtml_(payload.meetingModeLabel) +
+        "</td></tr>",
+    );
   }
 
   if (payload.preferredContactLabel) {
@@ -371,7 +389,7 @@ function bookAppointment_(payload) {
     );
     const calendar = getBookingCalendar_();
     const title =
-      (payload.language === "en" ? "First conversation – " : "Első beszélgetés – ") +
+      (payload.language === "en" ? "First session – " : "Első alkalom – ") +
       payload.name;
 
     calendar.createEvent(title, slotStart, slotEnd, {
@@ -420,6 +438,10 @@ function buildCalendarDescription_(payload) {
 
   if (payload.phone) {
     lines.push("Phone: " + payload.phone);
+  }
+
+  if (payload.meetingModeLabel) {
+    lines.push("Meeting format: " + payload.meetingModeLabel);
   }
 
   if (payload.message) {

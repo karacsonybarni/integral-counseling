@@ -1,42 +1,42 @@
 {
   "eyebrow": "What you can bring",
-  "title": "You do not need a finished story or a perfectly worded question.",
-  "subtitle": "It is enough to sense that something needs attention. From there, we can find together what matters most right now.",
+  "title": "When your familiar answers are no longer enough.",
+  "subtitle": "You can come with a specific decision, a recurring pattern, or an inner tension that is hard to name. Together, we clarify the question, uncover connections, and bring emotional, bodily, and relational experience alongside analytical understanding.",
   "themes": {
     "direction": {
-      "title": "Too many directions are pulling at once",
-      "description": "You are facing a decision, transition, or new chapter and want to separate your own voice from outside expectations."
+      "title": "Several important considerations pull in different directions",
+      "description": "You are not choosing between right and wrong; several values, relationships, possibilities, or visions of the future are in conflict."
     },
     "patterns": {
-      "title": "You notice recurring patterns",
-      "description": "In relationships, communication, or the way you treat yourself, you keep arriving at the same place and want to understand what sustains it."
+      "title": "You understand it intellectually, yet it does not change",
+      "description": "You can see the pattern clearly, yet keep arriving at the same place. We look at what sustains it beyond thought."
     },
     "overload": {
-      "title": "You can carry a lot, but it has become too much",
-      "description": "Things may work on the outside, while inside there is growing tension, noise, or distance from how you want to live."
+      "title": "You function well, but at a growing cost",
+      "description": "Things look fine from the outside, while tension, exhaustion, or distance from how you want to live is growing within."
     },
     "values": {
-      "title": "You want to move closer to what matters",
-      "description": "There may be no crisis; you simply want to understand yourself and your values more clearly and choose your direction with intention."
+      "title": "Your earlier goals no longer provide enough direction",
+      "description": "There may be no crisis. What matters to you is changing, and you want to understand what is taking shape where the old answers used to be."
     }
   },
   "approach": {
     "eyebrow": "How I work",
-    "title": "Together, we look from several angles to find a clearer picture.",
-    "description": "An integral perspective looks beyond what you think about a situation. We also pay attention to what you feel, what your body signals, the relational and environmental forces around you, and what can be carried into everyday life.",
-    "cta": "Request a first conversation",
+    "title": "We hold a wider picture so you can choose more freely.",
+    "description": "Thoughts, emotions, bodily signals, relational patterns, values, and environmental conditions all offer points of orientation. The aim is not a final explanation, but greater awareness and more genuine choices.",
+    "cta": "Book a first session",
     "principles": {
       "notice": {
-        "title": "Notice",
-        "description": "We slow down enough for what gets hidden in everyday momentum to become visible."
+        "title": "Clarify",
+        "description": "We distinguish facts, interpretations, emotions, and bodily signals so that what is happening becomes more visible."
       },
       "understand": {
-        "title": "Understand in context",
-        "description": "We consider inner experience, patterns, relationships, and environment together so the wider picture can emerge."
+        "title": "See in context",
+        "description": "We look at how the present situation connects with your history, relationships, values, and environment."
       },
       "move": {
-        "title": "Find a step you can try",
-        "description": "We connect insight to a next step that genuinely fits into your life."
+        "title": "Choose more freely",
+        "description": "We connect insight to a next step or a new way of relating that you can try in everyday life."
       }
     }
   },
@@ -45,8 +45,8 @@
     "title": "We start simply",
     "steps": {
       "contact": {
-        "title": "Let me know you would like to talk",
-        "description": "Use the form to briefly share what brings you here and suggest two or three times that could work."
+        "title": "Choose an available time",
+        "description": "Select one of the times shown, enter your contact details, and receive the invitation by email."
       },
       "first": {
         "title": "A first 55-minute session",

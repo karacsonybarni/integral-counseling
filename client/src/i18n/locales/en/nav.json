@@ -1,9 +1,10 @@
 {
   "home": "Home",
   "about": "About",
-  "services": "What I help with",
-  "contact": "Contact",
-  "appointment": "First conversation",
+  "services": "What you can bring",
+  "practical": "Practical details",
+  "contact": "Booking",
+  "appointment": "Book a first session",
   "language": "Language",
   "change_language": "Change language. Current language: {{language}}",
   "open_menu": "Open navigation menu",

@@ -55,6 +55,14 @@ export default function Footer() {
             </h3>
             <nav className="space-y-2">
               <Link
+                href={getLocalizedPath("/#services", i18n.language)}
+                onClick={(event) => handleSectionLink(event, "services")}
+                className={footerLinkClasses}
+                data-testid="footer-link-services"
+              >
+                {t("services")}
+              </Link>
+              <Link
                 href={getLocalizedPath("/#about", i18n.language)}
                 onClick={(event) => handleSectionLink(event, "about")}
                 className={footerLinkClasses}
@@ -63,12 +71,12 @@ export default function Footer() {
                 {t("about")}
               </Link>
               <Link
-                href={getLocalizedPath("/#services", i18n.language)}
-                onClick={(event) => handleSectionLink(event, "services")}
+                href={getLocalizedPath("/#practical", i18n.language)}
+                onClick={(event) => handleSectionLink(event, "practical")}
                 className={footerLinkClasses}
-                data-testid="footer-link-services"
+                data-testid="footer-link-practical"
               >
-                {t("services")}
+                {t("practical")}
               </Link>
               <Link
                 href={getLocalizedPath("/#contact", i18n.language)}

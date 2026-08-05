@@ -116,11 +116,11 @@ Inquiry ID: ${inquiry.id}
 
 // Helper function to create appointment booking email
 export function createAppointmentEmail(appointment: Appointment): EmailParams {
-  const subject = `New Appointment Request from ${formatSubjectName(appointment.name)}`;
+  const subject = `New Appointment Booking from ${formatSubjectName(appointment.name)}`;
   const submittedAt = formatSubmittedAt(appointment.createdAt);
   
   const text = `
-New Appointment Request Received:
+New Appointment Booking Received:
 
 Name: ${appointment.name}
 Email: ${appointment.email}
@@ -137,7 +137,7 @@ Appointment ID: ${appointment.id}
   `;
 
   const html = `
-    <h2>New Appointment Request Received</h2>
+    <h2>New Appointment Booking Received</h2>
     <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
       <tr>
         <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Name:</td>
