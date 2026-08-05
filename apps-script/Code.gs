@@ -453,6 +453,7 @@ function bookAppointment_(payload) {
     });
 
     if (!isAvailable) {
+      invalidateAvailabilityCache_();
       throw createCodedError_(
         "SLOT_UNAVAILABLE",
         "That appointment is no longer available.",

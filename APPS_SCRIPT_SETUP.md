@@ -14,7 +14,7 @@ This repository is configured to keep the website on GitHub Pages and send form 
 - The appointment picker reads free times from the Google Calendar connected to the Apps Script project.
 - Availability responses use the JSONP callback expected by the static frontend.
 - Calendar event titles and details stay server-side; the website receives only available start times.
-- Availability is cached for one hour and the cache is invalidated after every successful booking.
+- Availability is cached for one hour and the cache is invalidated after every successful booking or rejected stale slot.
 - Apps Script rechecks the selected time under a script lock, creates the 55-minute event, and sends the visitor a Google Calendar invitation.
 - The selected in-person or online meeting format is included in the notification and calendar event description.
 - The contact form and appointment booking post to the same Google Apps Script web app.
@@ -54,7 +54,7 @@ The defaults at the top of `apps-script/Code.gs` are:
 - 55-minute sessions starting every 30 minutes.
 - At least 24 hours' notice.
 - The next 14 dates with free times, within a 60-day horizon.
-- One-hour server-side availability cache, invalidated immediately after a booking.
+- One-hour server-side availability cache, invalidated immediately after a booking or stale-slot conflict.
 
 To use another calendar, set `BOOKING_CALENDAR_ID` to its calendar ID. Adjust `WORKING_WINDOWS` and the other booking constants before redeploying if the defaults do not match your schedule.
 
