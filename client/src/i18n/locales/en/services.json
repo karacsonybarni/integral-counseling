@@ -16,8 +16,8 @@
       "description": "Things look fine from the outside, while tension, exhaustion, or distance from how you want to live is growing within."
     },
     "values": {
-      "title": "Your earlier goals no longer provide enough direction",
-      "description": "There may be no crisis. What matters to you is changing, and you want to understand what is taking shape where the old answers used to be."
+      "title": "Your earlier goals no longer show you what comes next",
+      "description": "There may be no crisis. What used to motivate and guide you no longer fully fits what matters to you now. You want to see more clearly what is taking shape in its place."
     }
   },
   "approach": {
@@ -45,16 +45,16 @@
     "title": "We start simply",
     "steps": {
       "contact": {
-        "title": "Choose an available time",
-        "description": "Select one of the times shown, enter your contact details, and receive the invitation by email."
+        "title": "Book your first session",
+        "description": "Choose from the available times shown. After booking, you receive the calendar invitation by email."
       },
       "first": {
         "title": "A first 55-minute session",
-        "description": "We get to know each other, explore your situation, and consider what direction could be useful."
+        "description": "We get to know each other, explore what brought you here, and clarify together what you want to understand or change and what the focus of our work should be."
       },
       "continue": {
-        "title": "A direction we shape together",
-        "description": "If the meeting feels like a good foundation to both of us, we continue around your goals and at a pace that fits you."
+        "title": "We agree on how to work together",
+        "description": "If we both feel it makes sense to continue, we agree on the focus of the work, meeting every one or two weeks, and the other important boundaries of our collaboration."
       }
     }
   }
