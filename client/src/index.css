@@ -76,8 +76,8 @@
   --chart-4: 180 20% 65%;
   --chart-5: 210 15% 55%;
 
-  --font-sans: Manrope, sans-serif;
-  --font-serif: Lora, serif;
+  --font-sans: "Manrope Variable", sans-serif;
+  --font-serif: "Lora Variable", serif;
   --font-mono: Menlo, monospace;
   --radius: 1rem;
   --shadow-2xs: 0px 1px 2px 0px hsl(210 15% 82% / 0.05);
